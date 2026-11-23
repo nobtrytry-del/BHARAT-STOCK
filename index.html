@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#16a34a">
+<meta name="description" content="Bharat Stocks — Indian Market Dashboard, watchlist, portfolio and trade planner.">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
+<link rel="apple-touch-icon" href="./icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>Bharat Stocks — Indian Market Dashboard</title>
+<style>
+:root{--bg:#f6f8f7;--surface:#fff;--surface2:#f0f4f2;--text:#17211b;--muted:#718078;--line:#e5ebe7;--green:#159447;--green2:#e7f6ec;--red:#dc4545;--red2:#fff0f0;--shadow:0 8px 30px rgba(20,45,30,.06);--radius:18px}
+[data-theme="dark"]{--bg:#0d1511;--surface:#152019;--surface2:#1c2a21;--text:#edf5ef;--muted:#9aaba0;--line:#2b3b31;--green:#4bd17b;--green2:#193b28;--red:#ff7777;--red2:#3a2022;--shadow:0 8px 30px rgba(0,0,0,.18)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid color-mix(in srgb,var(--green) 55%,transparent);outline-offset:2px}button:disabled{opacity:.55;cursor:not-allowed}.app{min-height:100vh}.topbar{height:72px;background:var(--surface);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 max(22px,calc((100vw - 1320px)/2));position:sticky;top:0;z-index:10}.brand{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:800;letter-spacing:-.6px}.logo{width:36px;height:36px;border-radius:12px;background:var(--green);color:white;display:grid;place-items:center;font-weight:900}.brand span:last-child{color:var(--green)}.top-actions{display:flex;align-items:center;gap:10px}.market-pill,.status{border-radius:30px;padding:7px 11px;background:var(--green2);color:var(--green);font-size:12px;font-weight:700}.icon-btn,.btn{border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:11px;padding:9px 12px}.btn.primary{background:var(--green);border-color:var(--green);color:#fff;font-weight:700}.btn.soft{background:var(--green2);color:var(--green);border-color:transparent}.btn.danger{color:var(--red);background:var(--red2);border-color:transparent}.layout{max-width:1320px;margin:0 auto;padding:25px 22px 50px;display:grid;grid-template-columns:220px minmax(0,1fr);gap:26px}.sidebar{position:sticky;top:94px;height:max-content;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px}.nav-label{padding:12px 12px 7px;color:var(--muted);font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase}.nav-btn{width:100%;border:0;background:transparent;color:var(--muted);text-align:left;padding:11px 12px;border-radius:11px;display:flex;gap:12px;align-items:center;font-weight:650;margin:2px 0}.nav-btn.active,.nav-btn:hover{background:var(--green2);color:var(--green)}.nav-icon{width:20px;text-align:center;font-size:17px}.main{min-width:0}.page{display:none}.page.active{display:block}.page-head{display:flex;align-items:flex-start;justify-content:space-between;gap:15px;margin:2px 0 22px}.page-head h1{font-size:27px;letter-spacing:-.8px;margin:0 0 4px}.sub{color:var(--muted)}.grid{display:grid;gap:15px}.indices{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:20px}.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);min-width:0}.card-title{font-size:13px;font-weight:750;margin-bottom:13px}.index-card{cursor:pointer;transition:transform .15s,border-color .15s}.index-card:hover{transform:translateY(-2px);border-color:var(--green)}.index-name{color:var(--muted);font-size:12px;font-weight:650}.index-value{font-size:22px;font-weight:800;letter-spacing:-.6px;margin:6px 0 2px}.positive{color:var(--green)!important}.negative{color:var(--red)!important}.change{font-size:12px;font-weight:700}.section-row{display:flex;align-items:center;justify-content:space-between;margin:23px 0 12px}.section-row h2{font-size:17px;margin:0;letter-spacing:-.3px}.two-col{grid-template-columns:minmax(0,1.35fr) minmax(260px,.85fr)}.movers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.mover{border:1px solid var(--line);border-radius:13px;padding:12px}.mover strong{display:block;font-size:13px}.mover small{color:var(--muted)}.mover .change{float:right}.searchbox{display:flex;gap:9px;align-items:center;background:var(--surface);border:1px solid var(--line);padding:10px 13px;border-radius:12px;max-width:440px;width:100%}.searchbox input{border:0;outline:0;background:transparent;color:var(--text);width:100%}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px;background:var(--surface)}table{width:100%;border-collapse:collapse;min-width:560px}th,td{padding:13px 15px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}th:first-child,td:first-child{text-align:left}th{font-size:11px;color:var(--muted);font-weight:750;background:var(--surface2)}tr:last-child td{border-bottom:0}.stock-name{font-weight:750}.stock-symbol{font-size:11px;color:var(--muted);margin-top:2px}.star{border:0;background:transparent;color:#c5cec8;font-size:18px;padding:2px}.star.on{color:#e4a52b}.row-actions{display:flex;gap:6px;justify-content:flex-end}.empty{padding:30px;text-align:center;color:var(--muted)}.chart-card{padding:18px}.chart-head{display:flex;align-items:flex-start;justify-content:space-between;gap:15px}.price-big{font-size:30px;font-weight:850;letter-spacing:-1px;margin:8px 0 3px}.range-tabs{display:flex;gap:4px;flex-wrap:wrap}.range-tabs button{border:0;background:transparent;color:var(--muted);padding:7px 10px;border-radius:8px;font-size:12px}.range-tabs button.active{background:var(--green2);color:var(--green);font-weight:800}.chart{width:100%;height:245px;display:block;margin-top:12px}
+.chart-provider-tabs{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.chart-provider-tabs button{min-width:112px}
+.chart-provider-tabs button.active{background:var(--green);border-color:var(--green);color:#fff}
+.tradingview-chart-view{width:100%;height:520px;margin-top:12px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface)}
+.tradingview-chart-view[hidden]{display:none}
+.tradingview-chart-view iframe{display:block;width:100%;height:100%;border:0}
+@media(max-width:560px){.tradingview-chart-view{height:430px}.chart-provider-tabs button{flex:1}}
+.metric-grid{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:14px}.metric{padding:13px;border-radius:12px;background:var(--surface2)}.metric small{display:block;color:var(--muted);margin-bottom:4px}.metric strong{font-size:14px}.tabs{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 15px}.tabs button{border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:20px;padding:7px 13px;font-size:12px}.tabs button.active{background:var(--green2);color:var(--green);border-color:transparent;font-weight:800}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.field label{display:block;color:var(--muted);font-size:12px;font-weight:700;margin-bottom:6px}.field input,.field select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--text);outline-color:var(--green)}.field.full{grid-column:1/-1}.summary-grid{grid-template-columns:repeat(3,minmax(0,1fr));margin-bottom:15px}.summary-number{font-size:24px;font-weight:850;margin-top:5px}.tool-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.tool-result{padding:13px;border-radius:12px;background:var(--green2);margin-top:13px}.tool-result strong{font-size:20px;color:var(--green)}.news-item{padding:14px 0;border-bottom:1px solid var(--line)}.news-item:last-child{border:0}.news-item strong{display:block;margin-bottom:4px}.news-item small{color:var(--muted)}.notice{padding:12px 14px;border-radius:12px;background:var(--surface2);color:var(--muted);font-size:12px;margin:14px 0}.notice.warn{background:#fff5df;color:#8a5a08}.settings-row{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:15px 0;border-bottom:1px solid var(--line)}.settings-row:last-child{border:0}.switch{accent-color:var(--green);width:18px;height:18px}.modal-backdrop{position:fixed;inset:0;background:#07120bb0;z-index:30;display:none;align-items:center;justify-content:center;padding:18px}.modal-backdrop.show{display:flex}.modal{width:min(500px,100%);max-height:90vh;overflow:auto;background:var(--surface);border-radius:20px;padding:22px;box-shadow:0 20px 70px #0004}.trade-create-modal{width:min(680px,100%);max-height:92vh}.trade-create-modal .form-grid{margin-top:4px}@media(max-width:600px){#createTradeModal{padding:8px;align-items:stretch}.trade-create-modal{width:100%;max-height:96vh;height:100%;border-radius:16px;padding:16px;overflow:auto}.trade-create-modal .form-grid{grid-template-columns:1fr;gap:10px}}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.modal-head h3{margin:0}.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#17211b;color:#fff;padding:11px 17px;border-radius:12px;z-index:50;display:none;box-shadow:var(--shadow)}.toast.show{display:block}.bottom-nav{display:none}.footer-note{color:var(--muted);font-size:11px;text-align:center;margin-top:25px}.hidden{display:none!important}
+@media(max-width:950px){.layout{grid-template-columns:1fr;padding:18px 15px 90px}.sidebar{display:none}.indices{grid-template-columns:repeat(2,minmax(0,1fr))}.bottom-nav{display:flex;position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--line);z-index:20;justify-content:space-around;padding:7px 3px calc(7px + env(safe-area-inset-bottom))}.bottom-nav .nav-btn{width:auto;display:flex;flex-direction:column;gap:2px;padding:5px 9px;font-size:10px;margin:0}.bottom-nav .nav-icon{font-size:18px}.topbar{padding:0 15px}.two-col{grid-template-columns:1fr}}
+@media(max-width:560px){.topbar{height:62px}.brand{font-size:18px}.market-pill{display:none}.page-head{align-items:flex-start}.page-head h1{font-size:23px}.indices{gap:9px}.card{padding:14px;border-radius:15px}.index-value{font-size:19px}.metric-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.summary-grid{grid-template-columns:1fr}.form-grid,.tool-grid{grid-template-columns:1fr}.movers{grid-template-columns:1fr}.chart{height:205px}.top-actions .btn{padding:8px}}
+
+.stock-search-wrap{z-index:25}
+.stock-suggestions{display:none;position:absolute;left:0;right:0;top:calc(100% + 5px);max-height:230px;overflow-y:auto;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 30px #0002;z-index:40;padding:4px}
+.stock-suggestions:not(:empty){display:block}
+.stock-suggestion{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 9px;border-bottom:1px solid var(--line);min-height:42px}
+.stock-suggestion:last-child{border-bottom:0}
+.stock-suggestion-main{min-width:0;flex:1}
+.stock-suggestion-name{font-size:12px;font-weight:750;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stock-suggestion-meta{font-size:10px;color:var(--muted);margin-top:2px}
+.stock-suggestion .btn{padding:6px 9px;font-size:11px;white-space:nowrap}
+.stock-suggestion-message{padding:9px;font-size:11px;color:var(--muted)}
+
+.stock-suggestion{align-items:center;padding:7px 9px;min-height:58px}
+.stock-suggestion-meta{font-size:10px;line-height:1.35}
+.stock-suggestion-meta strong{font-size:11px;color:var(--text)}
+.stock-suggestion .positive{color:var(--green);font-weight:750}
+.stock-suggestion .negative{color:var(--red);font-weight:750}
+.suggestion-range{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.history-back{margin-left:auto;white-space:nowrap;flex-shrink:0}.page-head:has(.history-back){align-items:center}
+
+/* Portrait-only usability improvements. Desktop/landscape styling above remains unchanged. */
+@media(max-width:950px){
+  .layout{padding-bottom:142px}
+  .bottom-nav{
+    display:grid;
+    grid-template-columns:repeat(5,minmax(0,1fr));
+    gap:2px;
+    justify-content:stretch;
+    padding:6px 5px calc(6px + env(safe-area-inset-bottom));
+  }
+  .bottom-nav .nav-btn{
+    width:100%;
+    min-width:0;
+    min-height:43px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:1px;
+    padding:4px 2px;
+    font-size:9px;
+    line-height:1.15;
+    text-align:center;
+    white-space:nowrap;
+  }
+  .bottom-nav .nav-icon{width:auto;font-size:17px;line-height:1.1}
+  .page-head{flex-wrap:wrap}
+  .chart-head{flex-wrap:wrap}
+  .chart-provider-tabs{width:100%}
+  .table-wrap{-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+  .trade-table-wrap{max-width:100%}
+}
+@media(max-width:560px){
+  .layout{padding:14px 12px 150px}
+  .page-head{gap:9px;margin-bottom:16px}
+  .page-head h1{overflow-wrap:anywhere}
+  .settings-row{align-items:flex-start;flex-direction:column;gap:9px}
+  .settings-row>button,.settings-row>select{max-width:100%}
+  .settings-row>div:last-child{max-width:100%;flex-wrap:wrap}
+  .searchbox{max-width:100%;flex-wrap:wrap}
+  .searchbox input{min-width:100px;flex:1 1 130px}
+  .searchbox select{max-width:100%!important}
+  .chart-card{padding:12px}
+  .chart{max-width:100%}
+  .metric-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .bottom-nav .nav-btn{font-size:8.5px;padding:4px 1px}
+}
+
+
+.indicator-toolbar{display:flex;align-items:center;gap:9px 14px;flex-wrap:wrap;padding:10px 0 4px;font-size:11px;color:var(--muted)}.indicator-toolbar strong{color:var(--text);font-size:12px}.indicator-toolbar label{display:inline-flex;align-items:center;gap:4px;white-space:nowrap}.indicator-toolbar input{accent-color:var(--green)}.indicator-panel{border-top:1px solid var(--line);padding:7px 0 3px}.indicator-panel strong{font-size:11px;color:var(--muted)}.indicator-panel svg{display:block;width:100%;height:76px}.indicator-panel[hidden]{display:none!important}.trade-chart-open{cursor:pointer}.trade-chart-open:hover{background:var(--surface-2)}
+
+.trade-level-visual{display:flex;align-items:stretch;gap:6px;flex-wrap:wrap;margin-top:9px}.trade-level-chip{flex:1;min-width:105px;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--surface2);font-size:11px;color:var(--muted)}.trade-level-chip strong{display:block;color:var(--text);font-size:13px;margin-top:3px}.trade-level-chip.risk strong{color:var(--red)}.trade-level-chip.reward strong{color:var(--green)}.trade-journal-note{display:block;max-width:230px;white-space:normal;font-size:10px;color:var(--muted);margin-top:4px}.trade-summary-live{font-size:11px;color:var(--muted);margin-top:4px}
+.field textarea{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--text);outline-color:var(--green);font:inherit;resize:vertical}.trade-summary-grid{grid-template-columns:repeat(4,minmax(0,1fr))}@media(max-width:560px){.trade-summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.trade-chart-open{cursor:pointer}.trade-chart-open:hover{background:var(--surface-2)}
+
+/* Trade Planner professional workspace — scoped only to #page-trades. */
+#page-trades .trade-insight-grid{grid-template-columns:1.2fr 1fr;gap:14px;margin:0 0 18px}
+#page-trades .trade-insight-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px;min-width:0}
+#page-trades .trade-insight-title{font-size:13px;font-weight:800;margin-bottom:12px}
+#page-trades .trade-risk-row{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:12px}
+#page-trades .trade-risk-row:last-child{border-bottom:0}
+#page-trades .trade-risk-row span{color:var(--muted)}
+#page-trades .trade-filterbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:4px 0 12px}
+#page-trades .trade-filterbar .tabs{margin:0}
+#page-trades .trade-filter-controls{display:flex;gap:8px;flex:1;justify-content:flex-end;min-width:230px}
+#page-trades .trade-filter-controls input,#page-trades .trade-filter-controls select{min-width:0;padding:9px 11px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--text)}
+#page-trades .trade-filter-controls input{width:min(260px,100%)}
+#page-trades .trade-card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+#page-trades .trade-plan-card{border:1px solid var(--line);border-radius:15px;background:var(--surface);padding:15px;min-width:0;box-shadow:var(--shadow)}
+#page-trades .trade-plan-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+#page-trades .trade-plan-name{font-size:15px;font-weight:850;overflow-wrap:anywhere}
+#page-trades .trade-plan-meta{font-size:11px;color:var(--muted);margin-top:3px}
+#page-trades .trade-plan-status{font-size:10px;font-weight:800;border-radius:20px;padding:6px 9px;background:var(--surface2);white-space:nowrap}
+#page-trades .trade-plan-status.buy{color:var(--green);background:var(--green2)}
+#page-trades .trade-plan-status.sell{color:var(--red);background:var(--red2)}
+#page-trades .trade-plan-price{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:14px 0 10px}
+#page-trades .trade-plan-price strong{font-size:22px;letter-spacing:-.5px}
+#page-trades .trade-plan-levels{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+#page-trades .trade-plan-level{padding:8px;border-radius:9px;background:var(--surface2);min-width:0}
+#page-trades .trade-plan-level small{display:block;color:var(--muted);font-size:9px;font-weight:750}
+#page-trades .trade-plan-level strong{display:block;font-size:12px;margin-top:3px;overflow-wrap:anywhere}
+#page-trades .trade-progress{height:6px;background:var(--surface2);border-radius:8px;overflow:hidden;margin:12px 0 5px}
+#page-trades .trade-progress span{display:block;height:100%;background:var(--green);border-radius:8px}
+#page-trades .trade-progress-caption{display:flex;justify-content:space-between;gap:8px;color:var(--muted);font-size:10px}
+#page-trades .trade-card-note{font-size:11px;color:var(--muted);margin-top:10px;white-space:normal;overflow-wrap:anywhere}
+#page-trades .trade-card-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:13px;padding-top:11px;border-top:1px solid var(--line)}
+#page-trades .trade-card-actions .btn{font-size:11px;padding:7px 9px}
+#page-trades .trade-table-details{margin-top:14px;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:11px 13px}
+#page-trades .trade-table-details summary{cursor:pointer;font-size:12px;font-weight:750;color:var(--muted)}
+#page-trades .trade-table-details[open] summary{margin-bottom:10px}
+#page-trades .trade-table-wrap{max-width:100%}
+@media(max-width:760px){#page-trades .trade-insight-grid{grid-template-columns:1fr}#page-trades .trade-card-grid{grid-template-columns:1fr}}
+@media(max-width:560px){#page-trades .trade-filterbar{align-items:stretch}#page-trades .trade-filterbar .tabs{width:100%}#page-trades .trade-filter-controls{min-width:0;width:100%}#page-trades .trade-filter-controls input{flex:1;width:50%}#page-trades .trade-filter-controls select{max-width:42%}#page-trades .trade-plan-card{padding:13px}#page-trades .trade-plan-levels{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+</style>
+</head>
+<body>
+<div class="app" id="app">
+<header class="topbar">
+  <div class="brand"><div class="logo">B</div><div>Bharat <span>Stocks</span></div></div>
+  <div class="top-actions"><span class="market-pill" id="marketStatus">● CONNECTING MARKET DATA</span><button class="icon-btn" id="themeQuick" title="Toggle theme" aria-label="Toggle theme">☼</button><button class="btn" id="refreshQuick" title="Refresh market quotes">↻ Refresh</button><button class="btn" id="quickSearch">⌕ Search</button></div>
+</header>
+<div class="layout">
+<aside class="sidebar">
+  <div class="nav-label">Workspace</div>
+  <button class="nav-btn" data-page="home"><span class="nav-icon">⌂</span>Overview</button>
+  <button class="nav-btn" data-page="stocks"><span class="nav-icon">▥</span>Explore Stocks</button>
+  <button class="nav-btn" data-page="watchlist"><span class="nav-icon">☆</span>Watchlist</button>
+  <button class="nav-btn" data-page="portfolio"><span class="nav-icon">▣</span>Portfolio</button>
+  <button class="nav-btn active" data-page="trades"><span class="nav-icon">⇅</span>Trade Planner</button>
+  <div class="nav-label">Discover & Tools</div>
+  <button class="nav-btn" data-page="analysis"><span class="nav-icon">⌁</span>Stock Analysis</button>
+  <button class="nav-btn" data-page="tools"><span class="nav-icon">⊞</span>Calculators</button>
+  <button class="nav-btn" data-page="news"><span class="nav-icon">▤</span>Market News</button>
+  <div class="nav-label">Preferences</div>
+  <button class="nav-btn" data-page="settings"><span class="nav-icon">⚙</span>Settings</button>
+</aside>
+<main class="main">
+<section class="page" id="page-home">
+  <div class="page-head"><div><h1>Market overview</h1><div class="sub">Indian market overview. Quotes are shown only when a feed response is available.</div></div><span class="status" id="dataModeLabel">● Demo prices until live quote confirmed</span></div>
+  <div class="grid indices" id="indices"></div>
+  <div class="grid two-col">
+    <div>
+      <div class="section-row"><h2>Market movers</h2><button class="btn" data-goto="stocks">Explore all →</button></div>
+      <div class="card"><div class="card-title">Illustrative movers <span class="sub">(sample data; not live rankings)</span></div><div class="movers" id="movers"></div></div>
+      <div class="section-row"><h2>Popular stocks</h2><button class="btn" data-goto="stocks">View all</button></div>
+      <div class="table-wrap"><table><thead><tr><th>Company</th><th>Price</th><th>Day change</th><th></th></tr></thead><tbody id="popularRows"></tbody></table></div>
+    </div>
+    <div>
+      <div class="section-row"><h2>Your watchlist</h2><button class="btn" data-goto="watchlist">View all</button></div>
+      <div class="card"><div id="homeWatchlist"></div></div>
+      <div class="section-row"><h2>Portfolio summary</h2><button class="btn" data-goto="portfolio">Open portfolio</button></div>
+      <div class="card" id="homePortfolio"></div>
+    </div>
+  </div>
+  <div class="notice">Quotes are fetched from an unofficial Yahoo Finance chart endpoint through a public CORS proxy. Data may be delayed, incomplete or unavailable; this is not an official NSE/BSE feed. Verify prices before investing.</div>
+</section>
+<section class="page" id="page-index-detail">
+ <div class="page-head"><div><h1 id="indexDetailTitle">Index constituents</h1><div class="sub" id="indexDetailSub">Constituent quotes are loaded on demand.</div></div><button class="btn" id="backToOverview">← Overview</button></div>
+ <div class="grid summary-grid" id="indexDetailMetrics"></div>
+ <div class="card" style="margin-bottom:14px"><div class="tabs"><input id="constituentSearch" placeholder="Search constituent stock…" style="flex:1;min-width:180px;padding:9px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--text)"><select id="constituentSort" aria-label="Sort index constituents" style="padding:9px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--text)"><option value="default">Official index order</option><option value="change-desc">Price change: highest</option><option value="change-asc">Price change: lowest</option><option value="impact-desc">Estimated impact: highest</option><option value="impact-asc">Estimated impact: lowest</option><option value="volume">Volume: highest</option></select><button class="btn" id="refreshConstituents">↻ Refresh</button></div>
+ <div class="table-wrap"><table><thead><tr><th>Company / Symbol</th><th>Price rank</th><th>Impact rank</th><th>LTP</th><th>Change %</th><th>Est. impact</th><th>Open</th><th>High / Low</th><th>Volume</th></tr></thead><tbody id="constituentRows"><tr><td colspan="9" class="empty">Select an index to load constituents.</td></tr></tbody></table></div></div>
+ <div class="notice" id="indexDataNotice">Constituent membership is maintained separately from daily price rankings. Daily price changes can reorder the rankings, but do not change official index membership. Estimated impact uses total market-cap weighting as a proxy; it is not the official free-float index-point contribution. Quotes use an unofficial Yahoo Finance feed and may be delayed or unavailable. Verify prices before investing.</div>
+</section>
+<section class="page" id="page-stocks">
+  <div class="page-head"><div><h1>Explore stocks</h1><div class="sub">Search a starter list of popular NSE-listed companies.</div></div></div>
+  <div class="searchbox stock-search-wrap" style="margin-bottom:10px;position:relative"><span>⌕</span><input id="stockSearch" placeholder="Type company name or ticker (e.g. Vedanta, TCS, BEL)" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Search NSE and BSE stocks"><div id="customSearchResults" class="stock-suggestions" aria-live="polite"></div></div>
+  <div class="tabs" id="exchangeTabs"><button class="active" data-exchange="ALL">All stocks</button><button data-exchange="NSE">NSE</button><button data-exchange="BSE">BSE</button><select id="stockSort" aria-label="Sort stocks" style="margin-left:auto;border:1px solid var(--line);border-radius:18px;padding:7px 10px;background:var(--surface);color:var(--text)"><option value="default">Default order</option><option value="name">Company name</option><option value="price">Price: high to low</option><option value="change">Change: high to low</option></select></div>
+  <div class="table-wrap"><table><thead><tr><th>Company</th><th>Price</th><th>Day change</th><th>Day high / low</th><th>Watch</th><th></th></tr></thead><tbody id="stockRows"></tbody></table></div>
+  <div class="notice">Starter universe: 12 large-cap companies. NSE and BSE quotes are requested separately using Yahoo Finance suffixes (.NS / .BO). Availability depends on the upstream feed; this is not a complete exchange security master.</div>
+</section>
+<section class="page" id="page-watchlist">
+  <div class="page-head"><div><h1>My watchlist</h1><div class="sub">Keep an eye on the companies you follow.</div></div><button class="btn primary" data-goto="stocks">＋ Add stocks</button></div>
+  <div class="card" style="margin-bottom:15px"><div class="card-title">Price alerts</div><div class="form-grid"><div class="field"><label for="alertSymbol">Stock</label><select id="alertSymbol"></select></div><div class="field"><label for="alertCondition">Alert when price</label><select id="alertCondition"><option value="above">Rises to or above</option><option value="below">Falls to or below</option></select></div><div class="field"><label for="alertPrice">Target price (₹)</label><input id="alertPrice" type="number" min="0.01" step="0.01" placeholder="e.g. 1500"></div><div class="field" style="display:flex;align-items:end"><button class="btn primary" id="addPriceAlert" style="width:100%">＋ Create alert</button></div></div><div class="sub" style="margin-top:8px">Alerts are checked while this dashboard is open and market quotes refresh. This page does not send alerts while closed.</div><div id="priceAlertList" style="margin-top:10px"></div></div>
+  <div class="tabs" style="align-items:center"><label for="watchSort" class="sub">Sort watchlist:</label><select id="watchSort" aria-label="Sort watchlist by percentage change" style="border:1px solid var(--line);border-radius:18px;padding:7px 10px;background:var(--surface);color:var(--text)"><option value="default">Default order</option><option value="change-desc">Change: highest first</option><option value="change-asc">Change: lowest first</option><option value="name">Company name</option></select></div>
+  <div class="table-wrap"><table><thead><tr><th>Company</th><th>Price</th><th>Day change</th><th>Day high / low</th><th>Action</th></tr></thead><tbody id="watchRows"></tbody></table></div>
+</section>
+<section class="page" id="page-portfolio">
+  <div class="page-head"><div><h1>My portfolio</h1><div class="sub">Track your holdings and personal investment performance.</div></div><button class="btn primary" id="addHolding">＋ Add holding</button></div>
+  <div class="grid summary-grid" id="portfolioSummary"></div>
+  <div class="table-wrap"><table><thead><tr><th>Company</th><th>Qty</th><th>Avg. buy</th><th>Invested</th><th>Current value</th><th>P&amp;L</th><th>Action</th></tr></thead><tbody id="portfolioRows"></tbody></table></div>
+  <div class="notice">Portfolio valuation includes only holdings with a confirmed quote. Holdings without a quote are excluded from current value and P/L until a quote is available. Brokerage, taxes, dividends and corporate actions are not included.</div>
+</section>
+<section class="page active" id="page-trades">
+  <div class="page-head trade-page-head"><div><h1>Trade planner</h1><div class="sub">Plan BUY / SELL levels and monitor price touches. This does not place broker orders.</div></div><div class="trade-data-actions"><button class="btn" type="button" id="tradeExportOpen">↓ Export</button><button class="btn primary" type="button" id="tradeImportOpen">↑ Import &amp; Compare</button><input id="tradeImportFile" type="file" accept=".csv,text/csv" hidden></div></div>
+  <div class="card" style="margin-bottom:15px">
+    <div class="card-title">Create trade plan</div>
+    <div class="card" style="padding:14px;margin-bottom:14px;box-shadow:none">
+      <div class="card-title">Live Market Stock Selector · NSE + BSE</div>
+      <div class="searchbox" style="max-width:none"><span>⌕</span><input id="tradeStockSearch" placeholder="Search company name or symbol (e.g. RELIANCE, TCS, BEL)" autocomplete="off"><select id="tradeSearchExchange" aria-label="Exchange" style="max-width:105px;border:0;background:transparent;color:var(--text)"><option value="ALL">All</option><option value="NSE">NSE</option><option value="BSE">BSE</option></select><button class="btn primary" id="tradeStockSearchBtn">Search</button></div>
+      <div class="sub" style="margin-top:7px">Search listed Indian equities and select a result to load its latest available quote. Selecting a stock does not place an order.</div>
+      <div id="tradeStockSearchResults" aria-live="polite" style="margin-top:8px"></div>
+    </div>
+  </div>
+  <div class="grid summary-grid trade-summary-grid" id="tradeSummary"></div>
+  <div class="grid trade-insight-grid" id="tradeInsights"></div>
+  <div class="trade-filterbar">
+    <div class="tabs" id="tradeFilters"><button class="active" data-trade-filter="ACTIVE">Active</button><button data-trade-filter="ALL">All trades</button><button data-trade-filter="CLOSED">Completed</button></div>
+    <div class="trade-filter-controls"><input id="tradeCardSearch" type="search" placeholder="Search symbol / company…" aria-label="Search trade plans"><select id="tradeSideFilter" aria-label="Filter by side"><option value="ALL">BUY + SELL</option><option value="BUY">BUY only</option><option value="SELL">SELL only</option></select></div>
+  </div>
+  <div id="tradeCards" class="trade-card-grid" aria-live="polite"></div>
+  <details class="trade-table-details"><summary>Open detailed trade table</summary><div class="table-wrap trade-table-wrap"><table><thead><tr><th>Stock / Side / Duration</th><th>Trade dates / time</th><th>Recommendation Source</th><th>Entry</th><th>Live price</th><th>Target 1 / 2</th><th>Stop loss</th><th>Qty</th><th>Investment Amount</th><th>Est. P/L</th><th>Status / Action</th></tr></thead><tbody id="tradeRows"></tbody></table></div></details>
+  <div class="notice">BUY plans: target levels must be above entry and stop loss below entry. SELL plans: targets must be below entry and stop loss above entry. A level touch is an alert only—not an automatic buy, sell or broker order. Confirm price and execution with your broker.</div>
+</section>
+<div class="modal-backdrop" id="tradeExportModal" role="dialog" aria-modal="true" aria-labelledby="tradeExportTitle">
+ <div class="modal trade-data-modal">
+  <div class="modal-head"><h3 id="tradeExportTitle">Export Trade Data</h3><button class="icon-btn" type="button" id="tradeExportClose">✕</button></div>
+  <div class="field"><label for="tradeExportScope">Which trades?</label><select id="tradeExportScope"><option value="ALL">All trades</option><option value="ACTIVE">Active trades</option><option value="CLOSED">Completed trades</option></select></div>
+  <div class="trade-export-options">
+   <button class="btn trade-export-option" type="button" id="tradeExportCsv"><strong>Excel / CSV</strong><span>Editable in Microsoft Excel, Google Sheets and LibreOffice</span></button>
+   <button class="btn trade-export-option" type="button" id="tradeExportPdf"><strong>PDF report</strong><span>Print or save a read-only report as PDF</span></button>
+  </div>
+  <div class="notice">Excel-compatible CSV contains Trade IDs, prices, quantities, targets, stop loss, notes, status and trade history. Use CSV for editing and importing back.</div>
+ </div>
+</div>
+<div class="modal-backdrop" id="tradeCompareModal" role="dialog" aria-modal="true" aria-labelledby="tradeCompareTitle">
+ <div class="modal trade-data-modal trade-compare-modal">
+  <div class="modal-head"><h3 id="tradeCompareTitle">Import &amp; Compare Trades</h3><button class="icon-btn" type="button" id="tradeCompareClose">✕</button></div>
+  <div id="tradeCompareContent"><div class="notice">Choose an exported Trade Planner CSV file to compare it with your saved trades.</div></div>
+ </div>
+</div>
+<div class="modal-backdrop" id="createTradeModal" role="dialog" aria-modal="true" aria-labelledby="createTradeModalTitle">
+  <div class="modal trade-create-modal">
+    <div class="modal-head"><h3 id="createTradeModalTitle">Create trade plan</h3><button class="icon-btn" type="button" id="closeCreateTrade">✕</button></div>
+    <div id="tradeSelectedQuote" class="notice" style="margin-bottom:14px">Select a stock to view its latest available price.</div>
+    <div class="form-grid">
+      <div class="field"><label for="tradeSymbol">Stock</label><select id="tradeSymbol"></select></div>
+      <div class="field"><label for="tradeSide">Buy / Sell</label><select id="tradeSide"><option value="BUY">BUY (Long)</option><option value="SELL">SELL (Short)</option></select></div>
+      <div class="field"><label for="tradeSource">Recommendation Source</label><input id="tradeSource" list="tradeSourceOptions" maxlength="80" placeholder="Enter source name" autocomplete="off"><datalist id="tradeSourceOptions"></datalist><div class="sub">Type a source name or choose a saved suggestion.</div></div>
+      <div class="field"><label for="tradeDuration">Time-based trade type</label><input id="tradeDuration" list="tradeDurationOptions" maxlength="40" placeholder="Choose or type your own" required><datalist id="tradeDurationOptions"><option value="Scalping"><option value="Intraday"><option value="Swing"><option value="Positional"><option value="Long-term"></datalist><div class="sub">Select a suggestion or add your own timing/type.</div></div>
+      <div class="field"><label for="tradeEntryMode">Entry price mode</label><select id="tradeEntryMode"><option value="MARKET">Use market price</option><option value="TARGET">Wait for my target price</option></select><div class="sub">Target mode sends an alert when the selected price is reached; it does not place an order.</div></div><div class="field"><label for="tradeEntry">Entry / Buy price (₹)</label><input id="tradeEntry" type="number" min="0.01" step="0.01" placeholder="Entry price"></div>
+      <div class="field"><label for="tradeQty">Quantity</label><input id="tradeQty" type="text" inputmode="decimal" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="done" placeholder="Shares / units" aria-label="Quantity in shares or units"></div>
+      <div class="field"><label for="tradeTarget1">Target 1 (₹)</label><input id="tradeTarget1" type="number" min="0.01" step="0.01" placeholder="Optional"></div>
+      <div class="field"><label for="tradeTarget2">Target 2 (₹)</label><input id="tradeTarget2" type="number" min="0.01" step="0.01" placeholder="Optional"></div>
+      <div class="field"><label for="tradeStop">Stop loss (₹)</label><input id="tradeStop" type="number" min="0.01" step="0.01" placeholder="Required"></div>
+      <div class="field"><label for="tradeCapital">Trading capital (₹) · optional</label><input id="tradeCapital" type="number" min="0.01" step="0.01" placeholder="e.g. 100000"></div>
+      <div class="field"><label for="tradeRiskPercent">Risk per trade (%)</label><input id="tradeRiskPercent" type="number" min="0.1" max="100" step="0.1" value="1"></div>
+      <div class="field full"><label for="tradeNotes">Trade journal / reason · optional</label><textarea id="tradeNotes" rows="2" maxlength="1000" placeholder="Why are you taking this trade? Setup, plan, observations…"></textarea></div>
+      <div class="field full" style="display:flex;align-items:end"><button class="btn primary" id="addTrade" style="width:100%">＋ Save trade plan</button></div>
+    </div>
+    <div id="tradePreview" class="notice" aria-live="polite">Enter entry, quantity, target and stop loss to review risk / reward before saving.</div>
+    <div id="tradeLevelVisual" class="trade-level-visual" aria-live="polite">Entry · Stop loss · Targets will appear here when valid prices are entered.</div>
+    <div class="sub">Risk and reward are estimates before brokerage, taxes, slippage and gaps. Price checks run only while this dashboard is open and quotes refresh.</div>
+    <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:14px"><button type="button" class="btn" id="cancelCreateTrade">Cancel</button></div>
+  </div>
+</div>
+<section class="page" id="page-analysis">
+  <div class="page-head"><div><h1>Stock analysis</h1><div class="sub">Illustrative price chart and company metrics.</div></div></div>
+  <div class="searchbox" style="margin-bottom:15px"><span>⌕</span><input id="analysisSearch" list="symbols" placeholder="Choose a stock symbol"><datalist id="symbols"></datalist><button class="btn primary" id="loadAnalysis">View</button></div>
+  <div class="card chart-card">
+    <div class="chart-head"><div><div class="index-name" id="analysisCompany">RELIANCE · NSE</div><div class="price-big" id="analysisPrice">₹2,950.00</div><div class="change positive" id="analysisChange">+1.25% today</div></div><div class="range-tabs" id="rangeTabs"><button class="active" data-range="1D">1D</button><button data-range="1W">1W</button><button data-range="1M">1M</button><button data-range="3M">3M</button><button data-range="6M">6M</button><button data-range="1Y">1Y</button><button data-range="5Y">5Y</button></div></div>
+    <div class="chart-provider-tabs" role="group" aria-label="Chart provider"><button type="button" class="btn soft active" id="ourChartBtn">Our Chart</button><button type="button" class="btn" id="tradingViewBtn">TradingView</button></div>
+    <div id="nativeChartView">
+      <div class="indicator-toolbar"><strong>Indicators</strong><label><input type="checkbox" data-indicator="ema" checked> EMA 9/20/50</label><label><input type="checkbox" data-indicator="sma" checked> SMA 50/200</label><label><input type="checkbox" data-indicator="rsi" checked> RSI 14</label><label><input type="checkbox" data-indicator="macd" checked> MACD</label><label><input type="checkbox" data-indicator="bb" checked> Bollinger</label><label><input type="checkbox" data-indicator="volume" checked> Volume</label><label><input type="checkbox" data-indicator="sr" checked> Support / Resistance</label></div>
+      <svg class="chart" id="priceChart" viewBox="0 0 800 250" preserveAspectRatio="none" role="img" aria-label="Historical stock candlestick chart"></svg>
+      <div id="indicatorPanels"><div class="indicator-panel" id="rsiPanel"><strong>RSI (14)</strong><svg id="rsiChart" viewBox="0 0 800 105" preserveAspectRatio="none"></svg></div><div class="indicator-panel" id="macdPanel"><strong>MACD (12, 26, 9)</strong><svg id="macdChart" viewBox="0 0 800 115" preserveAspectRatio="none"></svg></div><div class="indicator-panel" id="volumePanel"><strong>Volume · SMA 20</strong><svg id="volumeChart" viewBox="0 0 800 90" preserveAspectRatio="none"></svg></div></div>
+      <div class="sub" id="chartDataStatus" role="status" aria-live="polite">Historical chart data not loaded.</div>
+    </div>
+    <div id="tradingViewChartView" class="tradingview-chart-view" hidden><iframe id="tradingViewFrame" title="TradingView stock chart" loading="lazy" allowfullscreen></iframe></div>
+    <div class="grid metric-grid" id="analysisMetrics"></div>
+  </div>
+  <div class="grid two-col" style="margin-top:15px"><div class="card"><div class="card-title">Company snapshot</div><div id="companySnapshot" class="sub">Select a stock to see its snapshot.</div></div><div class="card"><div class="card-title">Technical indicator notes</div><div class="sub">Our Chart includes toggleable EMA 9/20/50, SMA 50/200, RSI 14, MACD, Bollinger Bands, Volume with SMA 20, and approximate period Support / Resistance. Saved-trade chart views also mark Entry, Targets and Stop Loss. Indicators use available historical OHLCV candles; missing volume or insufficient history can limit individual calculations. If the historical feed fails, the status below the chart identifies the sample fallback. Charts are informational, not trading signals.</div></div></div>
+</section>
+<section class="page" id="page-tools">
+  <div class="page-head"><div><h1>Calculators</h1><div class="sub">Quick estimates for common investing calculations.</div></div></div>
+  <div class="grid tool-grid">
+    <div class="card"><div class="card-title">Stock profit / loss</div><div class="form-grid"><div class="field"><label>Buy price (₹)</label><input id="plBuy" type="number" value="100"></div><div class="field"><label>Sell / current price (₹)</label><input id="plSell" type="number" value="115"></div><div class="field full"><label>Quantity</label><input id="plQty" type="number" value="10"></div></div><div class="tool-result" id="plResult"></div></div>
+    <div class="card"><div class="card-title">Average buy price</div><div class="form-grid"><div class="field"><label>First quantity</label><input id="avgQ1" type="number" value="10"></div><div class="field"><label>First price (₹)</label><input id="avgP1" type="number" value="100"></div><div class="field"><label>Second quantity</label><input id="avgQ2" type="number" value="5"></div><div class="field"><label>Second price (₹)</label><input id="avgP2" type="number" value="90"></div></div><div class="tool-result" id="avgResult"></div></div>
+    <div class="card"><div class="card-title">SIP calculator</div><div class="form-grid"><div class="field"><label>Monthly investment (₹)</label><input id="sipAmount" type="number" value="5000"></div><div class="field"><label>Expected annual return (%)</label><input id="sipRate" type="number" value="12"></div><div class="field full"><label>Duration (years)</label><input id="sipYears" type="number" value="10"></div></div><div class="tool-result" id="sipResult"></div></div>
+    <div class="card"><div class="card-title">CAGR calculator</div><div class="form-grid"><div class="field"><label>Starting value (₹)</label><input id="cagrStart" type="number" value="10000"></div><div class="field"><label>Ending value (₹)</label><input id="cagrEnd" type="number" value="18000"></div><div class="field full"><label>Years</label><input id="cagrYears" type="number" value="5"></div></div><div class="tool-result" id="cagrResult"></div></div>
+  </div>
+  <div class="notice">Calculator outputs are estimates for education only. SIP returns are assumed, not guaranteed. Actual returns, taxes, fees and inflation may differ.</div>
+</section>
+<section class="page" id="page-news">
+  <div class="page-head"><div><h1>Market news</h1><div class="sub">News panel placeholder for a future verified news feed.</div></div></div>
+  <div class="card"><div class="card-title">Market updates</div>
+    <div class="news-item"><strong>Connect a market-news provider</strong><small>Live headlines are not bundled into this offline HTML file.</small><p class="sub">Add a trusted news API or RSS-to-JSON service to display current headlines with source attribution and publication time.</p></div>
+    <div class="news-item"><strong>Company announcements</strong><small>NSE / BSE exchange filings</small><p class="sub">For results, corporate actions and material announcements, link directly to the relevant exchange filing.</p></div>
+    <div class="news-item"><strong>IPO calendar</strong><small>Provider integration required</small><p class="sub">Add issue dates, price bands, lot sizes and official offer-document links after connecting a reliable source.</p></div>
+  </div>
+</section>
+<section class="page" id="page-settings">
+  <div class="page-head"><div><h1>Settings</h1><div class="sub">Personalise your Bharat Stocks workspace.</div></div></div>
+  <div class="card">
+    <div class="settings-row"><div><strong>Appearance</strong><div class="sub">Choose light, dark or system preference.</div></div><select id="themeSelect" class="field-input"><option value="light">Light</option><option value="dark">Dark</option><option value="system">System</option></select></div>
+    <div class="settings-row"><div><strong>Default exchange</strong><div class="sub">Used as your preferred display exchange.</div></div><select id="exchangeSelect"><option>NSE</option><option>BSE</option></select></div>
+    <div class="settings-row"><div><strong>Auto refresh</strong><div class="sub">Unofficial Yahoo Finance quotes. Refresh runs while this page is open.</div></div><select id="refreshSelect"><option value="off">Off</option><option value="15">15 seconds (fast)</option><option value="30">30 seconds</option><option value="60">1 minute</option><option value="300">5 minutes</option><option value="900">15 minutes</option></select></div>
+    <div class="settings-row"><div><strong>Export portfolio CSV</strong><div class="sub">Download your holdings as a spreadsheet file.</div></div><button class="btn" id="exportCsv">Export CSV</button></div>
+    <div class="settings-row"><div><strong>Backup app data</strong><div class="sub">Export or restore all saved app settings, watchlist, holdings, alerts and trade plans.</div><div class="sub" id="saveStatusText" role="status" aria-live="polite">Save status: Saved</div></div><div style="display:flex;gap:7px"><button class="btn" id="backupBtn">Export</button><button class="btn" id="restoreBtn">Import</button><input type="file" id="restoreFile" accept="application/json" class="hidden"></div></div>
+    <div class="settings-row"><div><strong>Clear saved data</strong><div class="sub">Remove watchlist and portfolio from this browser.</div></div><button class="btn danger" id="clearData">Clear data</button></div>
+  </div>
+  <div class="card" style="margin-top:15px"><div class="card-title">About data & privacy</div><p class="sub">This is a client-side demo. Your watchlist, portfolio and preferences are saved in this browser using localStorage. No account or server is used. Do not store sensitive financial credentials here.</p><p class="sub">For production use, integrate a licensed NSE/BSE market-data provider through a secure backend. Never expose secret API keys in a public HTML file.</p></div>
+</section>
+<div class="footer-note">Bharat Stocks · Independent prototype · Not affiliated with Groww, NSE or BSE.</div>
+</main>
+</div>
+<nav class="bottom-nav" aria-label="Main navigation">
+  <button class="nav-btn" data-page="home" aria-label="Home"><span class="nav-icon">⌂</span>Home</button>
+  <button class="nav-btn" data-page="stocks" aria-label="Explore stocks"><span class="nav-icon">▥</span>Stocks</button>
+  <button class="nav-btn" data-page="watchlist" aria-label="Watchlist"><span class="nav-icon">☆</span>Watchlist</button>
+  <button class="nav-btn" data-page="portfolio" aria-label="Portfolio"><span class="nav-icon">▣</span>Portfolio</button>
+  <button class="nav-btn active" data-page="trades" aria-label="Trade planner"><span class="nav-icon">⇅</span>Planner</button>
+  <button class="nav-btn" data-page="analysis" aria-label="Stock analysis"><span class="nav-icon">⌁</span>Analysis</button>
+  <button class="nav-btn" data-page="tools" aria-label="Calculators"><span class="nav-icon">⊞</span>Calculators</button>
+  <button class="nav-btn" data-page="news" aria-label="Market news"><span class="nav-icon">▤</span>News</button>
+  <button class="nav-btn" data-page="settings" aria-label="Settings"><span class="nav-icon">⚙</span>Settings</button>
+</nav>
+</div>
+<div class="modal-backdrop" id="averageTradeModal" role="dialog" aria-modal="true" aria-labelledby="averageTradeTitle"><div class="modal"><div class="modal-head"><h3 id="averageTradeTitle">Add More / Average Buy</h3><button class="icon-btn" type="button" id="closeAverageTrade">✕</button></div><div id="averageTradeInfo" class="notice"></div><form id="averageTradeForm"><input id="averageTradeId" type="hidden"><div class="form-grid"><div class="field"><label for="averageBuyPrice">Additional buy price (₹)</label><input id="averageBuyPrice" type="number" min="0.01" step="0.01" required></div><div class="field"><label for="averageBuyQty">Additional quantity</label><input id="averageBuyQty" type="number" min="0.0001" step="any" required></div></div><div id="averageTradePreview" class="notice">Enter price and quantity to calculate the new average.</div><div class="sub">Adds a separate buy record to history and updates the trade's weighted average and total quantity. Brokerage and taxes are excluded.</div><div style="display:flex;justify-content:flex-end;gap:8px;margin-top:18px"><button type="button" class="btn" id="cancelAverageTrade">Cancel</button><button class="btn primary" type="submit">Save additional buy</button></div></form></div></div>
+<div class="modal-backdrop" id="tradeEditModal"><div class="modal"><div class="modal-head"><h3>Edit active trade</h3><button class="icon-btn" type="button" id="closeTradeEdit">✕</button></div><form id="tradeEditForm"><input id="editTradeId" type="hidden"><div class="form-grid"><div class="field full"><label for="editTradeSource">Recommendation Source</label><input id="editTradeSource" list="tradeSourceOptions" maxlength="80" autocomplete="off" placeholder="Enter source name"></div><div class="field"><label for="editTradeSide">Buy / Sell</label><select id="editTradeSide"><option value="BUY">BUY (Long)</option><option value="SELL">SELL (Short)</option></select></div><div class="field"><label for="editTradeDuration">Trade duration</label><input id="editTradeDuration" maxlength="40" required></div><div class="field"><label for="editTradeEntry">Entry price (₹)</label><input id="editTradeEntry" type="number" min="0.01" step="0.01" required></div><div class="field"><label for="editTradeQty">Quantity</label><input id="editTradeQty" type="number" min="0.0001" step="any" required></div><div class="field"><label for="editTradeTarget1">Target 1 (₹)</label><input id="editTradeTarget1" type="number" min="0.01" step="0.01"></div><div class="field"><label for="editTradeTarget2">Target 2 (₹)</label><input id="editTradeTarget2" type="number" min="0.01" step="0.01"></div><div class="field full"><label for="editTradeStop">Stop loss (₹)</label><input id="editTradeStop" type="number" min="0.01" step="0.01" required></div><div class="field"><label for="editTradeCreatedAt">Plan created date &amp; time</label><input id="editTradeCreatedAt" type="datetime-local"></div><div class="field"><label for="editTradeEntryAt">Trade entry date &amp; time</label><input id="editTradeEntryAt" type="datetime-local"></div><div class="field full"><label for="editTradeExitAt">Trade exit date &amp; time</label><input id="editTradeExitAt" type="datetime-local"></div><div class="field full"><label for="editTradeNotes">Trade journal / reason</label><textarea id="editTradeNotes" rows="2" maxlength="1000"></textarea></div></div><div style="display:flex;justify-content:flex-end;gap:8px;margin-top:18px"><button type="button" class="btn" id="cancelTradeEdit">Cancel</button><button class="btn primary" type="submit">Save changes</button></div></form></div></div>
+<div class="modal-backdrop" id="holdingModal"><div class="modal"><div class="modal-head"><h3 id="modalTitle">Add holding</h3><button class="icon-btn" id="closeModal">✕</button></div><form id="holdingForm"><div class="form-grid"><div class="field full"><label>Stock</label><select id="holdingSymbol" required></select></div><div class="field"><label>Exchange</label><select id="holdingExchange"><option value="NSE">NSE</option><option value="BSE">BSE</option></select></div><div class="field"><label>Quantity</label><input id="holdingQty" type="number" min="0.0001" step="any" required></div><div class="field"><label>Average buy price (₹)</label><input id="holdingPrice" type="number" min="0.01" step="any" required></div></div><input id="holdingId" type="hidden"><div style="display:flex;justify-content:flex-end;gap:8px;margin-top:18px"><button type="button" class="btn" id="cancelModal">Cancel</button><button class="btn primary" type="submit">Save holding</button></div></form></div></div>
+<div class="toast" id="toast"></div>
+<script>
+const STOCKS=[
+ {symbol:"RELIANCE",name:"Reliance Industries",price:2948.5,change:1.24,high:2972,low:2901,prev:2912.4,volume:"4.8M",cap:"₹19.9T",sector:"Energy & Retail",exchange:"NSE"},
+ {symbol:"TCS",name:"Tata Consultancy Services",price:3862.2,change:-0.62,high:3910,low:3834,prev:3886.3,volume:"1.2M",cap:"₹14.0T",sector:"IT Services",exchange:"NSE"},
+ {symbol:"HDFCBANK",name:"HDFC Bank",price:1742.8,change:0.86,high:1751,low:1718,prev:1727.9,volume:"6.1M",cap:"₹13.3T",sector:"Banking",exchange:"NSE"},
+ {symbol:"INFY",name:"Infosys",price:1518.4,change:1.72,high:1529,low:1491,prev:1492.7,volume:"3.7M",cap:"₹6.3T",sector:"IT Services",exchange:"NSE"},
+ {symbol:"ICICIBANK",name:"ICICI Bank",price:1284.6,change:0.43,high:1292,low:1271,prev:1279.1,volume:"4.2M",cap:"₹9.0T",sector:"Banking",exchange:"NSE"},
+ {symbol:"SBIN",name:"State Bank of India",price:812.3,change:-1.14,high:826,low:807,prev:821.7,volume:"8.9M",cap:"₹7.3T",sector:"Banking",exchange:"NSE"},
+ {symbol:"ITC",name:"ITC Limited",price:438.75,change:0.31,high:442,low:435,prev:437.4,volume:"5.4M",cap:"₹5.5T",sector:"FMCG",exchange:"NSE"},
+ {symbol:"TATAMOTORS",name:"Tata Motors",price:684.2,change:-0.88,high:695,low:679,prev:690.3,volume:"7.1M",cap:"₹2.5T",sector:"Automobile",exchange:"NSE"},
+ {symbol:"BHARTIARTL",name:"Bharti Airtel",price:1642.5,change:1.08,high:1651,low:1619,prev:1624.9,volume:"2.2M",cap:"₹9.3T",sector:"Telecom",exchange:"NSE"},
+ {symbol:"LT",name:"Larsen & Toubro",price:3588.9,change:0.56,high:3612,low:3560,prev:3568.9,volume:"980K",cap:"₹4.9T",sector:"Infrastructure",exchange:"NSE"},
+ {symbol:"WIPRO",name:"Wipro",price:492.1,change:-0.35,high:498,low:489,prev:493.8,volume:"2.9M",cap:"₹2.6T",sector:"IT Services",exchange:"NSE"},
+ {symbol:"TATAPOWER",name:"Tata Power",price:391.6,change:2.14,high:395,low:382,prev:383.4,volume:"6.8M",cap:"₹1.3T",sector:"Power",exchange:"NSE"}
+];
+const $=id=>document.getElementById(id), money=n=>"₹"+Number(n||0).toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2}), pct=n=>(n>=0?"+":"")+Number(n||0).toFixed(2)+"%", fmt=n=>"₹"+Number(n||0).toLocaleString("en-IN",{maximumFractionDigits:0});
+let state={watchlist:["RELIANCE","TCS","HDFCBANK","INFY"],watchlistExchanges:{},holdings:[],customStocks:[],priceAlerts:[],tradePlans:[],tradeSources:[],theme:"light",exchange:"NSE",refresh:"60"};
+try{
+ const saved=JSON.parse(localStorage.getItem("bharatStocks_v1")||"{}");
+ if(saved&&typeof saved==="object"&&!Array.isArray(saved)){
+  if(Array.isArray(saved.customStocks))saved.customStocks.slice(0,500).forEach(s=>{if(s&&/^[A-Z0-9.^_-]{1,24}$/.test(String(s.symbol||""))&&["NSE","BSE"].includes(s.exchange)&&!STOCKS.some(x=>x.symbol===s.symbol)){STOCKS.push({symbol:String(s.symbol),name:String(s.name||s.symbol).slice(0,100),price:0,change:0,high:null,low:null,prev:null,volume:"—",cap:"—",sector:"Other",exchange:s.exchange,custom:true})}});
+  const allowed=new Set(STOCKS.map(s=>s.symbol));
+  if(Array.isArray(saved.tradeSources))state.tradeSources=[...new Set(saved.tradeSources.filter(x=>typeof x==="string"&&x.trim()).map(x=>x.trim().slice(0,80)))].slice(0,200);
+  if(Array.isArray(saved.watchlist))state.watchlist=[...new Set(saved.watchlist.filter(x=>typeof x==="string"&&allowed.has(x)))];
+  if(saved.watchlistExchanges&&typeof saved.watchlistExchanges==="object")state.watchlistExchanges=Object.fromEntries(Object.entries(saved.watchlistExchanges).filter(([k,v])=>allowed.has(k)&&["NSE","BSE"].includes(v)));
+  if(Array.isArray(saved.holdings))state.holdings=saved.holdings.filter(h=>h&&typeof h==="object"&&allowed.has(h.symbol)&&validPositiveNumber(h.qty)&&validPositiveNumber(h.price)).map(h=>({symbol:h.symbol,exchange:["NSE","BSE"].includes(h.exchange)?h.exchange:"NSE",qty:Number(h.qty),price:Number(h.price)}));
+  state.customStocks=STOCKS.filter(s=>s.custom).map(s=>({symbol:s.symbol,name:s.name,exchange:s.exchange}));
+  if(Array.isArray(saved.priceAlerts))state.priceAlerts=saved.priceAlerts.filter(a=>a&&allowed.has(a.symbol)&&["above","below"].includes(a.condition)&&validPositiveNumber(a.target)).slice(0,200).map(a=>({id:String(a.id||Date.now()+Math.random()),symbol:a.symbol,exchange:["NSE","BSE"].includes(a.exchange)?a.exchange:"NSE",condition:a.condition,target:Number(a.target),triggered:!!a.triggered}));
+  if(Array.isArray(saved.tradePlans))state.tradePlans=saved.tradePlans.filter(t=>t&&typeof t==="object"&&/^[A-Z0-9.^_-]{1,24}$/.test(String(t.symbol||""))&&["BUY","SELL"].includes(t.side)&&validPositiveNumber(t.entry)&&validPositiveNumber(t.qty)&&validPositiveNumber(t.stop)&&(t.target1==null||t.target1===""||validPositiveNumber(t.target1))&&(t.target2==null||t.target2===""||validPositiveNumber(t.target2))&&(t.target1==null||t.target2==null||t.target1===""||t.target2===""||(t.side==="BUY"?Number(t.target2)>Number(t.target1):Number(t.target2)<Number(t.target1)))).slice(0,500).map(t=>({id:String(t.id||Date.now()+Math.random()),symbol:String(t.symbol).toUpperCase(),exchange:["NSE","BSE"].includes(t.exchange)?t.exchange:"NSE",side:t.side,entry:Number(t.entry),qty:Number(t.qty),entryMode:t.entryMode==="TARGET"?"TARGET":"MARKET",entryAlerted:!!t.entryAlerted,averageHistory:Array.isArray(t.averageHistory)?t.averageHistory.filter(h=>h&&validPositiveNumber(h.price)&&validPositiveNumber(h.qty)).slice(0,100).map(h=>({price:Number(h.price),qty:Number(h.qty),at:Number(h.at)||Date.now()})):[],target1:validPositiveNumber(t.target1)?Number(t.target1):null,target2:validPositiveNumber(t.target2)?Number(t.target2):null,stop:Number(t.stop),status:["ACTIVE","TARGET 1 HIT","WAITING FOR ENTRY","TARGET 2 HIT","STOP LOSS HIT","CANCELLED"].includes(t.status)?t.status:"ACTIVE",duration:String(t.duration||"Intraday").slice(0,40),sourceName:String(t.sourceName||"").slice(0,80),riskCapital:validPositiveNumber(t.riskCapital)?Number(t.riskCapital):null,riskPercent:validPositiveNumber(t.riskPercent)&&Number(t.riskPercent)<=100?Number(t.riskPercent):1,notes:String(t.notes||"").slice(0,1000),createdAt:Number(t.createdAt)||Date.now(),entryAt:Number(t.entryAt)||Number(t.createdAt)||Date.now(),exitAt:Number(t.exitAt)||null}));
+  if(["light","dark","system"].includes(saved.theme))state.theme=saved.theme;
+  if(["NSE","BSE"].includes(saved.exchange))state.exchange=saved.exchange;
+  if(["off","15","30","60","300","900"].includes(String(saved.refresh)))state.refresh=String(saved.refresh);
+ }
+}catch(e){console.warn("Saved app data was invalid; using safe defaults.",e)}
+// Resilient client-side persistence: localStorage remains the primary store; IndexedDB
+// keeps a recovery copy and a small rolling history without changing the app interface.
+const DATA_STORAGE_KEY="bharatStocks_v1", TRADE_DURATION_STORAGE_KEY="bharatStocks_tradeDurations_v1";
+const RECOVERY_DB_NAME="bharatStocks_recovery_v1", RECOVERY_DB_VERSION=1;
+let recoveryDbPromise=null, lastRecoverySnapshotAt=0, saveStatus="saved";
+function updateSaveStatus(status,message){
+ saveStatus=status;
+ const el=document.getElementById("saveStatusText");
+ if(el)el.textContent="Save status: "+(message||({saving:"Saving…",saved:"Saved",recovered:"Saved to recovery storage",failed:"Save failed"}[status]||status));
+}
+function openRecoveryDb(){
+ if(!("indexedDB" in window))return Promise.reject(new Error("IndexedDB unavailable"));
+ if(!recoveryDbPromise)recoveryDbPromise=new Promise((resolve,reject)=>{
+  const request=indexedDB.open(RECOVERY_DB_NAME,RECOVERY_DB_VERSION);
+  request.onupgradeneeded=()=>{const db=request.result;if(!db.objectStoreNames.contains("records"))db.createObjectStore("records",{keyPath:"id"})};
+  request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error||new Error("IndexedDB open failed"));
+ });
+ return recoveryDbPromise;
+}
+function readTradeDurationsForBackup(){try{const v=JSON.parse(localStorage.getItem(TRADE_DURATION_STORAGE_KEY)||"[]");return Array.isArray(v)?v.filter(x=>typeof x==="string"&&x.trim()).map(x=>x.trim().slice(0,40)).slice(0,100):[]}catch(e){return []}}
+async function persistRecoveryCopy(snapshot){
+ const db=await openRecoveryDb();
+ await new Promise((resolve,reject)=>{
+  const tx=db.transaction("records","readwrite"),store=tx.objectStore("records"),now=Date.now();
+  const recoveryData={state:snapshot,tradeDurations:readTradeDurationsForBackup()};
+  store.put({id:"current",savedAt:now,data:recoveryData});
+  if(now-lastRecoverySnapshotAt>=5*60*1000){store.put({id:"backup-"+now,savedAt:now,data:recoveryData});lastRecoverySnapshotAt=now;
+   const all=store.getAll();all.onsuccess=()=>{const backups=(all.result||[]).filter(x=>x.id.startsWith("backup-")).sort((a,b)=>b.savedAt-a.savedAt);backups.slice(5).forEach(x=>store.delete(x.id))};
+  }
+  tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error||new Error("IndexedDB write failed"));tx.onabort=()=>reject(tx.error||new Error("IndexedDB write aborted"));
+ });
+}
+function save(){
+ const snapshot=JSON.parse(JSON.stringify(state));let localSaved=false;
+ try{localStorage.setItem(DATA_STORAGE_KEY,JSON.stringify(snapshot));localSaved=true;updateSaveStatus("saved")}
+ catch(e){updateSaveStatus("saving","Saving to recovery storage…");console.error("Primary save failed",e);toast("Browser storage full. Trying recovery storage…")}
+ persistRecoveryCopy(snapshot).then(()=>{if(!localSaved){updateSaveStatus("recovered");toast("Data saved in recovery storage. Export a backup soon.")}}).catch(e=>{console.error("Recovery save failed",e);if(!localSaved){updateSaveStatus("failed");toast("Save failed. Export a backup to protect your data.")}});
+ return localSaved;
+}
+// If the browser's primary record is missing, offer automatic recovery from the last IndexedDB copy.
+(async()=>{try{if(localStorage.getItem(DATA_STORAGE_KEY)!==null)return;const db=await openRecoveryDb();const record=await new Promise((resolve,reject)=>{const tx=db.transaction("records","readonly"),req=tx.objectStore("records").get("current");req.onsuccess=()=>resolve(req.result||null);req.onerror=()=>reject(req.error)});if(record&&record.data&&typeof record.data==="object"){const recoveredState=record.data.state&&typeof record.data.state==="object"?record.data.state:record.data;localStorage.setItem(DATA_STORAGE_KEY,JSON.stringify(recoveredState));if(Array.isArray(record.data.tradeDurations))localStorage.setItem(TRADE_DURATION_STORAGE_KEY,JSON.stringify(record.data.tradeDurations));location.reload()}}catch(e){console.warn("Automatic data recovery was unavailable",e)}})();
+function stock(sym){return STOCKS.find(s=>s.symbol===sym)||null}
+function safeStock(sym){return STOCKS.find(s=>s.symbol===String(sym||"").toUpperCase())||null}
+function validPositiveNumber(v){return Number.isFinite(Number(v))&&Number(v)>0}
+function escapeHtml(value){return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function toast(msg){const t=$("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2300)}
+function signClass(n){return n>=0?"positive":"negative"}
+function setTheme(theme){state.theme=theme;const actual=theme==="system"?(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"):theme;document.documentElement.dataset.theme=actual;if($("themeSelect"))$("themeSelect").value=theme;save()}
+if(window.matchMedia){const systemTheme=matchMedia("(prefers-color-scheme: dark)");systemTheme.addEventListener?.("change",()=>{if(state.theme==="system")document.documentElement.dataset.theme=systemTheme.matches?"dark":"light"})}
+let currentPage=document.querySelector(".page.active")?.id.replace("page-","")||"home";
+let pageHistory=[];
+function showPage(page){
+ document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id==="page-"+page));
+ document.querySelectorAll("[data-page]").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
+ currentPage=page;window.scrollTo({top:0,behavior:"smooth"});
+ if(page==="portfolio")renderPortfolio();if(page==="trades")renderTrades();if(page==="watchlist")renderWatchlist();if(page==="analysis")renderAnalysis(currentAnalysis,currentAnalysisExchange);
+ if(page==="stocks"){const preferred=state.exchange||"NSE";document.querySelectorAll("#exchangeTabs button").forEach(b=>b.classList.toggle("active",b.dataset.exchange===preferred));renderStocks()}
+}
+function navigate(page){if(!page||page===currentPage)return;pageHistory.push(currentPage);history.pushState({bharatPage:page,bharatStack:pageHistory.slice()},"","#page-"+page);showPage(page)}
+function goBack(){if(pageHistory.length){history.back()}else if(currentPage!=="home"){showPage("home")}}
+function setupHistoryBackButtons(){
+ document.querySelectorAll(".page").forEach(page=>{
+  if(page.id==="page-home")return;
+  const head=page.querySelector(".page-head");if(!head)return;
+  let back=head.querySelector("[data-history-back]");
+  if(!back){back=head.querySelector("#backToOverview")}
+  if(!back){back=document.createElement("button");back.type="button";back.className="btn history-back";back.textContent="← Back";back.setAttribute("data-history-back","");head.appendChild(back);back.addEventListener("click",goBack)}
+  else{back.textContent="← Back";back.setAttribute("data-history-back","");back.classList.add("history-back")}
+ });
+}
+setupHistoryBackButtons();
+if(!history.state?.bharatPage)history.replaceState({bharatPage:currentPage,bharatStack:[]},"",location.href);
+window.addEventListener("popstate",event=>{pageHistory=Array.isArray(event.state?.bharatStack)?event.state.bharatStack:[];showPage(event.state?.bharatPage||pageHistory.pop()||"home")});
+document.querySelectorAll("[data-page]").forEach(b=>b.addEventListener("click",()=>navigate(b.dataset.page)));
+document.querySelectorAll("[data-goto]").forEach(b=>b.addEventListener("click",()=>navigate(b.dataset.goto)));
+$("themeQuick").onclick=()=>setTheme((document.documentElement.dataset.theme==="dark")?"light":"dark");
+$("refreshQuick").onclick=()=>refreshLiveData();
+$("quickSearch").onclick=()=>{navigate("stocks");$("stockSearch").focus()};
+const INDEX_QUOTES=[
+ {name:"NIFTY 50",symbol:"^NSEI",exchange:"NSE",source:"https://www.niftyindices.com/indices/equity/broad-based-indices/nifty--50"},
+ {name:"SENSEX",symbol:"^BSESN",exchange:"BSE",source:"https://www.bseindices.com/"},
+ {name:"BANK NIFTY",symbol:"^NSEBANK",exchange:"NSE",source:"https://www.niftyindices.com/indices/equity/sectoral-indices/nifty-bank"},
+ {name:"NIFTY IT",symbol:"^CNXIT",exchange:"NSE",source:"https://www.niftyindices.com/indices/equity/sectoral-indices/nifty-it"}
+];
+function renderIndices(){const data=INDEX_QUOTES.map(x=>{const q=liveIndexData[x.symbol];return [x.name,x.symbol,q?money(q.price):"—",q?q.change:0]});$("indices").innerHTML=data.map(d=>`<button class="card index-card" data-index="${d[1]}" style="text-align:left;color:var(--text);width:100%"><div class="index-name">${d[0]} · View constituents ↗</div><div class="index-value">${d[2]}</div><div class="change ${signClass(d[3])}">${pct(d[3])} <span style="font-weight:500;color:var(--muted)">today</span></div></button>`).join("");document.querySelectorAll("[data-index]").forEach(b=>b.onclick=()=>openIndexDetail(b.dataset.index))}
+function stockRow(s,watchMode=false){
+ const unavailable=s.quoteUnavailable;
+ return `<tr><td><div class="stock-name">${s.name}</div><div class="stock-symbol">${s.symbol} · ${s.exchange}</div></td><td>${unavailable?"—":money(s.price)}</td><td class="change ${unavailable?"":signClass(s.change)}">${unavailable?"Quote unavailable":pct(s.change)}</td><td>${unavailable?"—":(s.high?money(s.high):"—")+" / "+(s.low?money(s.low):"—")}</td>${watchMode?"":`<td><button class="star ${state.watchlist.includes(s.symbol)?"on":""}" data-star="${s.symbol}" data-exchange="${s.exchange||"NSE"}" title="Toggle watchlist">${state.watchlist.includes(s.symbol)?"★":"☆"}</button></td>`}<td><button class="btn" data-analyse="${s.symbol}" data-exchange="${s.exchange}">Analyze</button></td></tr>`
+}
+function bindDynamic(){
+ document.querySelectorAll("[data-star]").forEach(b=>b.onclick=()=>toggleWatch(b.dataset.star,b.dataset.exchange||state.exchange));
+ document.querySelectorAll("[data-analyse]").forEach(b=>b.onclick=()=>{currentAnalysis=b.dataset.analyse;currentAnalysisExchange=b.dataset.exchange||"NSE";navigate("analysis");renderAnalysis(currentAnalysis,currentAnalysisExchange)});
+}
+function toggleWatch(sym,exchange=state.exchange||"NSE"){if(state.watchlist.includes(sym)){state.watchlist=state.watchlist.filter(x=>x!==sym);delete state.watchlistExchanges[sym]}else{state.watchlist.push(sym);state.watchlistExchanges[sym]=["NSE","BSE"].includes(exchange)?exchange:"NSE"}save();renderStocks();renderWatchlist();renderHome();toast(state.watchlist.includes(sym)?"Added to watchlist":"Removed from watchlist")}
+function renderStocks(){
+ const q=($("stockSearch").value||"").toLowerCase(),ex=$("exchangeTabs").querySelector(".active").dataset.exchange;
+ let rows=STOCKS.filter(s=>(ex==="ALL"||ex===s.exchange)&&(s.name.toLowerCase().includes(q)||s.symbol.toLowerCase().includes(q))).map(s=>s.custom&&!liveStockQuotes.NSE[s.symbol]?{...s,quoteUnavailable:true}:s);
+ if(ex==="BSE")rows=STOCKS.filter(s=>s.name.toLowerCase().includes(q)||s.symbol.toLowerCase().includes(q)).map(s=>{
+  const quote=liveStockQuotes.BSE[s.symbol];
+  return quote?{...s,...quote,exchange:"BSE"}:{...s,exchange:"BSE",quoteUnavailable:true};
+ });
+ const sort=$("stockSort")?.value||"default";if(sort==="name")rows.sort((a,b)=>a.name.localeCompare(b.name));if(sort==="price")rows.sort((a,b)=>{const qa=ex==="BSE"?liveStockQuotes.BSE[a.symbol]:liveStockQuotes.NSE[a.symbol],qb=ex==="BSE"?liveStockQuotes.BSE[b.symbol]:liveStockQuotes.NSE[b.symbol];return (qb?.price??-1)-(qa?.price??-1)});if(sort==="change")rows.sort((a,b)=>{const qa=ex==="BSE"?liveStockQuotes.BSE[a.symbol]:liveStockQuotes.NSE[a.symbol],qb=ex==="BSE"?liveStockQuotes.BSE[b.symbol]:liveStockQuotes.NSE[b.symbol];return (qb?.change??-Infinity)-(qa?.change??-Infinity)});
+ $("stockRows").innerHTML=rows.length?rows.map(s=>stockRow(s)).join(""):`<tr><td colspan="6" class="empty">No matching stocks found.</td></tr>`;
+ bindDynamic();
+}
+$("stockSearch").addEventListener("input",renderStocks);$("stockSort").addEventListener("change",renderStocks);
+$("exchangeTabs").querySelectorAll("button").forEach(b=>b.onclick=()=>{$("exchangeTabs").querySelectorAll("button").forEach(x=>x.classList.remove("active"));b.classList.add("active");renderStocks()});
+function getQuoteForStock(sym,ex){return ex==="BSE"?(liveStockQuotes.BSE[sym]||null):(liveStockQuotes.NSE[sym]||null)}
+function renderWatchlist(){
+ const sort=$("watchSort")?.value||"default";
+ let symbols=[...state.watchlist];
+ if(sort==="name")symbols.sort((a,b)=>(stock(a)?.name||a).localeCompare(stock(b)?.name||b));
+ if(sort==="change-desc"||sort==="change-asc")symbols.sort((a,b)=>{const qa=getQuoteForStock(a,state.watchlistExchanges[a]||"NSE"),qb=getQuoteForStock(b,state.watchlistExchanges[b]||"NSE"),av=Number.isFinite(qa?.change)?qa.change:null,bv=Number.isFinite(qb?.change)?qb.change:null;if(av===null&&bv===null)return a.localeCompare(b);if(av===null)return 1;if(bv===null)return -1;return sort==="change-desc"?bv-av:av-bv});
+ $("watchRows").innerHTML=symbols.length?symbols.map(sym=>{const s=stock(sym),ex=state.watchlistExchanges[sym]||"NSE",q=getQuoteForStock(sym,ex);return `<tr><td><div class="stock-name">${escapeHtml(s.name)}</div><div class="stock-symbol">${escapeHtml(s.symbol)} · ${ex}</div></td><td>${q?money(q.price):"—"}</td><td class="change ${q?signClass(q.change):""}">${q?pct(q.change):"Quote unavailable"}</td><td>${q?(q.high?money(q.high):"—")+" / "+(q.low?money(q.low):"—"):"—"}</td><td><div class="row-actions"><button class="btn" data-analyse="${escapeHtml(s.symbol)}" data-exchange="${ex}">Analyze</button><button class="btn danger" data-remove="${escapeHtml(s.symbol)}">Remove</button></div></td></tr>`}).join(""):`<tr><td colspan="5" class="empty">Your watchlist is empty. Explore stocks or search for a company to add it.</td></tr>`;
+ $("watchRows").querySelectorAll("[data-remove]").forEach(b=>b.onclick=()=>toggleWatch(b.dataset.remove));bindDynamic();renderPriceAlerts();populateAlertSymbols();
+}
+$("watchSort").addEventListener("change",renderWatchlist);
+function populateAlertSymbols(){const el=$("alertSymbol");if(!el)return;const prior=el.value;el.innerHTML=state.watchlist.map(sym=>{const s=stock(sym),ex=state.watchlistExchanges[sym]||"NSE";return `<option value="${escapeHtml(sym)}" data-exchange="${ex}">${escapeHtml(s.name)} (${escapeHtml(sym)} · ${ex})</option>`}).join("");if(prior&&state.watchlist.includes(prior))el.value=prior}
+function renderPriceAlerts(){const box=$("priceAlertList");if(!box)return;box.innerHTML=state.priceAlerts.length?state.priceAlerts.map(a=>{const s=stock(a.symbol);return `<div class="settings-row"><div><strong>${escapeHtml(s?.name||a.symbol)} · ${a.exchange}</strong><div class="sub">${a.condition==="above"?"At or above":"At or below"} ${money(a.target)} · ${a.triggered?"Triggered":"Active"}</div></div><button class="btn danger" data-delete-alert="${escapeHtml(a.id)}">Remove</button></div>`}).join(""):`<div class="sub">No price alerts yet. Add a stock to your watchlist and set a target.</div>`;box.querySelectorAll("[data-delete-alert]").forEach(b=>b.onclick=()=>{state.priceAlerts=state.priceAlerts.filter(a=>a.id!==b.dataset.deleteAlert);save();renderPriceAlerts()})}
+$("addPriceAlert").addEventListener("click",()=>{const symbol=$("alertSymbol").value,target=Number($("alertPrice").value),condition=$("alertCondition").value,ex=$("alertSymbol").selectedOptions[0]?.dataset.exchange||"NSE";if(!symbol||!validPositiveNumber(target)){toast("Choose a watchlist stock and enter a valid target price");return}state.priceAlerts.push({id:(crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random()),symbol,exchange:ex,condition,target,triggered:false});if("Notification" in window&&Notification.permission==="default")Notification.requestPermission().catch(()=>{});save();$("alertPrice").value="";renderPriceAlerts();checkPriceAlerts();toast("Price alert created")});
+function checkPriceAlerts(){let changed=false;state.priceAlerts.forEach(a=>{if(a.triggered)return;const q=getQuoteForStock(a.symbol,a.exchange);if(!q||!validPositiveNumber(q.price))return;const hit=a.condition==="above"?q.price>=a.target:q.price<=a.target;if(hit){a.triggered=true;changed=true;const msg=`Price alert: ${a.symbol} is ${money(q.price)} (${a.condition} ${money(a.target)})`;toast(msg);if("Notification" in window&&Notification.permission==="granted")new Notification("Bharat Stocks · Price Alert",{body:msg})}});if(changed){save();renderPriceAlerts()}}
+
+
+let selectedTradeExchange="NSE";
+function populateTradeSymbols(preferredSymbol=null,preferredExchange=null){const el=$("tradeSymbol");if(!el)return;const prior=preferredSymbol||el.value,priorEx=preferredExchange||(prior===el.value?selectedTradeExchange:null)||el.selectedOptions[0]?.dataset.exchange;el.innerHTML=STOCKS.map(s=>{const ex=(s.custom?s.exchange:null)||(s.symbol===prior&&priorEx?priorEx:null)||state.watchlistExchanges[s.symbol]||s.exchange||"NSE";return `<option value="${escapeHtml(s.symbol)}" data-exchange="${ex}">${escapeHtml(s.name)} (${escapeHtml(s.symbol)} · ${ex})</option>`}).join("");if(prior&&stock(prior)){const match=[...el.options].find(o=>o.value===prior&&(!priorEx||o.dataset.exchange===priorEx));if(match)el.value=prior;else el.value=prior}}
+let tradeQuoteRequestToken=0,tradeSearchRequestToken=0;
+let activeTradeSearchGroups=[];
+function renderTradeSearchResults(){
+ const box=$("tradeStockSearchResults");if(!box)return;
+ if(!activeTradeSearchGroups.length){box.innerHTML="";return}
+ box.innerHTML=activeTradeSearchGroups.map((g,i)=>{
+  const n=liveStockQuotes.NSE[g.symbol],b=liveStockQuotes.BSE[g.symbol];
+  const priceCell=(q,ex)=>`<div class="card" style="padding:9px;min-width:0"><div class="sub" style="font-weight:750">${ex} PRICE</div><div style="font-size:17px;font-weight:850" class="${q?signClass(q.change||0):""}">${q?money(q.price):"—"}</div><div class="sub">${q?`${pct(q.change||0)} · ${q.timestamp?new Date(q.timestamp*1000).toLocaleTimeString():"time unavailable"}`:"Quote unavailable"}</div><button class="btn primary" style="margin-top:7px;width:100%" data-trade-select="${i}" data-trade-exchange="${ex}">Select ${ex}</button></div>`;
+  return `<div class="card" style="margin:8px 0;padding:12px"><div style="font-weight:800">${escapeHtml(g.name)}</div><div class="sub" style="margin-bottom:9px">${escapeHtml(g.symbol)} · India listed equity</div><div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px">${priceCell(n,"NSE")}${priceCell(b,"BSE")}</div></div>`;
+ }).join("");
+ box.querySelectorAll("[data-trade-select]").forEach(btn=>btn.onclick=()=>{const g=activeTradeSearchGroups[Number(btn.dataset.tradeSelect)];if(g)selectTradeStock(g.symbol,g.name,btn.dataset.tradeExchange)});
+}
+async function refreshTradeSearchPrices(requestToken,groups){
+ if(!groups.length||requestToken!==tradeSearchRequestToken)return;
+ await Promise.all(groups.map(async g=>{
+  const pairs=await Promise.allSettled([fetchYahooQuote(g.symbol+".NS"),fetchYahooQuote(g.symbol+".BO")]);
+  if(requestToken!==tradeSearchRequestToken)return;
+  ["NSE","BSE"].forEach((ex,i)=>{const result=pairs[i];if(result.status==="fulfilled")liveStockQuotes[ex][g.symbol]=result.value;else delete liveStockQuotes[ex][g.symbol]});
+ }));
+ if(requestToken===tradeSearchRequestToken)renderTradeSearchResults();
+}
+function renderTradeSelectedQuote(){const box=$("tradeSelectedQuote");if(!box)return;const symbol=$("tradeSymbol").value,exchange=$("tradeSymbol").selectedOptions[0]?.dataset.exchange||"NSE",s=stock(symbol),q=getQuoteForStock(symbol,exchange);if(!symbol){box.textContent="Select a stock to view its latest available price.";return}if(q&&validPositiveNumber(q.price)){const stamp=q.timestamp?new Date(q.timestamp*1000).toLocaleTimeString():"time not supplied";box.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap"><div><strong>${escapeHtml(s?.name||symbol)} · ${symbol} · ${exchange}</strong><div class="sub">Latest available quote · Updated ${escapeHtml(stamp)}</div></div><div style="text-align:right"><div style="font-size:24px;font-weight:850" class="${signClass(q.change||0)}">${money(q.price)}</div><div class="change ${signClass(q.change||0)}">${pct(q.change||0)} today</div></div></div>`}else{box.innerHTML=`<strong>${escapeHtml(s?.name||symbol)} · ${symbol} · ${exchange}</strong><div class="sub">Live quote unavailable. Entry price has not been auto-filled. Try Refresh or choose another listing.</div>`}}
+async function selectTradeStock(symbol,name,exchange){selectedTradeExchange=exchange;symbol=String(symbol||"").toUpperCase().replace(/\.(NS|BO)$/,"");if(!/^[A-Z0-9.^_-]{1,24}$/.test(symbol)||!["NSE","BSE"].includes(exchange))return;let s=stock(symbol);if(!s){s={symbol,name:String(name||symbol).slice(0,100),price:0,change:0,high:null,low:null,prev:null,volume:"—",cap:"—",sector:"Other",exchange,custom:true};STOCKS.push(s)}else if(s.custom){s.exchange=exchange;if(name)s.name=String(name).slice(0,100)}state.customStocks=STOCKS.filter(x=>x.custom).map(x=>({symbol:x.symbol,name:x.name,exchange:x.exchange}));save();populateStockSelectors();populateTradeSymbols(symbol,exchange);const el=$("tradeSymbol");const option=[...el.options].find(o=>o.value===symbol);if(option){option.dataset.exchange=exchange;el.value=symbol}renderTradeSelectedQuote();$("createTradeModal").classList.add("show");const token=++tradeQuoteRequestToken;const suffix=exchange==="BSE"?".BO":".NS";const box=$("tradeSelectedQuote");box.innerHTML=`<strong>${escapeHtml(name||symbol)} · ${symbol} · ${exchange}</strong><div class="sub">Fetching latest available quote…</div>`;try{const q=await fetchYahooQuote(symbol+suffix);if(token!==tradeQuoteRequestToken)return;liveStockQuotes[exchange][symbol]=q;if(exchange==="NSE"){Object.assign(s,q);s.live=true}if(!$("tradeEntry").value.trim())$("tradeEntry").value=Number(q.price).toFixed(2);renderTradeSelectedQuote();updateTradePreview();renderTrades();toast(`${symbol} selected · latest quote loaded`)}catch(e){if(token!==tradeQuoteRequestToken)return;renderTradeSelectedQuote();toast(`${symbol} selected, but live quote is unavailable`)}}
+async function searchTradeStocks(){
+ const requestToken=++tradeSearchRequestToken;
+ const query=$("tradeStockSearch").value.trim();
+ const box=$("tradeStockSearchResults");
+ if(query.length<2){activeTradeSearchGroups=[];box.innerHTML="";toast("Enter at least 2 characters to search");return}
+ activeTradeSearchGroups=[];
+ const exchangeFilter=$("tradeSearchExchange").value;
+ box.innerHTML='<div class="sub">Searching NSE/BSE listings and loading both exchange prices…</div>';
+ try{
+  const url="https://proxy.cors.dev/https://query1.finance.yahoo.com/v1/finance/search?q="+encodeURIComponent(query)+"&quotesCount=30&newsCount=0";
+  const r=await fetch(url,{cache:"no-store"});if(!r.ok)throw new Error("Search service unavailable");
+  const data=await r.json();if(requestToken!==tradeSearchRequestToken)return;
+  const found=(data.quotes||[]).filter(x=>x.quoteType==="EQUITY"&&/^(NSI|BSE)$/.test(x.exchange||"")&&x.symbol&&/\.(NS|BO)$/.test(x.symbol));
+  const groups=new Map();
+  found.forEach(x=>{
+   const symbol=x.symbol.replace(/\.(NS|BO)$/,""),ex=x.symbol.endsWith(".BO")?"BSE":"NSE";
+   if(exchangeFilter!=="ALL"&&exchangeFilter!==ex)return;
+   if(!groups.has(symbol))groups.set(symbol,{symbol,name:x.shortname||x.longname||symbol});
+  });
+  if(requestToken!==tradeSearchRequestToken)return;
+  activeTradeSearchGroups=[...groups.values()].slice(0,12);
+  if(!activeTradeSearchGroups.length){box.innerHTML='<div class="sub">No matching NSE/BSE listed equity found. Try company name or ticker.</div>';return}
+  const searchGroups=[...activeTradeSearchGroups];
+  await refreshTradeSearchPrices(requestToken,searchGroups);
+  if(requestToken!==tradeSearchRequestToken)return;
+  if(!searchGroups.some(g=>liveStockQuotes.NSE[g.symbol]||liveStockQuotes.BSE[g.symbol]))box.insertAdjacentHTML("afterbegin",'<div class="sub">Search matched, but both exchange quotes are currently unavailable. Try again later.</div>');
+ }catch(e){if(requestToken!==tradeSearchRequestToken)return;console.warn("Trade stock search failed",e);box.innerHTML='<div class="sub">Search is unavailable right now. The app uses an unofficial Yahoo Finance endpoint; try again later.</div>'}
+}
+$("tradeStockSearchBtn").addEventListener("click",searchTradeStocks);$("tradeStockSearch").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();searchTradeStocks()}});
+function closeCreateTradeModal(){$("createTradeModal").classList.remove("show")}
+$("closeCreateTrade").addEventListener("click",closeCreateTradeModal);$("cancelCreateTrade").addEventListener("click",closeCreateTradeModal);$("createTradeModal").addEventListener("click",e=>{if(e.target===$("createTradeModal"))closeCreateTradeModal()});
+$("tradeSymbol").addEventListener("change",async()=>{const symbol=$("tradeSymbol").value,exchange=$("tradeSymbol").selectedOptions[0]?.dataset.exchange||"NSE";selectedTradeExchange=exchange;renderTradeSelectedQuote();if(symbol)$("createTradeModal").classList.add("show");const q=getQuoteForStock(symbol,exchange);if(q&&validPositiveNumber(q.price)){if(!$("tradeEntry").value.trim())$("tradeEntry").value=Number(q.price).toFixed(2);updateTradePreview();return}const s=stock(symbol);if(s)await selectTradeStock(symbol,s.name,exchange)});
+function refreshTradeSourceOptions(){const dl=$("tradeSourceOptions");if(dl)dl.innerHTML=state.tradeSources.map(x=>`<option value="${escapeHtml(x)}"></option>`).join("")}
+function rememberTradeSource(value){const name=String(value||"").trim().slice(0,80);if(name&&!state.tradeSources.some(x=>x.toLowerCase()===name.toLowerCase())){state.tradeSources.unshift(name);state.tradeSources=state.tradeSources.slice(0,200)}refreshTradeSourceOptions();return name}
+// Remember custom trade durations separately so only this suggestion field changes.
+function getSavedTradeDurations(){try{const raw=JSON.parse(localStorage.getItem(TRADE_DURATION_STORAGE_KEY)||"[]");return Array.isArray(raw)?raw.filter(x=>typeof x==="string"&&x.trim()).map(x=>x.trim().slice(0,40)):[]}catch(e){return []}}
+function refreshTradeDurationOptions(){const dl=$("tradeDurationOptions");if(!dl)return;const builtIn=[...dl.querySelectorAll("option")].map(o=>o.value);const fromPlans=(state.tradePlans||[]).map(t=>t.duration).filter(Boolean);const all=[...new Map([...builtIn,...getSavedTradeDurations(),...fromPlans].map(x=>[String(x).trim().toLowerCase(),String(x).trim().slice(0,40)])).values()];dl.innerHTML=all.map(x=>`<option value="${escapeHtml(x)}"></option>`).join("")}
+function rememberTradeDuration(value){const name=String(value||"").trim().slice(0,40);if(!name)return;const items=getSavedTradeDurations().filter(x=>x.toLowerCase()!==name.toLowerCase());items.unshift(name);try{localStorage.setItem(TRADE_DURATION_STORAGE_KEY,JSON.stringify(items.slice(0,100)));persistRecoveryCopy(state).catch(e=>console.warn("Could not update recovery copy for trade durations",e))}catch(e){console.warn("Could not save trade duration suggestion",e)}refreshTradeDurationOptions()}
+function tradeStatus(t){return t.status||"ACTIVE"}
+function statusIsWaiting(t){return t.status==="WAITING FOR ENTRY"}
+function tradeDateTime(value){if(!Number(value))return "—";return new Date(Number(value)).toLocaleString("en-IN",{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"})}
+function tradeDateTimeInput(value){if(!Number(value))return "";const d=new Date(Number(value));return new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,16)}
+function tradeDateTimeValue(value){return value?new Date(value).getTime():null}
+function tradeLivePrice(t){const q=getQuoteForStock(t.symbol,t.exchange);return q&&validPositiveNumber(q.price)?q.price:null}
+function tradePnl(t,price){if(t.status==="WAITING FOR ENTRY"||!validPositiveNumber(price))return null;return (t.side==="BUY"?price-t.entry:t.entry-price)*t.qty}
+function updateTradePreview(){const side=$("tradeSide").value,entry=Number($("tradeEntry").value),qty=Number($("tradeQty").value),t1=Number($("tradeTarget1").value),t2=Number($("tradeTarget2").value),sl=Number($("tradeStop").value),has1=$("tradeTarget1").value!=="",has2=$("tradeTarget2").value!=="",capital=Number($("tradeCapital").value),riskPct=Number($("tradeRiskPercent").value),box=$("tradePreview"),visual=$("tradeLevelVisual");if(!validPositiveNumber(entry)||!validPositiveNumber(qty)||!validPositiveNumber(sl)){box.textContent="Enter a valid entry price, quantity and stop loss to calculate risk.";visual.textContent="Entry · Stop loss · Targets will appear here when valid prices are entered.";return}const validStop=side==="BUY"?sl<entry:sl>entry,validT1=!has1||(validPositiveNumber(t1)&&(side==="BUY"?t1>entry:t1<entry)),validT2=!has2||(validPositiveNumber(t2)&&(side==="BUY"?t2>entry:t2<entry));if(!validStop||!validT1||!validT2||(has1&&has2&&(side==="BUY"?t2<t1:t2>t1))){box.textContent=side==="BUY"?"BUY: stop loss below entry and targets above entry; Target 2 must be beyond Target 1.":"SELL: stop loss above entry and targets below entry; Target 2 must be beyond Target 1.";visual.textContent="Please correct the price levels.";return}const risk=Math.abs(entry-sl)*qty,reward=has1?Math.abs(t1-entry)*qty:null,rr=reward===null?null:reward/risk,budget=validPositiveNumber(capital)&&validPositiveNumber(riskPct)&&riskPct<=100?capital*riskPct/100:null,suggestedQty=budget?Math.floor(budget/Math.abs(entry-sl)):null;box.innerHTML=`Estimated stop-loss risk: <strong>${money(risk)}</strong>${reward!==null?` · Target 1 reward: <strong>${money(reward)}</strong> · Risk / reward: <strong>1 : ${rr.toFixed(2)}</strong>`:" · Add Target 1 to calculate risk / reward."}${budget!==null?`<div class="trade-summary-live">Risk budget: ${money(budget)} · Suggested quantity at this risk: <strong>${suggestedQty>0?suggestedQty:"Below 1 unit"}</strong> (your entered quantity: ${qty})</div>`:""}<div class="trade-summary-live">Figures are estimates; actual loss may differ due to gaps, slippage, charges and execution.</div>`;visual.innerHTML=`<div class="trade-level-chip risk">STOP LOSS<strong>${money(sl)}</strong></div><div class="trade-level-chip">ENTRY<strong>${money(entry)}</strong></div>${has1?`<div class="trade-level-chip reward">TARGET 1<strong>${money(t1)}</strong></div>`:""}${has2?`<div class="trade-level-chip reward">TARGET 2<strong>${money(t2)}</strong></div>`:""}`;}
+["tradeSide","tradeEntry","tradeQty","tradeTarget1","tradeTarget2","tradeStop","tradeCapital","tradeRiskPercent"].forEach(id=>$(id).addEventListener("input",updateTradePreview));
+$("tradeSide").addEventListener("change",updateTradePreview);
+$("addTrade").addEventListener("click",()=>{const symbol=$("tradeSymbol").value,exchange=$("tradeSymbol").selectedOptions[0]?.dataset.exchange||"NSE",side=$("tradeSide").value,duration=$("tradeDuration").value.trim(),entry=Number($("tradeEntry").value),qty=Number($("tradeQty").value),target1=$("tradeTarget1").value===""?null:Number($("tradeTarget1").value),target2=$("tradeTarget2").value===""?null:Number($("tradeTarget2").value),stop=Number($("tradeStop").value);if(!symbol||!duration||!validPositiveNumber(entry)||!validPositiveNumber(qty)||!validPositiveNumber(stop)){toast("Enter stock, trade duration, valid entry, quantity and stop loss");return}if(side==="BUY"?(stop>=entry||(target1!==null&&target1<=entry)||(target2!==null&&target2<=entry)):(stop<=entry||(target1!==null&&target1>=entry)||(target2!==null&&target2>=entry))){toast(side==="BUY"?"BUY: SL below entry and targets above entry required":"SELL: SL above entry and targets below entry required");return}if(target1!==null&&!validPositiveNumber(target1)||target2!==null&&!validPositiveNumber(target2)){toast("Target prices must be positive");return}if(target1!==null&&target2!==null&&(side==="BUY"?target2<target1:target2>target1)){toast("Target 2 must be further than Target 1");return}const sourceName=rememberTradeSource($("tradeSource").value);rememberTradeDuration(duration);state.tradePlans.unshift({id:(crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random()),symbol,exchange,side,entry,qty,entryMode:$("tradeEntryMode").value==="TARGET"?"TARGET":"MARKET",entryAlerted:false,averageHistory:[],target1,target2,stop,duration:duration.slice(0,40),sourceName,riskCapital:validPositiveNumber(Number($("tradeCapital").value))?Number($("tradeCapital").value):null,riskPercent:validPositiveNumber(Number($("tradeRiskPercent").value))&&Number($("tradeRiskPercent").value)<=100?Number($("tradeRiskPercent").value):1,notes:String($("tradeNotes").value||"").trim().slice(0,1000),status:$("tradeEntryMode").value==="TARGET"?"WAITING FOR ENTRY":"ACTIVE",createdAt:Date.now(),entryAt:$("tradeEntryMode").value==="TARGET"?null:Date.now(),exitAt:null});if("Notification" in window&&Notification.permission==="default")Notification.requestPermission().catch(()=>{});save();renderTrades();$("tradeEntryMode").value="MARKET";["tradeEntry","tradeQty","tradeTarget1","tradeTarget2","tradeStop","tradeDuration","tradeSource","tradeCapital","tradeNotes"].forEach(id=>$(id).value="");$("tradeRiskPercent").value="1";updateTradePreview();$("createTradeModal").classList.remove("show");toast("Trade plan saved")});
+let currentTradeFilter="ACTIVE";
+$("tradeFilters").querySelectorAll("button").forEach(b=>b.onclick=()=>{currentTradeFilter=b.dataset.tradeFilter;$("tradeFilters").querySelectorAll("button").forEach(x=>x.classList.toggle("active",x===b));renderTrades()});
+function renderTrades(){
+ const active=state.tradePlans.filter(t=>["ACTIVE","TARGET 1 HIT","WAITING FOR ENTRY"].includes(t.status));
+ const waiting=active.filter(t=>t.status==="WAITING FOR ENTRY"),liveActive=active.filter(t=>t.status!=="WAITING FOR ENTRY");
+ const closed=state.tradePlans.filter(t=>["TARGET 2 HIT","STOP LOSS HIT","CANCELLED"].includes(t.status));
+ const decided=closed.filter(t=>t.status!=="CANCELLED"),wins=decided.filter(t=>t.status==="TARGET 2 HIT").length;
+ const liveValues=liveActive.map(t=>tradePnl(t,tradeLivePrice(t))).filter(v=>v!==null),livePnl=liveValues.reduce((a,b)=>a+b,0);
+ const risk=liveActive.reduce((n,t)=>n+Math.abs(t.entry-t.stop)*t.qty,0),winRate=decided.length?wins/decided.length*100:null;
+ const closedEst=decided.reduce((sum,t)=>sum+(t.status==="TARGET 2 HIT"?Math.abs((t.target2||t.target1||t.entry)-t.entry)*t.qty:-Math.abs(t.stop-t.entry)*t.qty),0);
+ const avgWin=wins?decided.filter(t=>t.status==="TARGET 2 HIT").reduce((n,t)=>n+Math.abs((t.target2||t.target1||t.entry)-t.entry)*t.qty,0)/wins:0;
+ const losses=decided.length-wins,avgLoss=losses?decided.filter(t=>t.status==="STOP LOSS HIT").reduce((n,t)=>n+Math.abs(t.stop-t.entry)*t.qty,0)/losses:0;
+ $("tradeSummary").innerHTML=[
+  ["Total plans",state.tradePlans.length,"Across all saved plans"],
+  ["Active plans",active.length,`${waiting.length} waiting for entry`],
+  ["Live unrealized P/L",`${livePnl>=0?"+":""}${money(livePnl)}`,`${liveValues.length} of ${liveActive.length} entered plans with quotes`],
+  ["Open risk exposure",money(risk),"Entry-to-stop estimate · active only"]
+ ].map(x=>`<div class="card"><div class="index-name">${x[0]}</div><div class="summary-number">${x[1]}</div><div class="trade-summary-live">${x[2]}</div></div>`).join("");
+ $("tradeInsights").innerHTML=`
+  <div class="trade-insight-card"><div class="trade-insight-title">Risk manager</div>
+   <div class="trade-risk-row"><span>Potential loss at current stop levels</span><strong>${money(risk)}</strong></div>
+   <div class="trade-risk-row"><span>Active plans with live quotes</span><strong>${liveValues.length} / ${liveActive.length}</strong></div>
+   <div class="trade-risk-row"><span>Waiting for entry</span><strong>${waiting.length}</strong></div>
+   <div class="trade-risk-row"><span>Average live P/L per quoted plan</span><strong class="${liveValues.length?signClass(livePnl):""}">${liveValues.length?money(livePnl/liveValues.length):"—"}</strong></div>
+   <div class="trade-summary-live">Risk is calculated as quantity × distance from entry to stop loss. It excludes gaps, slippage, brokerage and taxes.</div>
+  </div>
+  <div class="trade-insight-card"><div class="trade-insight-title">Performance snapshot</div>
+   <div class="trade-risk-row"><span>Closed outcomes · win rate</span><strong>${winRate===null?"—":winRate.toFixed(1)+"%"} (${decided.length})</strong></div>
+   <div class="trade-risk-row"><span>Estimated closed P/L</span><strong class="${decided.length?signClass(closedEst):""}">${decided.length?(closedEst>=0?"+":"")+money(closedEst):"—"}</strong></div>
+   <div class="trade-risk-row"><span>Average target outcome</span><strong>${wins?money(avgWin):"—"}</strong></div>
+   <div class="trade-risk-row"><span>Average stop outcome</span><strong>${losses?money(avgLoss):"—"}</strong></div>
+   <div class="trade-summary-live">Closed P/L is an estimate using the target / stop level recorded at the alert, not a broker-confirmed fill price.</div>
+  </div>`;
+ let rows=state.tradePlans;
+ if(currentTradeFilter==="ACTIVE")rows=rows.filter(t=>["ACTIVE","TARGET 1 HIT","WAITING FOR ENTRY"].includes(t.status));
+ if(currentTradeFilter==="CLOSED")rows=rows.filter(t=>["TARGET 2 HIT","STOP LOSS HIT","CANCELLED"].includes(t.status));
+ const term=($("tradeCardSearch")?.value||"").trim().toLowerCase(),sideFilter=$("tradeSideFilter")?.value||"ALL";
+ if(term)rows=rows.filter(t=>`${t.symbol} ${stock(t.symbol)?.name||""} ${t.sourceName||""} ${t.duration||""}`.toLowerCase().includes(term));
+ if(sideFilter!=="ALL")rows=rows.filter(t=>t.side===sideFilter);
+ const cardHtml=rows.map(t=>{
+  const company=stock(t.symbol),status=tradeStatus(t),isWaiting=statusIsWaiting(t),price=isWaiting?null:tradeLivePrice(t),pnl=isWaiting?null:tradePnl(t,price);
+  const canManage=status==="ACTIVE"||status==="TARGET 1 HIT";
+  let progress=0,progressLabel="Live quote unavailable";
+  if(price!==null){const span=Math.abs((t.target2||t.target1||t.entry)-t.entry);progress=span?Math.max(0,Math.min(100,Math.abs(price-t.entry)/span*100)):0;progressLabel=`${money(price)} live · ${pnl===null?"P/L unavailable":(pnl>=0?"+":"")+money(pnl)}`}
+  return `<article class="trade-plan-card">
+   <div class="trade-plan-top"><div><div class="trade-plan-name">${escapeHtml(company?.name||t.symbol)}</div><div class="trade-plan-meta">${escapeHtml(t.symbol)} · ${escapeHtml(t.exchange||"NSE")} · ${escapeHtml(t.duration||"Intraday")} · ${escapeHtml(t.sourceName||"No source")}</div></div><span class="trade-plan-status ${t.side==="BUY"?"buy":"sell"}">${escapeHtml(t.side)} · ${escapeHtml(status)}</span></div>
+   <div class="trade-plan-price"><div><div class="trade-plan-meta">${isWaiting?"Planned entry":price===null?"Live price · unavailable":"Live market price"}</div><strong>${isWaiting?money(t.entry):price===null?"—":money(price)}</strong></div><div style="text-align:right"><div class="trade-plan-meta">${isWaiting?"Entry trigger":"Estimated P/L"}</div><strong class="${pnl===null?"":signClass(pnl)}">${pnl===null?"—":((pnl>=0?"+":"")+money(pnl))}</strong></div></div>
+   <div class="trade-plan-levels"><div class="trade-plan-level"><small>ENTRY</small><strong>${money(t.entry)}</strong></div><div class="trade-plan-level"><small>TARGET 1</small><strong>${t.target1?money(t.target1):"—"}</strong></div><div class="trade-plan-level"><small>TARGET 2</small><strong>${t.target2?money(t.target2):"—"}</strong></div><div class="trade-plan-level"><small>STOP LOSS</small><strong>${money(t.stop)}</strong></div></div>
+   <div class="trade-progress"><span style="width:${progress}%"></span></div><div class="trade-progress-caption"><span>${escapeHtml(progressLabel)}</span><span>Qty ${escapeHtml(String(t.qty))}</span></div>
+   <div class="trade-card-note">Created ${escapeHtml(tradeDateTime(t.createdAt))}${t.notes?` · ${escapeHtml(t.notes)}`:""}${Array.isArray(t.averageHistory)&&t.averageHistory.length?` · ${t.averageHistory.length} averaging entries`:""}</div>
+   <div class="trade-card-actions">${isWaiting?`<button class="btn primary" data-fill-entry="${escapeHtml(t.id)}">Mark Entry Filled</button><button class="btn danger" data-cancel-trade="${escapeHtml(t.id)}">Cancel</button>`:canManage?`${t.side==="BUY"?`<button class="btn" data-average-trade="${escapeHtml(t.id)}">Add More / Average Buy</button>`:""}<button class="btn" data-edit-trade="${escapeHtml(t.id)}">Edit plan</button><button class="btn danger" data-cancel-trade="${escapeHtml(t.id)}">Cancel</button>`:""}<button class="btn" data-open-trade-chart="${escapeHtml(t.id)}">View chart</button><button class="btn danger" data-delete-trade="${escapeHtml(t.id)}">Delete</button></div>
+  </article>`;
+ }).join("");
+ $("tradeCards").innerHTML=cardHtml||'<div class="card empty" style="grid-column:1/-1">No trade plans match this view. Create a plan above or change your filters.</div>';
+ // Keep the original detailed table available for users who prefer the full row-by-row view.
+ $("tradeRows").innerHTML=rows.length?rows.map(t=>{const s=stock(t.symbol),status=tradeStatus(t),waiting=statusIsWaiting(t),price=waiting?null:tradeLivePrice(t),pnl=waiting?null:tradePnl(t,price),canManage=status==="ACTIVE"||status==="TARGET 1 HIT";return `<tr><td class="trade-chart-open" data-open-trade-chart="${escapeHtml(t.id)}" title="Tap to open candlestick chart"><strong>${escapeHtml(s?.name||t.symbol)}</strong>${t.notes?`<span class="trade-journal-note">${escapeHtml(t.notes)}</span>`:""}<div class="stock-symbol">${t.symbol} · ${t.exchange} · ${t.side} · ${escapeHtml(t.duration||"Intraday")}</div></td><td><div class="stock-symbol">Created: ${tradeDateTime(t.createdAt)}</div><div class="stock-symbol">Entry: ${tradeDateTime(t.entryAt||t.createdAt)}</div><div class="stock-symbol">Exit: ${tradeDateTime(t.exitAt)}</div></td><td>${escapeHtml(t.sourceName||"—")}</td><td>${money(t.entry)}</td><td>${price===null?"—":money(price)}</td><td>${t.target1?money(t.target1):"—"} / ${t.target2?money(t.target2):"—"}</td><td>${money(t.stop)}</td><td>${t.qty}</td><td>${waiting?"—":money(t.entry*t.qty)}</td><td class="${pnl===null?"":signClass(pnl)}">${pnl===null?"—":(pnl>=0?"+":"")+money(pnl)}</td><td><strong>${status}</strong></td></tr>`}).join(""):'<tr><td colspan="11" class="empty">No trades in this view.</td></tr>';
+ const root=$("tradeCards");
+ root.querySelectorAll("[data-fill-entry]").forEach(b=>b.onclick=()=>{const t=state.tradePlans.find(x=>x.id===b.dataset.fillEntry);if(!t||t.status!=="WAITING FOR ENTRY")return;const answer=window.prompt(`Enter your actual executed ${t.side} price for ${t.symbol} (₹):`,String(t.entry));if(answer===null)return;const fillPrice=Number(answer);if(!validPositiveNumber(fillPrice)){toast("Enter a valid executed price");return}t.entry=fillPrice;t.status="ACTIVE";t.entryMode="FILLED";t.entryAlerted=true;t.entryAt=Date.now();save();renderTrades();toast(`Entry marked filled at ${money(fillPrice)}`)});
+ root.querySelectorAll("[data-average-trade]").forEach(b=>b.onclick=()=>openAverageTrade(b.dataset.averageTrade));
+ root.querySelectorAll("[data-edit-trade]").forEach(b=>b.onclick=()=>openTradeEdit(b.dataset.editTrade));
+ root.querySelectorAll("[data-cancel-trade]").forEach(b=>b.onclick=()=>{const t=state.tradePlans.find(x=>x.id===b.dataset.cancelTrade);if(t){t.status="CANCELLED";t.exitAt=t.exitAt||Date.now();save();renderTrades()}});
+ root.querySelectorAll("[data-delete-trade]").forEach(b=>b.onclick=()=>{if(!window.confirm("Delete this trade plan permanently?"))return;state.tradePlans=state.tradePlans.filter(t=>t.id!==b.dataset.deleteTrade);save();renderTrades()});
+ root.querySelectorAll("[data-open-trade-chart]").forEach(b=>b.onclick=()=>{const t=state.tradePlans.find(x=>x.id===b.dataset.openTradeChart);if(!t)return;currentChartTradePlan=t;currentRange="1D";$("rangeTabs").querySelectorAll("button").forEach(x=>x.classList.toggle("active",x.dataset.range===currentRange));navigate("analysis");renderAnalysis(t.symbol,t.exchange||"NSE")});
+}
+$("tradeCardSearch").addEventListener("input",renderTrades);$("tradeSideFilter").addEventListener("change",renderTrades);
+
+function openAverageTrade(id){const t=state.tradePlans.find(x=>x.id===id);if(!t||t.side!=="BUY"||!["ACTIVE","TARGET 1 HIT"].includes(t.status))return;$("averageTradeId").value=t.id;$("averageBuyPrice").value="";$("averageBuyQty").value="";$("averageTradeInfo").textContent=`${t.symbol} · Current quantity ${t.qty} · Current average ${money(t.entry)}`;$("averageTradePreview").textContent="Enter price and quantity to calculate the new average.";$("averageTradeModal").classList.add("show")}function closeAverageTrade(){$("averageTradeModal").classList.remove("show")}$("closeAverageTrade").onclick=$("cancelAverageTrade").onclick=closeAverageTrade;$("averageTradeModal").addEventListener("click",e=>{if(e.target===$("averageTradeModal"))closeAverageTrade()});function updateAverageTradePreview(){const t=state.tradePlans.find(x=>x.id===$("averageTradeId").value),price=Number($("averageBuyPrice").value),qty=Number($("averageBuyQty").value);if(!t||!validPositiveNumber(price)||!validPositiveNumber(qty)){$("averageTradePreview").textContent="Enter valid price and quantity.";return}const totalQty=t.qty+qty,newAverage=(t.entry*t.qty+price*qty)/totalQty;$("averageTradePreview").innerHTML=`New total quantity: <strong>${totalQty}</strong><br>New average buy price: <strong>${money(newAverage)}</strong><br>Total invested: <strong>${money(t.entry*t.qty+price*qty)}</strong>`}$("averageBuyPrice").addEventListener("input",updateAverageTradePreview);$("averageBuyQty").addEventListener("input",updateAverageTradePreview);$("averageTradeForm").addEventListener("submit",e=>{e.preventDefault();const t=state.tradePlans.find(x=>x.id===$("averageTradeId").value),price=Number($("averageBuyPrice").value),qty=Number($("averageBuyQty").value);if(!t||t.side!=="BUY"||!validPositiveNumber(price)||!validPositiveNumber(qty))return;const oldQty=t.qty,oldEntry=t.entry;t.averageHistory=Array.isArray(t.averageHistory)?t.averageHistory:[];t.averageHistory.push({price,qty,at:Date.now()});t.averageHistory=t.averageHistory.slice(-100);t.entry=(oldEntry*oldQty+price*qty)/(oldQty+qty);t.qty=oldQty+qty;save();closeAverageTrade();renderTrades();toast(`Average updated · ${money(t.entry)} for ${t.qty} shares`) });
+function openTradeEdit(id){const t=state.tradePlans.find(x=>x.id===id);if(!t||!["ACTIVE","TARGET 1 HIT"].includes(t.status))return;$("editTradeId").value=t.id;$("editTradeSource").value=t.sourceName||"";$("editTradeSide").value=t.side;$("editTradeDuration").value=t.duration||"Intraday";$("editTradeEntry").value=t.entry;$("editTradeQty").value=t.qty;$("editTradeTarget1").value=t.target1??"";$("editTradeTarget2").value=t.target2??"";$("editTradeStop").value=t.stop;$("editTradeCreatedAt").value=tradeDateTimeInput(t.createdAt);$("editTradeEntryAt").value=tradeDateTimeInput(t.entryAt||t.createdAt);$("editTradeExitAt").value=tradeDateTimeInput(t.exitAt);$("editTradeNotes").value=t.notes||"";$("tradeEditModal").classList.add("show")}
+function closeTradeEdit(){$("tradeEditModal").classList.remove("show")}
+$("closeTradeEdit").onclick=$("cancelTradeEdit").onclick=closeTradeEdit;
+$("tradeEditModal").addEventListener("click",e=>{if(e.target===$("tradeEditModal"))closeTradeEdit()});
+$("tradeEditForm").addEventListener("submit",e=>{e.preventDefault();const t=state.tradePlans.find(x=>x.id===$("editTradeId").value);if(!t||!["ACTIVE","TARGET 1 HIT"].includes(t.status))return;const side=$("editTradeSide").value,entry=Number($("editTradeEntry").value),qty=Number($("editTradeQty").value),target1=$("editTradeTarget1").value===""?null:Number($("editTradeTarget1").value),target2=$("editTradeTarget2").value===""?null:Number($("editTradeTarget2").value),stop=Number($("editTradeStop").value),duration=$("editTradeDuration").value.trim();if(!duration||!validPositiveNumber(entry)||!validPositiveNumber(qty)||!validPositiveNumber(stop)||(target1!==null&&!validPositiveNumber(target1))||(target2!==null&&!validPositiveNumber(target2))){toast("Enter valid trade values");return}if(side==="BUY"?(stop>=entry||(target1!==null&&target1<=entry)||(target2!==null&&target2<=entry)):(stop<=entry||(target1!==null&&target1>=entry)||(target2!==null&&target2>=entry))){toast(side==="BUY"?"BUY: SL below entry and targets above entry required":"SELL: SL above entry and targets below entry required");return}if(target1!==null&&target2!==null&&(side==="BUY"?target2<target1:target2>target1)){toast("Target 2 must be further than Target 1");return}t.side=side;t.entry=entry;t.qty=qty;t.target1=target1;t.target2=target2;t.stop=stop;t.duration=duration.slice(0,40);t.sourceName=rememberTradeSource($("editTradeSource").value);t.createdAt=tradeDateTimeValue($("editTradeCreatedAt").value)||t.createdAt;t.entryAt=tradeDateTimeValue($("editTradeEntryAt").value)||t.entryAt||t.createdAt;t.exitAt=tradeDateTimeValue($("editTradeExitAt").value);t.notes=String($("editTradeNotes").value||"").trim().slice(0,1000);save();closeTradeEdit();renderTrades();toast("Trade updated")});
+function checkTradePlans(){let changed=false;state.tradePlans.forEach(t=>{if(!["ACTIVE","TARGET 1 HIT","WAITING FOR ENTRY"].includes(t.status))return;const price=tradeLivePrice(t);if(price===null)return;const hit=(level,above)=>level!==null&&(above?price>=level:price<=level);if(t.status==="WAITING FOR ENTRY"&&!t.entryAlerted&&(t.side==="BUY"?price<=t.entry:price>=t.entry)){t.entryAlerted=true;changed=true;const entryMsg=`${t.symbol}: your desired entry price ${money(t.entry)} has been reached. Review and place any order through your broker.`;toast(entryMsg);if("Notification" in window&&Notification.permission==="granted")new Notification("Bharat Stocks · Entry price",{body:entryMsg})}if(t.status==="WAITING FOR ENTRY")return;let next=t.status;if(t.side==="BUY"){if(hit(t.stop,false))next="STOP LOSS HIT";else if(hit(t.target2,true))next="TARGET 2 HIT";else if(hit(t.target1,true))next="TARGET 1 HIT"}else{if(hit(t.stop,true))next="STOP LOSS HIT";else if(hit(t.target2,false))next="TARGET 2 HIT";else if(hit(t.target1,false))next="TARGET 1 HIT"}if(next!==t.status){t.status=next;if(next==="TARGET 2 HIT"||next==="STOP LOSS HIT")t.exitAt=Date.now();changed=true;const msg=`${t.symbol}: ${next} at ${money(price)}. Review and act through your broker.`;toast(msg);if("Notification" in window&&Notification.permission==="granted")new Notification("Bharat Stocks · Trade level",{body:msg})}});if(changed){save();renderTrades()}}
+async function searchCustomStocks(requestToken=++stockSearchRequest){
+ const query=$("stockSearch").value.trim();if(query.length<2){$("customSearchResults").innerHTML="";return}
+ const box=$("customSearchResults");box.innerHTML='<div class="stock-suggestion-message">Searching listed stocks…</div>';
+ try{
+  const url="https://proxy.cors.dev/https://query1.finance.yahoo.com/v1/finance/search?q="+encodeURIComponent(query)+"&quotesCount=12&newsCount=0";
+  const r=await fetch(url,{cache:"no-store"});if(!r.ok)throw new Error("Search service unavailable");const data=await r.json();if(requestToken!==stockSearchRequest)return;
+  const results=(data.quotes||[]).filter(x=>x.quoteType==="EQUITY"&&/^(NSI|BSE)$/.test(x.exchange||"")&&x.symbol&&/\.(NS|BO)$/.test(x.symbol)).slice(0,10);
+  if(requestToken!==stockSearchRequest)return;
+  if(!results.length){box.innerHTML='<div class="stock-suggestion-message">No NSE/BSE matches found. Try another name.</div>';return}
+  box.innerHTML=results.map((x,i)=>{const sym=x.symbol.replace(/\.(NS|BO)$/,""),ex=x.symbol.endsWith(".BO")?"BSE":"NSE";return `<div class="stock-suggestion" data-suggestion="${i}"><div class="stock-suggestion-main"><div class="stock-suggestion-name">${escapeHtml(x.shortname||x.longname||sym)}</div><div class="stock-suggestion-meta">${escapeHtml(sym)} · ${ex} · <span class="suggestion-quote" id="suggestionQuote${i}">Loading live quote…</span></div><div class="stock-suggestion-meta suggestion-range" id="suggestionRange${i}"></div></div><button class="btn primary" data-add-custom="${i}">＋ Add</button></div>`}).join("");
+  box.querySelectorAll("[data-add-custom]").forEach((b)=>b.onclick=()=>{const x=results[Number(b.dataset.addCustom)],sym=x.symbol.replace(/\.(NS|BO)$/,""),ex=x.symbol.endsWith(".BO")?"BSE":"NSE";addCustomStock(sym,x.shortname||x.longname||sym,ex)});
+  const requestQuery=query.toLowerCase();
+  await Promise.all(results.map(async(x,i)=>{
+   try{
+    const q=await fetchYahooQuote(x.symbol);
+    if(requestToken!==stockSearchRequest||$("stockSearch").value.trim().toLowerCase()!==requestQuery)return;
+    const price="₹"+Number(q.price).toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2});
+    const change=(q.change>=0?"+":"")+q.change.toFixed(2)+"%";
+    const quoteEl=$("suggestionQuote"+i),rangeEl=$("suggestionRange"+i);
+    if(quoteEl){quoteEl.innerHTML=`<strong>${price}</strong> <span class="${q.change>=0?"positive":"negative"}">${change}</span>`}
+    if(rangeEl){const hi=q.high!=null?"H ₹"+Number(q.high).toLocaleString("en-IN",{maximumFractionDigits:2}):"",lo=q.low!=null?"L ₹"+Number(q.low).toLocaleString("en-IN",{maximumFractionDigits:2}):"",vol=q.volume&&q.volume!=="—"?"Vol "+Number(q.volume).toLocaleString("en-IN"):"";rangeEl.textContent=[hi,lo,vol].filter(Boolean).join(" · ")+(q.timestamp?" · "+new Date(q.timestamp*1000).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"}):"")}
+   }catch(e){if(requestToken!==stockSearchRequest)return;const quoteEl=$("suggestionQuote"+i);if(quoteEl)quoteEl.textContent="Live quote unavailable"}
+  }));
+ }catch(e){if(requestToken!==stockSearchRequest)return;console.warn("Custom stock search failed",e);box.innerHTML='<div class="stock-suggestion-message">Search is temporarily unavailable. Try again later.</div>'}
+}
+async function addCustomStock(symbol,name,exchange){
+ symbol=String(symbol||"").toUpperCase().replace(/\.(NS|BO)$/,"" );if(!/^[A-Z0-9.^_-]{1,24}$/.test(symbol)||!["NSE","BSE"].includes(exchange)){toast("Invalid stock result");return}
+ let s=stock(symbol);if(!s){s={symbol,name:String(name||symbol).slice(0,100),price:0,change:0,high:null,low:null,prev:null,volume:"—",cap:"—",sector:"Other",exchange,custom:true};STOCKS.push(s);state.customStocks=STOCKS.filter(x=>x.custom).map(x=>({symbol:x.symbol,name:x.name,exchange:x.exchange}))}
+ state.watchlistExchanges[symbol]=exchange;if(!state.watchlist.includes(symbol))state.watchlist.push(symbol);save();populateStockSelectors();populateTradeSymbols();renderStocks();renderWatchlist();renderHome();toast(`${symbol} added to watchlist`);
+ try{const q=await fetchYahooQuote(symbol+(exchange==="BSE"?".BO":".NS"));liveStockQuotes[exchange][symbol]=q;if(exchange==="NSE"){Object.assign(s,q);s.live=true}renderStocks();renderWatchlist();renderHome();checkPriceAlerts()}catch(e){toast(`${symbol} added; quote currently unavailable`)}
+}
+function populateStockSelectors(){const opts=STOCKS.map(s=>`<option value="${escapeHtml(s.symbol)}">${escapeHtml(s.name)} (${escapeHtml(s.symbol)})</option>`).join("");if($("symbols"))$("symbols").innerHTML=opts;if($("holdingSymbol")){const selected=$("holdingSymbol").value;$("holdingSymbol").innerHTML=opts;$("holdingSymbol").value=selected||STOCKS[0]?.symbol}}
+let stockSearchDebounce=null,stockSearchRequest=0;
+$("stockSearch").addEventListener("input",()=>{
+  renderStocks();
+  clearTimeout(stockSearchDebounce);
+  const query=$("stockSearch").value.trim();
+  const box=$("customSearchResults");
+  const request=++stockSearchRequest;
+  if(query.length<2){box.innerHTML="";return}
+  stockSearchDebounce=setTimeout(()=>searchCustomStocks(request),350);
+});
+$("stockSearch").addEventListener("keydown",e=>{
+  if(e.key==="Enter"){e.preventDefault();clearTimeout(stockSearchDebounce);searchCustomStocks(++stockSearchRequest)}
+});
+
+function quoteForHolding(h){
+ const s=safeStock(h.symbol);if(!s)return null;
+ if((h.exchange||"NSE")==="BSE")return liveStockQuotes.BSE[h.symbol]||null;
+ return s.live?{price:s.price,change:s.change,high:s.high,low:s.low}:null;
+}
+function portfolioTotals(){let invested=0,value=0,quotedInvested=0,quotedValue=0,unquotedCount=0;state.holdings.forEach(h=>{const q=quoteForHolding(h);if(!validPositiveNumber(h.qty)||!validPositiveNumber(h.price))return;invested+=h.qty*h.price;if(q&&validPositiveNumber(q.price)){quotedInvested+=h.qty*h.price;quotedValue+=h.qty*q.price;value+=h.qty*q.price}else unquotedCount++});const pnl=quotedValue-quotedInvested;return {invested,value,pnl,percent:quotedInvested?(pnl/quotedInvested)*100:0,unquotedCount,quotedInvested,quotedValue}}
+function renderPortfolio(){
+ const t=portfolioTotals();
+ $("portfolioSummary").innerHTML=[["Total invested",fmt(t.invested)],["Live-quoted value",fmt(t.value)+(t.unquotedCount?` <small class="sub">· ${t.unquotedCount} unquoted</small>`:"")],["P/L on quoted holdings",t.quotedInvested?`<span class="${signClass(t.pnl)}">${t.pnl>=0?"+":""}${fmt(t.pnl)}</span> <small class="${signClass(t.pnl)}">${pct(t.percent)}</small>`:"—"]].map(x=>`<div class="card"><div class="index-name">${x[0]}</div><div class="summary-number">${x[1]}</div></div>`).join("");
+ $("portfolioRows").innerHTML=state.holdings.length?state.holdings.map((h,i)=>{
+  const s=safeStock(h.symbol),q=quoteForHolding(h),hasQuote=!!(q&&validPositiveNumber(q.price));
+  const inv=h.qty*h.price,val=hasQuote?h.qty*q.price:null,pnl=hasQuote?val-inv:null;
+  return `<tr><td><div class="stock-name">${s.name}</div><div class="stock-symbol">${h.symbol} · ${h.exchange||"NSE"}</div></td><td>${h.qty}</td><td>${money(h.price)}</td><td>${money(inv)}</td><td>${hasQuote?money(val):"—"}${!hasQuote?'<div class="sub">Quote unavailable</div>':""}</td><td class="change ${hasQuote?signClass(pnl):""}">${hasQuote?(pnl>=0?"+":"")+money(pnl):"—"}</td><td><div class="row-actions"><button class="btn" data-edit="${i}">Edit</button><button class="btn danger" data-delete="${i}">×</button></div></td></tr>`
+ }).join(""):`<tr><td colspan="7" class="empty">No holdings yet. Add your first holding to track your portfolio.</td></tr>`;
+ $("portfolioRows").querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>openHolding(Number(b.dataset.edit)));
+ $("portfolioRows").querySelectorAll("[data-delete]").forEach(b=>b.onclick=()=>{if(confirm("Delete this holding?")){state.holdings.splice(Number(b.dataset.delete),1);save();renderPortfolio();renderHome()}});
+}
+function renderHome(){const gainers=[...STOCKS].sort((a,b)=>b.change-a.change).slice(0,3),losers=[...STOCKS].sort((a,b)=>a.change-b.change).slice(0,3);$("movers").innerHTML=[...gainers.map(s=>({...s,tag:"Gainer"})),...losers.map(s=>({...s,tag:"Loser"}))].map(s=>`<div class="mover"><span class="change ${signClass(s.change)}">${pct(s.change)}</span><strong>${s.name}</strong><small>${s.symbol} · ${s.tag}</small></div>`).join("");$("popularRows").innerHTML=STOCKS.slice(0,5).map(s=>{const q=liveStockQuotes.NSE[s.symbol];return `<tr><td><div class="stock-name">${s.name}</div><div class="stock-symbol">${s.symbol}</div></td><td>${q?money(q.price):"—"}</td><td class="change ${q?signClass(q.change):""}">${q?pct(q.change):"Quote unavailable"}</td><td><button class="star ${state.watchlist.includes(s.symbol)?"on":""}" data-star="${s.symbol}" data-exchange="NSE">${state.watchlist.includes(s.symbol)?"★":"☆"}</button></td></tr>`}).join("");bindDynamic();$("homeWatchlist").innerHTML=state.watchlist.length?state.watchlist.slice(0,5).map(sym=>{let s=stock(sym),ex=state.watchlistExchanges[sym]||"NSE",q=ex==="BSE"?liveStockQuotes.BSE[sym]:(s.live?liveStockQuotes.NSE[sym]:null);return `<div class="settings-row"><div><strong>${s.symbol} · ${ex}</strong><div class="sub">${s.name}</div></div><div style="text-align:right"><strong>${q?money(q.price):"—"}</strong><div class="change">${q?pct(q.change):"Quote unavailable"}</div></div></div>`}).join(""):`<div class="empty">No stocks saved yet.</div>`;const t=portfolioTotals();$("homePortfolio").innerHTML=`<div class="index-name">Current portfolio value</div><div class="summary-number">${fmt(t.value)}</div><div class="change ${t.quotedInvested?signClass(t.pnl):""}">${t.quotedInvested?(t.pnl>=0?"+":"")+fmt(t.pnl)+" ("+pct(t.percent)+")":"P/L unavailable until quotes arrive"}</div><div class="sub" style="margin-top:8px">${state.holdings.length} holding(s) tracked${t.unquotedCount?` · ${t.unquotedCount} without quotes`: " · all quoted"}</div>`}
+let currentAnalysis="RELIANCE",currentAnalysisExchange="NSE",currentRange="1D",chartRequestId=0;
+const chartIndicators={ema:true,sma:true,rsi:true,macd:true,bb:true,volume:true,sr:true};
+let currentChartTradePlan=null,lastChartValues=[];
+let chartProvider="native";
+function renderAnalysis(sym,exchange=currentAnalysisExchange){
+ const s=safeStock(sym);currentAnalysisExchange=exchange||"NSE";
+ if(!s){
+  $("analysisCompany").textContent="Stock not found";$("analysisPrice").textContent="—";
+  $("analysisChange").textContent="Enter a supported stock symbol";$("analysisChange").className="change negative";
+  $("analysisMetrics").innerHTML="";$("companySnapshot").textContent="This prototype only supports symbols in its starter stock list.";
+  $("priceChart").innerHTML="";$("chartDataStatus").textContent="No chart available for an unsupported symbol.";return;
+ }
+ currentAnalysis=s.symbol;$("analysisSearch").value=s.symbol;$("analysisCompany").textContent=s.name+" · "+currentAnalysisExchange;
+ const quote=currentAnalysisExchange==="BSE"?(liveStockQuotes.BSE[s.symbol]||null):(s.live?liveStockQuotes.NSE[s.symbol]:null);
+ const display=quote||s;
+ $("analysisPrice").textContent=quote||!s.custom?money(display.price):"—";
+ $("analysisChange").textContent=quote?pct(display.change)+" today":(s.custom?"Live quote unavailable":"Sample price · live quote unavailable");
+ $("analysisChange").className="change "+signClass(display.change);
+ const marketSymbol=s.symbol+(currentAnalysisExchange==="BSE"?".BO":".NS");
+ const knownCap=quote?.marketCap??liveMarketCaps[marketSymbol]??null;
+ const metrics=[["Open",quote?.open!=null?money(quote.open):"—"],["Previous close",display.prev!=null?money(display.prev):"—"],["Day high",display.high!=null?money(display.high):"—"],["Day low",display.low!=null?money(display.low):"—"],["52W high",quote?.fiftyTwoWeekHigh!=null?money(quote.fiftyTwoWeekHigh):"—"],["52W low",quote?.fiftyTwoWeekLow!=null?money(quote.fiftyTwoWeekLow):"—"],["Volume",quote?.volume??"—"],["Market cap",knownCap!=null?formatMarketCap(knownCap):"Loading…"]];
+ $("analysisMetrics").innerHTML=metrics.map(m=>`<div class="metric"><small>${m[0]}</small><strong>${m[1]}</strong></div>`).join("");
+ if(knownCap==null){
+  const capRequestKey=marketSymbol;
+  fetchYahooMarketCap(marketSymbol).then(cap=>{
+   liveMarketCaps[capRequestKey]=cap;
+   if(currentAnalysis===s.symbol&&currentAnalysisExchange===(capRequestKey.endsWith(".BO")?"BSE":"NSE"))renderAnalysis(s.symbol,currentAnalysisExchange);
+  }).catch(()=>{
+   const capCell=[...$("analysisMetrics").querySelectorAll(".metric")].find(el=>el.querySelector("small")?.textContent==="Market cap");
+   if(capCell&&currentAnalysis===s.symbol)capCell.querySelector("strong").textContent="Unavailable";
+  });
+ }
+ $("companySnapshot").innerHTML=`<p><strong>${s.name}</strong></p><p>Symbol: ${s.symbol}<br>Sector: ${s.sector}<br>Exchange: ${currentAnalysisExchange}<br>${quote?"Latest quote":(s.custom?"Live quote unavailable":"Sample price (live quote unavailable)")}: ${quote?money(display.price):(s.custom?"—":money(display.price))}</p><button class="btn soft" onclick="toggleWatch('${s.symbol}','${currentAnalysisExchange}')">${state.watchlist.includes(s.symbol)?"★ In watchlist":"☆ Add to watchlist"}</button>`;
+ drawChart(s);
+ setChartProvider(chartProvider);
+}
+function tradingViewInterval(){
+ const map={"1D":"5","1W":"30","1M":"D","3M":"D","6M":"D","1Y":"W","5Y":"M"};
+ return map[currentRange]||"5";
+}
+function loadTradingViewChart(){
+ const frame=$("tradingViewFrame"),symbol=safeStock(currentAnalysis);
+ if(!frame||!symbol)return;
+ const exchange=currentAnalysisExchange==="BSE"?"BSE":"NSE";
+ const tvSymbol=exchange+":"+symbol.symbol;
+ const theme=document.documentElement.dataset.theme==="dark"?"dark":"light";
+ const url="https://www.tradingview.com/widgetembed/?symbol="+encodeURIComponent(tvSymbol)
+  +"&interval="+encodeURIComponent(tradingViewInterval())
+  +"&hidesidetoolbar=0&symboledit=1&saveimage=0&toolbarbg=f1f3f6"
+  +"&studies=[]&theme="+theme+"&style=1&timezone=Asia%2FKolkata"
+  +"&withdateranges=1&hideideas=1&locale=en";
+ frame.src=url;
+}
+function setChartProvider(provider){
+ chartProvider=provider==="tradingview"?"tradingview":"native";
+ const native=chartProvider==="native";
+ $("nativeChartView").hidden=!native;
+ $("tradingViewChartView").hidden=native;
+ $("ourChartBtn").classList.toggle("active",native);
+ $("tradingViewBtn").classList.toggle("active",!native);
+ if(!native)loadTradingViewChart();
+}
+$("ourChartBtn").onclick=()=>setChartProvider("native");
+$("tradingViewBtn").onclick=()=>{
+  const selectedSymbol=safeStock(currentAnalysis);
+  if(!selectedSymbol)return;
+  const exchange=currentAnalysisExchange==="BSE"?"BSE":"NSE";
+  const tvSymbol=exchange+":"+selectedSymbol.symbol;
+  window.open("https://www.tradingview.com/chart/?symbol="+encodeURIComponent(tvSymbol),"_blank","noopener,noreferrer");
+};
+
+const CHART_RANGES={
+ "1D":{range:"1d",interval:"5m"},"1W":{range:"5d",interval:"30m"},
+ "1M":{range:"1mo",interval:"1d"},"3M":{range:"3mo",interval:"1d"},"6M":{range:"6mo",interval:"1d"},
+ "1Y":{range:"1y",interval:"1wk"},"5Y":{range:"5y",interval:"1mo"}
+};
+function attachChartPriceInteraction(prices){
+ const svg=$("priceChart");
+ const old=svg.querySelector("#chartHoverLayer");if(old)old.remove();
+ const ns="http://www.w3.org/2000/svg";
+ const layer=document.createElementNS(ns,"g");layer.setAttribute("id","chartHoverLayer");layer.setAttribute("pointer-events","none");layer.style.display="none";
+ const line=document.createElementNS(ns,"line");line.setAttribute("y1","8");line.setAttribute("y2","238");line.setAttribute("stroke","currentColor");line.setAttribute("stroke-opacity",".55");line.setAttribute("stroke-dasharray","4 4");line.setAttribute("stroke-width","1.5");
+ const dot=document.createElementNS(ns,"circle");dot.setAttribute("r","5");dot.setAttribute("fill","var(--surface)");dot.setAttribute("stroke","var(--green)");dot.setAttribute("stroke-width","3");
+ const bg=document.createElementNS(ns,"rect");bg.setAttribute("width","218");bg.setAttribute("height","43");bg.setAttribute("rx","7");bg.setAttribute("fill","var(--surface)");bg.setAttribute("stroke","var(--green)");bg.setAttribute("stroke-width","1");
+ const priceLabel=document.createElementNS(ns,"text");priceLabel.setAttribute("font-size","13");priceLabel.setAttribute("font-weight","800");priceLabel.setAttribute("fill","var(--text)");
+ const timeLabel=document.createElementNS(ns,"text");timeLabel.setAttribute("font-size","10");timeLabel.setAttribute("font-weight","600");timeLabel.setAttribute("fill","var(--text)");timeLabel.setAttribute("opacity",".8");
+ layer.append(line,bg,priceLabel,timeLabel,dot);svg.appendChild(layer);
+ const showAt=event=>{
+  if(!prices.length||!Number.isFinite(event.clientX))return;
+  const rect=svg.getBoundingClientRect();if(!rect.width||!rect.height)return;
+  const x=Math.max(0,Math.min(800,(event.clientX-rect.left)/rect.width*800));
+  const index=Math.max(0,Math.min(prices.length-1,Math.round(x/800*(prices.length-1))));
+  const item=prices[index],px=index*800/Math.max(prices.length-1,1),py=item.y;
+  line.setAttribute("x1",px);line.setAttribute("x2",px);dot.setAttribute("cx",px);dot.setAttribute("cy",py);
+  priceLabel.textContent="₹"+Number(item.price).toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2});
+  const dateText=Number.isFinite(item.time)?new Date(item.time*1000).toLocaleString("en-IN",{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:true}):"Sample data · exact time unavailable";
+  timeLabel.textContent=dateText;
+  const tx=Math.max(4,Math.min(578,px-109)),ty=py<60?66:py-18;
+  bg.setAttribute("x",tx);bg.setAttribute("y",ty-14);
+  priceLabel.setAttribute("x",tx+9);priceLabel.setAttribute("y",ty);
+  timeLabel.setAttribute("x",tx+9);timeLabel.setAttribute("y",ty+16);
+  layer.style.display="";
+ };
+ svg.onpointermove=showAt;
+ svg.onpointerdown=event=>{showAt(event);if(event.pointerType==="touch")event.preventDefault()};
+ svg.onpointerleave=event=>{if(event.pointerType!=="touch")layer.style.display="none"};
+ svg.ontouchstart=event=>{if(event.touches&&event.touches[0])showAt(event.touches[0])};
+ svg.ontouchmove=event=>{if(event.touches&&event.touches[0]){showAt(event.touches[0]);event.preventDefault()}};
+ svg.style.touchAction="pan-y";
+}
+function sma(values,period){return values.map((_,i)=>i+1<period?null:values.slice(i-period+1,i+1).reduce((a,b)=>a+b,0)/period)}
+function ema(values,period){const out=[],k=2/(period+1);let prev=null;values.forEach(v=>{prev=prev===null?v:v*k+prev*(1-k);out.push(prev)});return out}
+function rsiSeries(closes,period=14){const out=Array(closes.length).fill(null);let gains=0,losses=0;for(let i=1;i<closes.length;i++){const d=closes[i]-closes[i-1];if(i<=period){gains+=Math.max(d,0);losses+=Math.max(-d,0);if(i===period){const rs=losses===0?100:gains/losses;out[i]=100-100/(1+rs)}}else{const d=closes[i]-closes[i-1];gains=(gains*(period-1)+Math.max(d,0))/period;losses=(losses*(period-1)+Math.max(-d,0))/period;const rs=losses===0?100:gains/losses;out[i]=100-100/(1+rs)}}return out}
+function linePath(series,yFn,step){let d="",started=false;series.forEach((v,i)=>{if(!Number.isFinite(v)){started=false;return}d+=(started?"L":"M")+(i*step+step/2).toFixed(2)+" "+yFn(v).toFixed(2)+" ";started=true});return d}
+function drawHistoricalChart(values,symbol,range){
+ lastChartValues=values;
+ const svg=$("priceChart"),all=values.flatMap(x=>[x.low,x.high]).filter(Number.isFinite),min=Math.min(...all),max=Math.max(...all),span=max-min||Math.max(max*.01,1);
+ const y=v=>230-(v-min)/span*205,step=800/Math.max(values.length,1),bodyW=Math.max(2,Math.min(12,step*.62)),closes=values.map(v=>v.close),candles=values.map((v,i)=>{const x=i*step+step/2,up=v.close>=v.open,color=up?"#159447":"#dc4545",top=y(Math.max(v.open,v.close)),bottom=y(Math.min(v.open,v.close)),height=Math.max(1.5,bottom-top);return `<g><line x1="${x}" y1="${y(v.high)}" x2="${x}" y2="${y(v.low)}" stroke="${color}" stroke-width="1.4"/><rect x="${x-bodyW/2}" y="${top}" width="${bodyW}" height="${height}" fill="${color}" stroke="${color}" stroke-width=".8"/></g>`}).join("");
+ let overlays="";const addLine=(series,color,width=2)=>{overlays+=`<path d="${linePath(series,y,step)}" fill="none" stroke="${color}" stroke-width="${width}" opacity=".95"/>`};
+ if(chartIndicators.ema){addLine(ema(closes,9),"#f59e0b",1.8);addLine(ema(closes,20),"#0ea5e9",1.8);addLine(ema(closes,50),"#a855f7",1.8)}
+ if(chartIndicators.sma){addLine(sma(closes,50),"#16a34a",1.8);addLine(sma(closes,200),"#e11d48",1.8)}
+ if(chartIndicators.bb){const mid=sma(closes,20),sd=closes.map((_,i)=>{if(i<19)return null;const a=closes.slice(i-19,i+1),m=mid[i];return Math.sqrt(a.reduce((n,v)=>n+(v-m)**2,0)/20)});addLine(mid.map((v,i)=>v===null?null:v+2*sd[i]),"#64748b",1.5);addLine(mid.map((v,i)=>v===null?null:v-2*sd[i]),"#64748b",1.5)}
+ if(chartIndicators.sr){const sup=Math.min(...values.map(v=>v.low)),res=Math.max(...values.map(v=>v.high));overlays+=`<line x1="0" y1="${y(sup)}" x2="800" y2="${y(sup)}" stroke="#0ea5e9" stroke-dasharray="6 4"/><line x1="0" y1="${y(res)}" x2="800" y2="${y(res)}" stroke="#f97316" stroke-dasharray="6 4"/>`}
+ if(currentChartTradePlan){const t=currentChartTradePlan,levels=[[t.entry,"#2563eb","ENTRY"],[t.target1,"#16a34a","TARGET 1"],[t.target2,"#059669","TARGET 2"],[t.stop,"#dc2626","STOP LOSS"]];levels.forEach(([v,c,label])=>{if(Number.isFinite(Number(v))&&Number(v)>0)overlays+=`<line x1="0" y1="${y(Number(v))}" x2="800" y2="${y(Number(v))}" stroke="${c}" stroke-width="1.5" stroke-dasharray="5 4"><title>${label}: ${Number(v)}</title></line>`})}
+ svg.innerHTML=`<line x1="0" y1="230" x2="800" y2="230" stroke="currentColor" stroke-opacity=".15"/>${candles}${overlays}`;
+ svg.setAttribute("aria-label",`${symbol} ${range} historical candlestick chart with enabled technical indicators, ${values.length} candles`);
+ attachChartPriceInteraction(values.map(v=>({price:v.close,time:v.time,y:y(v.close)})));
+ const rsi=rsiSeries(closes),macdFast=ema(closes,12),macdSlow=ema(closes,26),macd=macdFast.map((v,i)=>v-macdSlow[i]),signal=ema(macd,9),hist=macd.map((v,i)=>v-signal[i]);
+ $("rsiPanel").hidden=!chartIndicators.rsi;$("macdPanel").hidden=!chartIndicators.macd;$("volumePanel").hidden=!chartIndicators.volume;
+ const rsiY=v=>92-v*.78;$("rsiChart").innerHTML=`<line x1="0" y1="37.4" x2="800" y2="37.4" stroke="#f59e0b" stroke-dasharray="4 4"/><line x1="0" y1="68.6" x2="800" y2="68.6" stroke="#f59e0b" stroke-dasharray="4 4"/><path d="${linePath(rsi,rsiY,step)}" fill="none" stroke="#8b5cf6" stroke-width="2"/>`;
+ const mAll=[...macd,...signal,...hist].filter(Number.isFinite),mMax=Math.max(...mAll.map(Math.abs),.001),my=v=>55-v/mMax*42;$("macdChart").innerHTML=`<line x1="0" y1="55" x2="800" y2="55" stroke="currentColor" stroke-opacity=".3"/>${hist.map((v,i)=>`<rect x="${i*step+step*.2}" y="${Math.min(55,my(v))}" width="${Math.max(1,step*.6)}" height="${Math.max(1,Math.abs(55-my(v)))}" fill="${v>=0?"#16a34a":"#dc4545"}" opacity=".65"/>`).join("")}<path d="${linePath(macd,my,step)}" fill="none" stroke="#2563eb" stroke-width="1.8"/><path d="${linePath(signal,my,step)}" fill="none" stroke="#f59e0b" stroke-width="1.8"/>`;
+ const vols=values.map(v=>Number.isFinite(v.volume)?v.volume:0),vmax=Math.max(...vols,1),vma=sma(vols,20),vy=v=>82-v/vmax*70;$("volumeChart").innerHTML=vols.map((v,i)=>`<rect x="${i*step+step*.2}" y="${vy(v)}" width="${Math.max(1,step*.6)}" height="${82-vy(v)}" fill="${values[i].close>=values[i].open?"#16a34a":"#dc4545"}" opacity=".7"/>`).join("")+(chartIndicators.volume?`<path d="${linePath(vma,vy,step)}" fill="none" stroke="#2563eb" stroke-width="1.7"/>`:"");
+}
+function drawFallbackChart(s){
+ const points=[],seed=s.symbol.split("").reduce((a,c)=>a+c.charCodeAt(0),0);let close=s.price*(1-s.change/220);
+ for(let i=0;i<70;i++){const open=close;close=Math.max(.01,open+Math.sin(i*1.7+seed)*s.price*.0018+Math.cos((i+seed)*.35)*s.price*.0008);const spread=Math.max(s.price*.001,Math.abs(close-open)*.8);points.push({time:null,open,close,high:Math.max(open,close)+spread,low:Math.min(open,close)-spread,volume:Math.round(100000+Math.abs(Math.sin(i*1.3+seed))*900000)})}
+ points[69].close=s.price;points[69].high=Math.max(points[69].high,s.price);points[69].low=Math.min(points[69].low,s.price);drawHistoricalChart(points,s.symbol,currentRange);
+ $("priceChart").setAttribute("aria-label","Illustrative sample candlestick chart; historical data unavailable");
+}
+async function drawChart(s){
+ const requestId=++chartRequestId,range=CHART_RANGES[currentRange]||CHART_RANGES["1D"];
+ $("chartDataStatus").textContent=`Loading ${currentRange} historical data…`;
+ $("priceChart").innerHTML="";
+ try{
+  const suffix=currentAnalysisExchange==="BSE"?".BO":".NS";
+  const yahooUrl="https://query1.finance.yahoo.com/v8/finance/chart/"+encodeURIComponent(s.symbol+suffix)+`?range=${range.range}&interval=${range.interval}&events=div%2Csplits`;
+  const relayUrls=["https://proxy.cors.dev/"+yahooUrl,"https://corsproxy.io/?url="+encodeURIComponent(yahooUrl),"https://api.allorigins.win/raw?url="+encodeURIComponent(yahooUrl)];
+  let payload=null,lastError=null;
+  for(const relayUrl of relayUrls){
+   const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),9000);
+   try{const response=await fetch(relayUrl,{cache:"no-store",signal:controller.signal});if(!response.ok)throw new Error("Chart relay HTTP "+response.status);const candidate=await response.json();if(candidate?.chart?.result?.[0]?.timestamp?.length){payload=candidate;break}throw new Error("No historical candles returned");}
+   catch(e){lastError=e;}finally{clearTimeout(timeout)}
+  }
+  if(!payload)throw lastError||new Error("Historical chart data unavailable");
+  const result=payload?.chart?.result?.[0];
+  const timestamps=result?.timestamp||[],quoteData=result?.indicators?.quote?.[0]||{},opens=quoteData.open||[],highs=quoteData.high||[],lows=quoteData.low||[],closes=quoteData.close||[],volumes=quoteData.volume||[];
+  const values=timestamps.map((time,i)=>({time,open:opens[i],high:highs[i],low:lows[i],close:closes[i],volume:volumes[i]})).filter(x=>[x.open,x.high,x.low,x.close].every(v=>Number.isFinite(v)&&v>0));
+  if(!values.length)throw new Error("No historical price points returned");
+  if(requestId!==chartRequestId)return;
+  drawHistoricalChart(values,s.symbol,currentRange);
+  $("chartDataStatus").textContent=`Historical Yahoo Finance data · ${values.length} points · ${currentRange} · ${new Date(values[values.length-1].time*1000).toLocaleString()}`;
+ }catch(error){
+  if(requestId!==chartRequestId)return;
+  if(s.custom&&!(currentAnalysisExchange==="BSE"?liveStockQuotes.BSE[s.symbol]:liveStockQuotes.NSE[s.symbol])){$("priceChart").innerHTML="";$("chartDataStatus").textContent=`Historical chart data unavailable for ${s.symbol}; no sample chart is shown.`;}
+  else{drawFallbackChart(s);$("chartDataStatus").textContent=`Historical data unavailable for ${currentRange}. Showing illustrative sample only; not live history.`;}
+  console.warn("Historical chart unavailable",error);
+ }
+}
+document.querySelectorAll("[data-indicator]").forEach(input=>input.addEventListener("change",()=>{chartIndicators[input.dataset.indicator]=input.checked;if(lastChartValues.length)drawHistoricalChart(lastChartValues,currentAnalysis,currentRange)}));
+$("loadAnalysis").onclick=()=>{currentChartTradePlan=null;renderAnalysis($("analysisSearch").value.toUpperCase(),currentAnalysisExchange)};$("analysisSearch").addEventListener("keydown",e=>{if(e.key==="Enter")$("loadAnalysis").click()});$("rangeTabs").querySelectorAll("button").forEach(b=>b.onclick=()=>{$("rangeTabs").querySelectorAll("button").forEach(x=>x.classList.remove("active"));b.classList.add("active");currentRange=b.dataset.range;const selected=safeStock(currentAnalysis);if(selected)drawChart(selected);if(chartProvider==="tradingview")loadTradingViewChart()});
+function openHolding(index=-1){if(index>=0&&(!Number.isInteger(index)||!state.holdings[index]))return toast("Holding not found");$("holdingForm").reset();$("holdingId").value=index;$("modalTitle").textContent=index<0?"Add holding":"Edit holding";$("holdingSymbol").innerHTML=STOCKS.map(s=>`<option value="${s.symbol}">${s.name} (${s.symbol})</option>`).join("");if(index>=0){let h=state.holdings[index];$("holdingSymbol").value=h.symbol;$("holdingExchange").value=h.exchange||"NSE";$("holdingQty").value=h.qty;$("holdingPrice").value=h.price}else{$("holdingExchange").value="NSE"}$("holdingModal").classList.add("show")}
+$("addHolding").onclick=()=>openHolding();$("closeModal").onclick=$("cancelModal").onclick=()=>$("holdingModal").classList.remove("show");$("holdingModal").addEventListener("click",e=>{if(e.target===$("holdingModal"))$("holdingModal").classList.remove("show")});document.addEventListener("keydown",e=>{if(e.key==="Escape")$("holdingModal").classList.remove("show")});$("holdingForm").onsubmit=e=>{e.preventDefault();const h={symbol:$("holdingSymbol").value,exchange:$("holdingExchange").value,qty:Number($("holdingQty").value),price:Number($("holdingPrice").value)},idx=Number($("holdingId").value);if(!(validPositiveNumber(h.qty)&&validPositiveNumber(h.price)))return toast("Quantity and buy price must be greater than zero");if($("holdingId").value!==""&&idx>=0)state.holdings[idx]=h;else state.holdings.push(h);save();$("holdingModal").classList.remove("show");renderPortfolio();renderHome();toast("Holding saved")};
+function calc(){
+ const val=id=>Number($(id).value);
+ const showError=(id,msg)=>{$(id).innerHTML=`<span class="negative">${escapeHtml(msg)}</span>`};
+ const b=val("plBuy"),s=val("plSell"),q=val("plQty");
+ if(validPositiveNumber(b)&&Number.isFinite(s)&&s>=0&&validPositiveNumber(q)){const p=(s-b)*q;$("plResult").innerHTML=`<strong class="${signClass(p)}">${p>=0?"+":""}${money(p)}</strong><div class="sub">P/L · ${pct((p/(b*q))*100)} return on cost</div>`}else showError("plResult","Enter valid buy price, sell price and quantity.");
+ const q1=val("avgQ1"),p1=val("avgP1"),q2=val("avgQ2"),p2=val("avgP2");
+ if(Number.isFinite(q1)&&q1>=0&&Number.isFinite(q2)&&q2>=0&&validPositiveNumber(p1)&&validPositiveNumber(p2)&&(q1+q2)>0){const avg=(q1*p1+q2*p2)/(q1+q2);$("avgResult").innerHTML=`<strong>${money(avg)}</strong><div class="sub">Weighted average buy price</div>`}else showError("avgResult","Use non-negative quantities, positive prices and at least one share.");
+ const amt=val("sipAmount"),annual=val("sipRate"),years=val("sipYears");
+ if(validPositiveNumber(amt)&&Number.isFinite(annual)&&annual>=0&&annual<=100&&validPositiveNumber(years)&&years<=100){const rate=annual/1200,months=Math.round(years*12),invest=amt*months,fv=rate?amt*((Math.pow(1+rate,months)-1)/rate)*(1+rate):invest;if(Number.isFinite(fv))$("sipResult").innerHTML=`<strong>${fmt(fv)}</strong><div class="sub">Estimated value · Invested ${fmt(invest)} · Gain ${fmt(fv-invest)}</div>`;else showError("sipResult","Unable to calculate this SIP value.")}else showError("sipResult","Enter a positive amount, 0–100% annual return and valid duration.");
+ const st=val("cagrStart"),en=val("cagrEnd"),yr=val("cagrYears");
+ if(validPositiveNumber(st)&&validPositiveNumber(en)&&validPositiveNumber(yr)&&yr<=100){const cagr=(Math.pow(en/st,1/yr)-1)*100;$("cagrResult").innerHTML=`<strong>${pct(cagr)}</strong><div class="sub">Compound annual growth rate</div>`}else showError("cagrResult","Starting value, ending value and years must be greater than zero.");
+}
+document.querySelectorAll("#page-tools input").forEach(i=>i.addEventListener("input",calc));
+function exportCsv(){const rows=[["Symbol","Company","Exchange","Quantity","Average Buy Price","Current Price","Invested","Current Value","P/L","Quote status"]];state.holdings.forEach(h=>{let s=safeStock(h.symbol),q=quoteForHolding(h),price=q&&validPositiveNumber(q.price)?q.price:"",inv=h.qty*h.price,val=price===""?"":h.qty*price;rows.push([h.symbol,s.name,h.exchange||"NSE",h.qty,h.price,price,inv,val,val===""?"":val-inv,q?"Confirmed quote":"Quote unavailable"]) });const csvCell=x=>{let v=String(x??"");if(/^[=+@\\-\\t\\r]/.test(v))v="'"+v;return '"'+v.replace(/"/g,'""')+'"'};const csv=rows.map(r=>r.map(csvCell).join(",")).join("\n");download("bharat-stocks-portfolio.csv",csv,"text/csv;charset=utf-8")}
+function download(name,data,type){const a=document.createElement("a"),url=URL.createObjectURL(new Blob([data],{type}));a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+$("exportCsv").onclick=exportCsv;
+$("backupBtn").onclick=()=>{
+ try{
+  const payload={format:"bharat-stocks-backup",schemaVersion:2,app:"Bharat Stocks",exportedAt:new Date().toISOString(),data:JSON.parse(JSON.stringify(state)),tradeDurations:readTradeDurationsForBackup()};
+  const stamp=new Date().toISOString().replace(/[:.]/g,"-");
+  download("bharat-stocks-backup-"+stamp+".json",JSON.stringify(payload,null,2),"application/json");
+  toast("Backup exported");
+ }catch(err){console.error("Backup export failed",err);toast("Backup export failed. Please try again")}
+};
+$("restoreBtn").onclick=()=>$("restoreFile").click();
+$("restoreFile").onchange=async e=>{
+ try{
+  const file=e.target.files&&e.target.files[0];if(!file)throw Error("No file selected");
+  if(file.size>10*1024*1024)throw Error("Backup file is too large (10 MB maximum)");
+  const parsed=JSON.parse(await file.text());
+  if(!parsed||typeof parsed!=="object"||Array.isArray(parsed))throw Error("Invalid backup structure");
+  const d=parsed.format==="bharat-stocks-backup"?parsed.data:parsed;
+  if(parsed.format==="bharat-stocks-backup"&&(!Number.isInteger(parsed.schemaVersion)||![1,2].includes(parsed.schemaVersion)))throw Error("Unsupported backup version");
+  if(!d||typeof d!=="object"||Array.isArray(d)||!Array.isArray(d.watchlist)||!Array.isArray(d.holdings))throw Error("Invalid backup structure");
+  if(d.watchlist.length>1000||d.holdings.length>500||!Array.isArray(d.customStocks||[])||(d.customStocks||[]).length>500||!Array.isArray(d.priceAlerts||[])||(d.priceAlerts||[]).length>200||!Array.isArray(d.tradePlans||[])||(d.tradePlans||[]).length>500||!Array.isArray(d.tradeSources||[])||(d.tradeSources||[]).length>200)throw Error("Too many or invalid records");
+  const importedCustom=[];
+  const customSeen=new Set();
+  const builtInSymbols=new Set(STOCKS.filter(x=>!x.custom).map(x=>x.symbol));
+  (d.customStocks||[]).forEach(item=>{
+   if(!item||typeof item!=="object")throw Error("Invalid custom stock");
+   const symbol=String(item.symbol||"").trim().toUpperCase(),exchange=item.exchange;
+   if(!/^[A-Z0-9.^_-]{1,24}$/.test(symbol)||!["NSE","BSE"].includes(exchange)||builtInSymbols.has(symbol))throw Error("Invalid custom stock");
+   if(!customSeen.has(symbol)){customSeen.add(symbol);importedCustom.push({symbol,name:String(item.name||symbol).trim().slice(0,100)||symbol,exchange})}
+  });
+  // Only symbols included in this backup (plus built-ins) may be referenced after restore.
+  const allowed=new Set([...builtInSymbols,...importedCustom.map(x=>x.symbol)]);
+  const watchlist=[...new Set(d.watchlist.map(x=>{if(typeof x!=="string"||!allowed.has(x))throw Error("Invalid watchlist symbol");return x}))];
+  const watchlistExchanges={};
+  if(d.watchlistExchanges!=null&&(!d.watchlistExchanges||typeof d.watchlistExchanges!=="object"||Array.isArray(d.watchlistExchanges)))throw Error("Invalid watchlist exchange settings");
+  Object.entries(d.watchlistExchanges||{}).forEach(([symbol,exchange])=>{if(!allowed.has(symbol)||!["NSE","BSE"].includes(exchange))throw Error("Invalid watchlist exchange");watchlistExchanges[symbol]=exchange});
+  const holdings=d.holdings.map(h=>{
+   if(!h||typeof h!=="object"||!allowed.has(h.symbol)||!validPositiveNumber(h.qty)||!validPositiveNumber(h.price)|| (h.exchange!=null&&!["NSE","BSE"].includes(h.exchange)))throw Error("Invalid holding");
+   return {symbol:h.symbol,exchange:h.exchange||"NSE",qty:Number(h.qty),price:Number(h.price)};
+  });
+  const priceAlerts=(d.priceAlerts||[]).map(a=>{
+   if(!a||typeof a!=="object"||!allowed.has(a.symbol)||!["above","below"].includes(a.condition)||!validPositiveNumber(a.target)||(a.exchange!=null&&!["NSE","BSE"].includes(a.exchange)))throw Error("Invalid price alert");
+   return {id:String(a.id||("alert-"+Date.now()+"-"+Math.random())).slice(0,100),symbol:a.symbol,exchange:a.exchange||"NSE",condition:a.condition,target:Number(a.target),triggered:!!a.triggered};
+  }).slice(0,200);
+  const tradeSources=[...new Set((d.tradeSources||[]).map(x=>{if(typeof x!=="string"||!x.trim())throw Error("Invalid trade source");return x.trim().slice(0,80)}))].slice(0,200);
+  const tradePlans=(d.tradePlans||[]).map(t=>{
+   if(!t||typeof t!=="object"||!allowed.has(t.symbol)||!["BUY","SELL"].includes(t.side)||!validPositiveNumber(t.entry)||!validPositiveNumber(t.qty)||!validPositiveNumber(t.stop)||(t.exchange!=null&&!["NSE","BSE"].includes(t.exchange))||(t.target1!=null&&t.target1!==""&&!validPositiveNumber(t.target1))||(t.target2!=null&&t.target2!==""&&!validPositiveNumber(t.target2)))throw Error("Invalid trade plan");
+   const target1=validPositiveNumber(t.target1)?Number(t.target1):null,target2=validPositiveNumber(t.target2)?Number(t.target2):null,entry=Number(t.entry),stop=Number(t.stop);
+   if(target1!=null&&target2!=null&&(t.side==="BUY"?target2<=target1:target2>=target1))throw Error("Invalid trade targets");
+   if(t.side==="BUY"?(stop>=entry||(target1!=null&&target1<=entry)||(target2!=null&&target2<=entry)):(stop<=entry||(target1!=null&&target1>=entry)||(target2!=null&&target2>=entry)))throw Error("Invalid trade risk levels");
+   return {id:String(t.id||("trade-"+Date.now()+"-"+Math.random())).slice(0,100),symbol:t.symbol,exchange:t.exchange||"NSE",side:t.side,entry,qty:Number(t.qty),entryMode:t.entryMode==="TARGET"?"TARGET":"MARKET",entryAlerted:!!t.entryAlerted,averageHistory:Array.isArray(t.averageHistory)?t.averageHistory.filter(h=>h&&validPositiveNumber(h.price)&&validPositiveNumber(h.qty)).slice(0,100).map(h=>({price:Number(h.price),qty:Number(h.qty),at:Number(h.at)||Date.now()})):[],target1,target2,stop,duration:String(t.duration||"Intraday").slice(0,40),sourceName:String(t.sourceName||"").slice(0,80),riskCapital:validPositiveNumber(t.riskCapital)?Number(t.riskCapital):null,riskPercent:validPositiveNumber(t.riskPercent)&&Number(t.riskPercent)<=100?Number(t.riskPercent):1,notes:String(t.notes||"").slice(0,1000),status:["ACTIVE","TARGET 1 HIT","TARGET 2 HIT","STOP LOSS HIT","CANCELLED"].includes(t.status)?t.status:"ACTIVE",createdAt:Number(t.createdAt)||Date.now(),entryAt:Number(t.entryAt)||Number(t.createdAt)||Date.now(),exitAt:Number(t.exitAt)||null};
+  }).slice(0,500);
+  const nextState={watchlist,watchlistExchanges,holdings,customStocks:importedCustom,priceAlerts,tradeSources,tradePlans,theme:["light","dark","system"].includes(d.theme)?d.theme:"light",exchange:["NSE","BSE"].includes(d.exchange)?d.exchange:"NSE",refresh:["off","15","30","60","300","900"].includes(String(d.refresh))?String(d.refresh):"60"};
+  const importedDurations=parsed.format==="bharat-stocks-backup"&&Array.isArray(parsed.tradeDurations)?[...new Set(parsed.tradeDurations.filter(x=>typeof x==="string"&&x.trim()).map(x=>x.trim().slice(0,40)))].slice(0,100):[];
+  // Persist first. If browser storage rejects the write, keep the current in-memory data untouched.
+  const previous=localStorage.getItem(DATA_STORAGE_KEY),previousDurations=localStorage.getItem(TRADE_DURATION_STORAGE_KEY);
+  try{localStorage.setItem(DATA_STORAGE_KEY,JSON.stringify(nextState));if(parsed.format==="bharat-stocks-backup")localStorage.setItem(TRADE_DURATION_STORAGE_KEY,JSON.stringify(importedDurations))}
+  catch(storageError){try{if(previous===null)localStorage.removeItem(DATA_STORAGE_KEY);else localStorage.setItem(DATA_STORAGE_KEY,previous);if(previousDurations===null)localStorage.removeItem(TRADE_DURATION_STORAGE_KEY);else localStorage.setItem(TRADE_DURATION_STORAGE_KEY,previousDurations)}catch(rollbackError){console.error("Storage rollback failed",rollbackError)}throw Error("Could not save restored backup. Existing data was kept")}
+  for(let i=STOCKS.length-1;i>=0;i--)if(STOCKS[i].custom)STOCKS.splice(i,1);
+  importedCustom.forEach(item=>{if(!STOCKS.some(x=>x.symbol===item.symbol))STOCKS.push({symbol:item.symbol,name:item.name,price:0,change:0,high:null,low:null,prev:null,volume:"—",cap:"—",sector:"Other",exchange:item.exchange,custom:true})});
+  state=nextState;persistRecoveryCopy(nextState).catch(err=>console.warn("Could not update recovery copy after restore",err));init();toast("Backup restored successfully");
+ }catch(err){console.warn("Backup restore rejected",err);toast(err.message==="Could not save restored backup. Existing data was kept"?err.message:"Backup not restored: "+(err.message||"invalid file"))}
+ finally{e.target.value=""}
+};$("clearData").onclick=()=>{if(confirm("Clear saved watchlist, holdings and preferences?")){localStorage.removeItem(DATA_STORAGE_KEY);localStorage.removeItem(TRADE_DURATION_STORAGE_KEY);openRecoveryDb().then(db=>new Promise((resolve,reject)=>{const tx=db.transaction("records","readwrite");tx.objectStore("records").clear();tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)})).catch(e=>console.warn("Could not clear recovery history",e));for(let i=STOCKS.length-1;i>=0;i--)if(STOCKS[i].custom)STOCKS.splice(i,1);state={watchlist:[],watchlistExchanges:{},holdings:[],customStocks:[],priceAlerts:[],tradePlans:[],tradeSources:[],theme:"light",exchange:"NSE",refresh:"60"};init();toast("Saved data cleared")}};
+$("themeSelect").onchange=e=>setTheme(e.target.value);$("exchangeSelect").onchange=e=>{state.exchange=e.target.value;save();document.querySelectorAll("#exchangeTabs button").forEach(b=>b.classList.toggle("active",b.dataset.exchange===state.exchange));renderStocks();toast("Preferred exchange saved")};$("refreshSelect").onchange=e=>{state.refresh=e.target.value;save();scheduleRefresh();toast("Auto refresh setting saved")};
+// Index constituent detail. Quotes load only after an index card is opened to keep initial dashboard fast.
+const INDEX_MEMBERS={
+ "^NSEI":[["Adani Enterprises","ADANIENT"],["Adani Ports","ADANIPORTS"],["Apollo Hospitals","APOLLOHOSP"],["Asian Paints","ASIANPAINT"],["Axis Bank","AXISBANK"],["Bajaj Auto","BAJAJ-AUTO"],["Bajaj Finance","BAJFINANCE"],["Bajaj Finserv","BAJAJFINSV"],["Bharat Electronics","BEL"],["Bharti Airtel","BHARTIARTL"],["Cipla","CIPLA"],["Coal India","COALINDIA"],["Dr Reddy's Labs","DRREDDY"],["Eicher Motors","EICHERMOT"],["Grasim Industries","GRASIM"],["HCL Technologies","HCLTECH"],["HDFC Bank","HDFCBANK"],["HDFC Life","HDFCLIFE"],["Hero MotoCorp","HEROMOTOCO"],["Hindalco","HINDALCO"],["Hindustan Unilever","HINDUNILVR"],["ICICI Bank","ICICIBANK"],["ITC","ITC"],["IndusInd Bank","INDUSINDBK"],["Infosys","INFY"],["JSW Steel","JSWSTEEL"],["Kotak Mahindra Bank","KOTAKBANK"],["Larsen & Toubro","LT"],["Mahindra & Mahindra","M&M"],["Maruti Suzuki","MARUTI"],["NTPC","NTPC"],["Nestle India","NESTLEIND"],["ONGC","ONGC"],["Power Grid","POWERGRID"],["Reliance Industries","RELIANCE"],["SBI","SBIN"],["Shriram Finance","SHRIRAMFIN"],["State Bank of India","SBIN"],["Sun Pharma","SUNPHARMA"],["TCS","TCS"],["Tata Consumer","TATACONSUM"],["Tata Motors","TATAMOTORS"],["Tata Steel","TATASTEEL"],["Tech Mahindra","TECHM"],["Titan","TITAN"],["Trent","TRENT"],["UltraTech Cement","ULTRACEMCO"],["Wipro","WIPRO"],["Zomato","ETERNAL"],["Shriram Finance","SHRIRAMFIN"]],
+ "^BSESN":[["Adani Ports","ADANIPORTS"],["Asian Paints","ASIANPAINT"],["Axis Bank","AXISBANK"],["Bajaj Finance","BAJFINANCE"],["Bajaj Finserv","BAJAJFINSV"],["Bharti Airtel","BHARTIARTL"],["Eternal","ETERNAL"],["HCL Technologies","HCLTECH"],["HDFC Bank","HDFCBANK"],["Hindustan Unilever","HINDUNILVR"],["ICICI Bank","ICICIBANK"],["Infosys","INFY"],["ITC","ITC"],["Kotak Mahindra Bank","KOTAKBANK"],["Larsen & Toubro","LT"],["Mahindra & Mahindra","M&M"],["Maruti Suzuki","MARUTI"],["NTPC","NTPC"],["Power Grid","POWERGRID"],["Reliance Industries","RELIANCE"],["SBI","SBIN"],["Sun Pharma","SUNPHARMA"],["TCS","TCS"],["Tata Motors","TATAMOTORS"],["Tata Steel","TATASTEEL"],["Tech Mahindra","TECHM"],["Titan","TITAN"],["UltraTech Cement","ULTRACEMCO"],["Zomato","ETERNAL"],["IndusInd Bank","INDUSINDBK"]],
+ "^NSEBANK":[["AU Small Finance Bank","AUBANK"],["Axis Bank","AXISBANK"],["Bank of Baroda","BANKBARODA"],["Canara Bank","CANBK"],["Federal Bank","FEDERALBNK"],["HDFC Bank","HDFCBANK"],["ICICI Bank","ICICIBANK"],["IDFC First Bank","IDFCFIRSTB"],["IndusInd Bank","INDUSINDBK"],["Kotak Mahindra Bank","KOTAKBANK"],["Punjab National Bank","PNB"],["State Bank of India","SBIN"]],
+ "^CNXIT":[["Coforge","COFORGE"],["HCL Technologies","HCLTECH"],["Infosys","INFY"],["LTIMindtree","LTIM"],["Mphasis","MPHASIS"],["Persistent Systems","PERSISTENT"],["TCS","TCS"],["Tech Mahindra","TECHM"],["Wipro","WIPRO"]]
+};
+let activeIndexSymbol=null,indexConstituentQuotes={};
+function openIndexDetail(symbol){
+ activeIndexSymbol=symbol;const meta=INDEX_QUOTES.find(x=>x.symbol===symbol);if(!meta)return;
+ navigate("index-detail");$("indexDetailTitle").textContent=meta.name+" constituents";
+ const q=liveIndexData[symbol];
+ $("indexDetailMetrics").innerHTML=[["Index value",q?money(q.price):"—"],["Index day change",q?pct(q.change):"—"],["Advancers / Decliners","Loading…"],["Quote coverage","Loading…"]].map(x=>`<div class="card"><div class="index-name">${x[0]}</div><div class="summary-number">${x[1]}</div></div>`).join("");
+ const notice=$("indexDataNotice");if(notice)notice.innerHTML=`Bundled constituent reference: <a href="${meta.source}" target="_blank" rel="noopener">official ${meta.exchange} index information ↗</a>. This standalone HTML does not automatically download the official member CSV, so verify membership against the source link. Daily rankings update from available quotes; membership changes only when the provider reconstitutes the index.`;
+ $("indexDetailSub").textContent=`${meta.exchange}-listed constituents · Loading current quotes and rankings…`;
+ renderConstituents();loadIndexConstituents(symbol,true)
+}
+function uniqueIndexMembers(symbol){return [...new Map((INDEX_MEMBERS[symbol]||[]).map(([name,sym])=>[sym,[name,sym]])).values()]}
+function indexMemberExchange(symbol){return symbol==="^BSESN"?"BSE":"NSE"}
+function getIndexRows(symbol){
+ const list=uniqueIndexMembers(symbol),exchange=indexMemberExchange(symbol);
+ const rows=list.map(([name,sym],i)=>({name,sym,exchange,order:i+1,q:indexConstituentQuotes[symbol+":"+sym]}));
+ const valid=rows.filter(x=>x.q&&Number.isFinite(x.q.change));
+ const byChange=[...valid].sort((a,b)=>b.q.change-a.q.change);
+ const caps=valid.filter(x=>Number.isFinite(x.q.marketCap)&&x.q.marketCap>0),capTotal=caps.reduce((sum,x)=>sum+x.q.marketCap,0);
+ const impactRows=caps.map(x=>({...x,impact:capTotal?(x.q.marketCap/capTotal)*x.q.change:null})).sort((a,b)=>b.impact-a.impact);
+ const changeRank=new Map(byChange.map((x,i)=>[x.sym,i+1])),impactRank=new Map(impactRows.map((x,i)=>[x.sym,i+1]));
+ const impactBySymbol=new Map(impactRows.map(x=>[x.sym,x.impact]));
+ return rows.map(x=>({...x,changeRank:changeRank.get(x.sym)||null,impact:impactBySymbol.get(x.sym)??null,impactRank:impactRank.get(x.sym)||null}));
+}
+function renderConstituents(){
+ if(!activeIndexSymbol)return;
+ const term=($("constituentSearch")?.value||"").trim().toLowerCase(),sort=$("constituentSort")?.value||"default";
+ let rows=getIndexRows(activeIndexSymbol).filter(x=>(x.name+" "+x.sym).toLowerCase().includes(term));
+ if(sort==="change-desc")rows.sort((a,b)=>(b.q?.change??-Infinity)-(a.q?.change??-Infinity));
+ if(sort==="change-asc")rows.sort((a,b)=>(a.q?.change??Infinity)-(b.q?.change??Infinity));
+ if(sort==="impact-desc")rows.sort((a,b)=>(b.impact??-Infinity)-(a.impact??-Infinity));
+ if(sort==="impact-asc")rows.sort((a,b)=>(a.impact??Infinity)-(b.impact??Infinity));
+ if(sort==="volume")rows.sort((a,b)=>(Number(b.q?.volume)||0)-(Number(a.q?.volume)||0));
+ const fmtImpact=x=>Number.isFinite(x)?`${x>=0?"+":""}${x.toFixed(3)} pp`:"—";
+ $("constituentRows").innerHTML=rows.map(x=>{const q=x.q;return `<tr data-constituent="${escapeHtml(x.sym)}" data-exchange="${x.exchange}" tabindex="0" style="cursor:pointer"><td><strong>${escapeHtml(x.name)}</strong><div class="stock-symbol">${escapeHtml(x.sym)} · ${x.exchange}</div></td><td>${x.changeRank||"—"}</td><td>${x.impactRank||"—"}</td><td>${q?money(q.price):"Quote unavailable"}</td><td class="change ${q?signClass(q.change):""}">${q?pct(q.change):"—"}</td><td class="change ${x.impact==null?"":signClass(x.impact)}">${fmtImpact(x.impact)}</td><td>${q?.open?money(q.open):"—"}</td><td>${q?(q.high?money(q.high):"—")+" / "+(q.low?money(q.low):"—"):"—"}</td><td>${q&&Number.isFinite(Number(q.volume))?Number(q.volume).toLocaleString("en-IN"):"—"}</td></tr>`}).join("")||'<tr><td colspan="9" class="empty">No matching constituents.</td></tr>';
+ document.querySelectorAll("[data-constituent]").forEach(r=>{const open=()=>{const sym=r.dataset.constituent,exchange=r.dataset.exchange||indexMemberExchange(activeIndexSymbol);const member=getIndexRows(activeIndexSymbol).find(x=>x.sym===sym);let s=stock(sym);if(!s){s={symbol:sym,name:member?.name||sym,price:member?.q?.price||0,change:member?.q?.change||0,high:member?.q?.high??null,low:member?.q?.low??null,prev:member?.q?.prev??null,volume:member?.q?.volume??"—",cap:"—",sector:"Index constituent",exchange,custom:true};STOCKS.push(s)}else{s.name=member?.name||s.name;s.exchange=exchange}if(member?.q){liveStockQuotes[exchange][sym]=member.q;if(exchange==="NSE"){Object.assign(s,member.q);s.live=true}}currentAnalysis=sym;currentAnalysisExchange=exchange;navigate("analysis");$("analysisSearch").value=sym;renderAnalysis(sym,exchange)};r.onclick=open;r.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();open()}}});
+ const all=getIndexRows(activeIndexSymbol),quoted=all.filter(x=>x.q&&Number.isFinite(x.q.change)),up=quoted.filter(x=>x.q.change>0).length,down=quoted.filter(x=>x.q.change<0).length;
+ const metrics=$("indexDetailMetrics");if(metrics)metrics.innerHTML=[["Index value",liveIndexData[activeIndexSymbol]?money(liveIndexData[activeIndexSymbol].price):"—"],["Index day change",liveIndexData[activeIndexSymbol]?pct(liveIndexData[activeIndexSymbol].change):"—"],["Advancers / Decliners",`${up} / ${down}`],["Quote coverage",`${quoted.length} / ${all.length}`]].map(x=>`<div class="card"><div class="index-name">${x[0]}</div><div class="summary-number">${x[1]}</div></div>`).join("");
+}
+const indexLoadTokens={};
+async function loadIndexConstituents(symbol,force=false){
+ const list=uniqueIndexMembers(symbol),exchange=indexMemberExchange(symbol),token=(indexLoadTokens[symbol]||0)+1;indexLoadTokens[symbol]=token;let cursor=0,done=0,failed=0;
+ const worker=async()=>{while(cursor<list.length){const [name,sym]=list[cursor++],key=symbol+":"+sym;if(!force&&indexConstituentQuotes[key]){done++;continue}
+  try{const suffix=exchange==="BSE"?".BO":".NS",q=await fetchYahooQuote(sym+suffix);if(!Number.isFinite(q.marketCap)||q.marketCap<=0){try{q.marketCap=liveMarketCaps[sym]||await fetchYahooMarketCap(sym+suffix);liveMarketCaps[sym]=q.marketCap}catch(e){q.marketCap=null}}if(indexLoadTokens[symbol]===token)indexConstituentQuotes[key]=q}
+  catch(e){failed++;if(indexLoadTokens[symbol]===token&&!indexConstituentQuotes[key])indexConstituentQuotes[key]=null}
+  done++;if(indexLoadTokens[symbol]===token&&activeIndexSymbol===symbol){renderConstituents();$("indexDetailSub").textContent=`${done}/${list.length} quotes checked · ${failed} unavailable · ${new Date().toLocaleTimeString()}`}
+ }};
+ await Promise.all(Array.from({length:6},worker));if(activeIndexSymbol===symbol&&indexLoadTokens[symbol]===token){renderConstituents();$("indexDetailSub").textContent=`${list.length} reference constituents · ${list.length-failed} quotes available · updated ${new Date().toLocaleTimeString()} · ${exchange}`}
+}
+$("backToOverview").onclick=goBack;$("constituentSearch").addEventListener("input",renderConstituents);$("constituentSort").addEventListener("change",renderConstituents);$("refreshConstituents").onclick=()=>{if(activeIndexSymbol)loadIndexConstituents(activeIndexSymbol,true)};
+
+// Free, unofficial Yahoo Finance chart quotes. A public CORS relay is required by browser security.
+const liveIndexData={};const liveStockQuotes={NSE:{},BSE:{}};let refreshTimer=null,lastLiveUpdate=null;
+const yahooProxy="https://proxy.cors.dev/https://query1.finance.yahoo.com/v8/finance/chart/";
+async function fetchYahooQuote(symbol){
+ const url=yahooProxy+encodeURIComponent(symbol)+"?range=1d&interval=1d";
+ const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),10000);
+ let r;try{r=await fetch(url,{cache:"no-store",signal:controller.signal})}finally{clearTimeout(timeout)}
+ if(!r.ok)throw new Error("Quote request failed: "+symbol);
+ const j=await r.json(),result=j?.chart?.result?.[0],m=result?.meta;
+ if(!m||!Number.isFinite(m.regularMarketPrice))throw new Error("No quote: "+symbol);
+ const candle=result?.indicators?.quote?.[0]||{},price=m.regularMarketPrice,prev=m.chartPreviousClose||m.previousClose||price;
+ const openFromCandle=Array.isArray(candle.open)?candle.open.find(Number.isFinite):null;
+ return {price,prev,open:Number.isFinite(m.regularMarketOpen)?m.regularMarketOpen:(Number.isFinite(openFromCandle)?openFromCandle:null),change:prev?((price-prev)/prev)*100:0,high:Number.isFinite(m.regularMarketDayHigh)?m.regularMarketDayHigh:null,low:Number.isFinite(m.regularMarketDayLow)?m.regularMarketDayLow:null,fiftyTwoWeekHigh:Number.isFinite(m.fiftyTwoWeekHigh)?m.fiftyTwoWeekHigh:null,fiftyTwoWeekLow:Number.isFinite(m.fiftyTwoWeekLow)?m.fiftyTwoWeekLow:null,volume:m.regularMarketVolume||"—",marketCap:Number.isFinite(m.marketCap)?m.marketCap:null,timestamp:m.regularMarketTime||null};
+}
+const liveMarketCaps={};
+function formatMarketCap(value){
+ if(!Number.isFinite(Number(value))||Number(value)<=0)return "—";
+ return new Intl.NumberFormat("en-IN",{style:"currency",currency:"INR",notation:"compact",maximumFractionDigits:2}).format(Number(value));
+}
+function parseNseMarketCap(value){
+ if(value==null)return null;
+ if(typeof value==="number")return Number.isFinite(value)&&value>0?value*10000000:null;
+ const text=String(value).replace(/,/g,"");
+ const match=text.match(/[0-9]+(?:\\.[0-9]+)?/);
+ if(!match)return null;
+ const amount=Number(match[0]);
+ if(!Number.isFinite(amount)||amount<=0)return null;
+ // NSE quote-equity reports total market cap in crore rupees.
+ return /cr\\.?/i.test(text)||!/[₹]/.test(text)?amount*10000000:amount;
+}
+async function fetchNseMarketCap(symbol){
+ const nseSymbol=String(symbol||"").replace(/\\.(NS|BO)$/i,"").toUpperCase();
+ if(!/^[A-Z0-9&_-]{1,30}$/.test(nseSymbol))throw new Error("Invalid NSE symbol");
+ const url="https://proxy.cors.dev/https://www.nseindia.com/api/quote-equity?symbol="+encodeURIComponent(nseSymbol);
+ const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),12000);
+ try{
+  const r=await fetch(url,{cache:"no-store",signal:controller.signal,headers:{"Accept":"application/json","Referer":"https://www.nseindia.com/"}});
+  if(!r.ok)throw new Error("NSE market-cap request failed: "+r.status);
+  const j=await r.json();
+  const raw=j?.marketDeptOrderBook?.tradeInfo?.totalMarketCap
+    ??j?.marketDeptOrderBook?.tradeInfo?.totalMarketCapitalization
+    ??j?.securityInfo?.marketCap
+    ??j?.metadata?.marketCap;
+  const cap=parseNseMarketCap(raw);
+  if(!cap)throw new Error("NSE did not return market cap");
+  return cap;
+ }finally{clearTimeout(timeout)}
+}
+async function fetchYahooMarketCap(symbol){
+ // NSE's quote-equity endpoint exposes total market cap in ₹ crore and avoids
+ // Yahoo quoteSummary's cookie/crumb authentication requirement.
+ try{return await fetchNseMarketCap(symbol)}catch(nseError){
+  const url="https://proxy.cors.dev/https://query1.finance.yahoo.com/v10/finance/quoteSummary/"+encodeURIComponent(symbol)+"?modules=price%2CdefaultKeyStatistics&formatted=false&lang=en-US&region=IN";
+  const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),10000);
+  try{
+   const r=await fetch(url,{cache:"no-store",signal:controller.signal});if(!r.ok)throw new Error("Yahoo market-cap request failed");
+   const j=await r.json(),data=j?.quoteSummary?.result?.[0];
+   const cap=data?.price?.marketCap?.raw??data?.defaultKeyStatistics?.marketCap?.raw;
+   if(!Number.isFinite(cap)||cap<=0)throw new Error("Yahoo market cap unavailable");
+   return cap;
+  }finally{clearTimeout(timeout)}
+ }
+}
+let refreshInProgress=false;
+async function refreshLiveData(){
+ if(refreshInProgress)return;
+ refreshInProgress=true;
+ const status=$("marketStatus");status.textContent="● UPDATING…";
+ try{
+  // Fetch the stock's selected exchange first. Try the alternate exchange only
+  // when the primary quote fails, instead of requesting both exchanges for every stock.
+  const requests=[...STOCKS.map(s=>({stock:s,primary:s.exchange==="BSE"?"BSE":"NSE"})),...INDEX_QUOTES.map(x=>({symbol:x.symbol,kind:"INDEX",index:x}))];
+  let cursor=0;
+  const storeStockQuote=(stock,exchange,q)=>{
+   liveStockQuotes[exchange][stock.symbol]=q;
+   Object.assign(stock,q);
+   stock.live=true;
+   stock.quoteError=null;
+  };
+  const worker=async()=>{
+   while(cursor<requests.length){
+    const item=requests[cursor++];
+    if(item.kind==="INDEX"){
+     try{liveIndexData[item.index.symbol]=await fetchYahooQuote(item.symbol)}
+     catch(e){/* Keep last successful index quote during temporary feed errors. */}
+     continue;
+    }
+    const alternate=item.primary==="NSE"?"BSE":"NSE";
+    let lastError=null,updated=false;
+    for(const exchange of [item.primary,alternate]){
+     try{
+      const q=await fetchYahooQuote(item.stock.symbol+(exchange==="NSE"?".NS":".BO"));
+      storeStockQuote(item.stock,exchange,q);
+      updated=true;
+      break;
+     }catch(e){lastError=e}
+    }
+    if(!updated){
+     item.stock.live=!!(liveStockQuotes[item.primary][item.stock.symbol]||liveStockQuotes[alternate][item.stock.symbol]);
+     item.stock.quoteError=lastError?.message||"Quote unavailable";
+    }
+   }
+  };
+  await Promise.all(Array.from({length:4},worker));
+  const success=STOCKS.filter(s=>s.live).length;
+  lastLiveUpdate=new Date();
+  status.textContent=success?`● LIVE QUOTES · ${success}/${STOCKS.length}`:"● DEMO PRICES · LIVE DATA UNAVAILABLE";
+  status.title="Last refresh attempt: "+lastLiveUpdate.toLocaleString();status.textContent+=(" · "+lastLiveUpdate.toLocaleTimeString());
+  const mode=$("dataModeLabel");if(mode)mode.textContent=success?`● Live quotes · ${success}/${STOCKS.length}`:"● Demo prices · Live feed unavailable";
+  renderIndices();renderStocks();renderWatchlist();renderPortfolio();renderHome();renderTrades();renderTradeSelectedQuote();renderTradeSearchResults();if(activeTradeSearchGroups.length){const searchToken=++tradeSearchRequestToken;refreshTradeSearchPrices(searchToken,[...activeTradeSearchGroups])}checkPriceAlerts();checkTradePlans();
+  if(currentAnalysis)renderAnalysis(currentAnalysis,currentAnalysisExchange);if(activeIndexSymbol&&document.getElementById("page-index-detail").classList.contains("active"))loadIndexConstituents(activeIndexSymbol,true);
+ }catch(e){
+  console.error("Market refresh failed",e);
+  status.textContent="● MARKET DATA ERROR";
+  status.title="Last refresh attempt failed";
+  const mode=$("dataModeLabel");if(mode)mode.textContent="● Demo prices · Market data error";
+ }finally{refreshInProgress=false}
+}
+function scheduleRefresh(){
+ if(refreshTimer){clearInterval(refreshTimer);refreshTimer=null}
+ const seconds=Number(state.refresh);
+ if(seconds>0){refreshTimer=setInterval(()=>{if(document.visibilityState==="visible")refreshLiveData()},seconds*1000)}
+}
+function init(){setTheme(state.theme||"light");$("exchangeTabs").querySelectorAll("button").forEach(b=>b.classList.toggle("active",b.dataset.exchange===(state.exchange||"NSE")));$("exchangeSelect").value=state.exchange||"NSE";$("refreshSelect").value=state.refresh||"off";$("themeSelect").value=state.theme||"light";$("marketStatus").textContent="● CONNECTING MARKET DATA";populateStockSelectors();populateAlertSymbols();refreshTradeSourceOptions();refreshTradeDurationOptions();populateTradeSymbols();renderTradeSelectedQuote();renderTrades();renderIndices();renderStocks();renderWatchlist();renderPortfolio();renderHome();renderAnalysis(currentAnalysis);calc();refreshLiveData();scheduleRefresh()}
+init();
+
+/* Trade Planner export / import / compare tools. Kept isolated from other app features. */
+(function(){
+ const tradeFields=["id","symbol","exchange","side","entry","qty","entryMode","entryAlerted","averageHistory","target1","target2","stop","duration","sourceName","riskCapital","riskPercent","notes","status","createdAt","entryAt","exitAt"];
+ const tradeLabels={id:"Trade ID",symbol:"Symbol",exchange:"Exchange",side:"Side",entry:"Entry",qty:"Quantity",entryMode:"Entry mode",entryAlerted:"Entry alerted",averageHistory:"Average history",target1:"Target 1",target2:"Target 2",stop:"Stop loss",duration:"Duration",sourceName:"Recommendation source",riskCapital:"Risk capital",riskPercent:"Risk %",notes:"Notes",status:"Status",createdAt:"Created at",entryAt:"Entry time",exitAt:"Exit time"};
+ let pendingTradeChanges=[];
+ const $id=id=>document.getElementById(id);
+ const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+ function close(id){$id(id).classList.remove("show")}
+ function open(id){$id(id).classList.add("show")}
+ function csvCell(v){let x=String(v??"");if(/^[=+\-@\t\r]/.test(x))x="'"+x;return '"'+x.replace(/"/g,'""')+'"'}
+ function toCsv(rows){return "\uFEFF"+[tradeFields.map(k=>tradeLabels[k]),...rows.map(t=>tradeFields.map(k=>k==="averageHistory"?JSON.stringify(t[k]||[]):(t[k]??"")))].map(r=>r.map(csvCell).join(",")).join("\r\n")}
+ function selectedTrades(){
+  const scope=$id("tradeExportScope").value,all=Array.isArray(state.tradePlans)?state.tradePlans:[];
+  if(scope==="ACTIVE")return all.filter(t=>["ACTIVE","TARGET 1 HIT","WAITING FOR ENTRY"].includes(t.status));
+  if(scope==="CLOSED")return all.filter(t=>["TARGET 2 HIT","STOP LOSS HIT","CANCELLED"].includes(t.status));
+  return all;
+ }
+ function downloadTradeCsv(){
+  const rows=selectedTrades().map(t=>({...t,symbol:String(t.symbol||"").trim().toUpperCase()}));if(!rows.length){toast("No trades to export");return}
+  const stamp=new Date().toISOString().slice(0,10);
+  download("bharat-stocks-trades-"+stamp+".csv",toCsv(rows),"text/csv;charset=utf-8");
+  close("tradeExportModal");toast("Trade CSV exported · Open it in Excel to edit");
+ }
+ function downloadTradePdf(){
+  const rows=selectedTrades().map(t=>({...t,symbol:String(t.symbol||"").trim().toUpperCase()}));if(!rows.length){toast("No trades to export");return}
+  const w=window.open("","_blank");if(!w){toast("Allow pop-ups to create the PDF report");return}
+  const headers=["Symbol","Exchange","Side","Entry","Qty","Target 1","Target 2","Stop loss","Status","Notes"];
+  const body=rows.map(t=>"<tr>"+[t.symbol,t.exchange,t.side,t.entry,t.qty,t.target1,t.target2,t.stop,t.status,t.notes].map(v=>"<td>"+esc(v??"—")+"</td>").join("")+"</tr>").join("");
+  w.document.write("<!doctype html><html><head><meta charset='utf-8'><title>Trade Planner Report</title><style>body{font:12px Arial,sans-serif;padding:24px;color:#18231c}h1{font-size:20px}p{color:#59645d}table{border-collapse:collapse;width:100%;font-size:10px}th,td{border:1px solid #ccd3ce;padding:6px;text-align:left;overflow-wrap:anywhere}th{background:#edf2ee}@media print{body{padding:0}thead{display:table-header-group}}</style></head><body><h1>Bharat Stocks — Trade Planner</h1><p>Generated: "+esc(new Date().toLocaleString())+" · Trades: "+rows.length+"</p><table><thead><tr>"+headers.map(h=>"<th>"+h+"</th>").join("")+"</tr></thead><tbody>"+body+"</tbody></table><script>window.onload=function(){window.print()}<\/script></body></html>");
+  w.document.close();close("tradeExportModal");
+ }
+ function parseCsv(text){
+  text=String(text||"").replace(/^\uFEFF/,"");
+  const out=[];let row=[],field="",quoted=false;
+  for(let i=0;i<text.length;i++){const c=text[i];
+   if(quoted){if(c==='"'&&text[i+1]==='"'){field+='"';i++}else if(c==='"')quoted=false;else field+=c}
+   else if(c==='"')quoted=true;
+   else if(c===","){row.push(field);field=""}
+   else if(c==="\n"){row.push(field);out.push(row);row=[];field=""}
+   else if(c!=="\r")field+=c;
+  }
+  if(field.length||row.length){row.push(field);out.push(row)}
+  return out.filter(r=>r.some(v=>String(v).trim()!==""));
+ }
+ function parseImportedRows(text){
+  const matrix=parseCsv(text);if(matrix.length<2)throw Error("CSV has no trade records");
+  const head=matrix[0].map(x=>String(x).trim());
+  const headerIndex={};tradeFields.forEach(k=>{const a=head.indexOf(tradeLabels[k]),b=head.indexOf(k);if(a>=0)headerIndex[k]=a;else if(b>=0)headerIndex[k]=b});
+  if(!("id" in headerIndex)||!("symbol" in headerIndex)||!("entry" in headerIndex)||!("qty" in headerIndex)||!("stop" in headerIndex))throw Error("This is not a Trade Planner export. Please use the CSV exported from Trade Planner.");
+  const seen=new Set();
+  return matrix.slice(1).map((r,idx)=>{
+   const get=k=>headerIndex[k]===undefined?"":String(r[headerIndex[k]]??"").trim();
+   const t={};tradeFields.forEach(k=>t[k]=get(k));
+   if(!t.id||!t.symbol)throw Error("Row "+(idx+2)+": Trade ID and Symbol are required");
+   if(seen.has(t.id))throw Error("Duplicate Trade ID in uploaded file: "+t.id);seen.add(t.id);
+   t.symbol=t.symbol.toUpperCase();t.exchange=(t.exchange||"NSE").toUpperCase();t.side=(t.side||"BUY").toUpperCase();
+   if(!["NSE","BSE"].includes(t.exchange)||!["BUY","SELL"].includes(t.side))throw Error("Row "+(idx+2)+": invalid exchange or side");
+   ["entry","qty","stop","target1","target2","riskCapital","riskPercent"].forEach(k=>{t[k]=t[k]===""?null:Number(t[k]);if(t[k]!==null&&!Number.isFinite(t[k]))throw Error("Row "+(idx+2)+": invalid "+tradeLabels[k])});
+   if(!(t.entry>0)||!(t.qty>0)||!(t.stop>0))throw Error("Row "+(idx+2)+": Entry, Quantity and Stop loss must be positive");
+   ["createdAt","entryAt","exitAt"].forEach(k=>{t[k]=t[k]===""?null:Number(t[k]);if(t[k]!==null&&!Number.isFinite(t[k]))throw Error("Row "+(idx+2)+": invalid "+tradeLabels[k])});
+   t.entryAlerted=String(t.entryAlerted).toLowerCase()==="true";
+   try{t.averageHistory=t.averageHistory?JSON.parse(t.averageHistory):[]}catch(e){throw Error("Row "+(idx+2)+": Average history is not valid JSON")}
+   if(!Array.isArray(t.averageHistory))throw Error("Row "+(idx+2)+": Average history must be a list");
+   t.entryMode=t.entryMode||"FILLED";t.duration=t.duration||"Intraday";t.sourceName=t.sourceName||"";t.notes=t.notes||"";
+   t.status=t.status||"ACTIVE";
+   if(!["ACTIVE","TARGET 1 HIT","WAITING FOR ENTRY","TARGET 2 HIT","STOP LOSS HIT","CANCELLED"].includes(t.status))throw Error("Row "+(idx+2)+": invalid trade status");
+   return t;
+  });
+ }
+ function valueForCompare(k,v){return k==="averageHistory"?JSON.stringify(v||[]):String(v??"")}
+ function compareImported(imported){
+  const existing=new Map(state.tradePlans.map(t=>[String(t.id),t]));
+  const incoming=new Map(imported.map(t=>[String(t.id),t]));
+  const changes=[];
+  imported.forEach(t=>{
+   const old=existing.get(String(t.id));
+   if(!old){changes.push({kind:"new",id:t.id,record:t,checked:true,detail:"New trade: "+t.symbol+" · "+t.side});return}
+   const diffs=tradeFields.filter(k=>k!=="id"&&valueForCompare(k,old[k])!==valueForCompare(k,t[k]));
+   if(diffs.length)changes.push({kind:"changed",id:t.id,record:t,checked:true,detail:old.symbol+" · "+diffs.map(k=>tradeLabels[k]).join(", "),diffs,values:diffs.map(k=>tradeLabels[k]+": "+String(old[k]??"—")+" → "+String(t[k]??"—"))});
+  });
+  return changes;
+ }
+ function renderComparison(imported,fileName){
+  pendingTradeChanges=compareImported(imported);
+  const originalIds=new Set(state.tradePlans.map(t=>String(t.id))),incomingIds=new Set(imported.map(t=>String(t.id)));
+  const deleted=state.tradePlans.filter(t=>!incomingIds.has(String(t.id)));
+  const changed=pendingTradeChanges.filter(x=>x.kind==="changed").length,newCount=pendingTradeChanges.filter(x=>x.kind==="new").length;
+  const content=$id("tradeCompareContent");
+  content.innerHTML="<div class='notice'>File: <strong>"+esc(fileName)+"</strong> · Uploaded rows: "+imported.length+". Original trades will not change until you confirm below.</div>"+
+   "<div class='trade-compare-summary'><span>Changed: <b>"+changed+"</b></span><span>New: <b>"+newCount+"</b></span><span>Missing from file: <b>"+deleted.length+"</b></span></div>"+
+   (pendingTradeChanges.length?"<div class='trade-compare-list'>"+pendingTradeChanges.map((x,i)=>"<label class='trade-compare-item'><input type='checkbox' data-trade-change='"+i+"' "+(x.checked?"checked":"")+"><span><b>"+(x.kind==="new"?"NEW TRADE":"CHANGED TRADE")+" · "+esc(x.id)+"</b><small>"+esc(x.detail)+(x.values?"<br>"+esc(x.values.join(" | ")):"")+"</small></span></label>").join("")+"</div>":"<div class='trade-compare-empty'>No new or changed trades were found. Your saved trades already match this file.</div>")+
+   "<label class='trade-compare-item'><input type='checkbox' id='tradeApplyDeletions'><span><b>Also show missing trades as deletions</b><small>Only enable this if the uploaded CSV was exported with “All trades”. Missing trades are not deleted unless individually selected below.</small></span></label>"+
+   "<div id='tradeDeletedList'></div><div class='trade-compare-actions'><button class='btn primary' type='button' id='tradeApplyChanges'>Apply selected changes</button><button class='btn' type='button' id='tradeCancelCompare'>Cancel</button></div>";
+  $id("tradeApplyDeletions").onchange=()=>{
+   const box=$id("tradeDeletedList");
+   box.innerHTML=$id("tradeApplyDeletions").checked&&deleted.length?"<div class='trade-compare-list'>"+deleted.map(t=>"<label class='trade-compare-item'><input type='checkbox' data-trade-delete='"+esc(t.id)+"'><span><b>DELETE · "+esc(t.id)+"</b><small>"+esc(t.symbol)+" · "+esc(t.side)+" · "+esc(t.status)+"</small></span></label>").join("")+"</div>":($id("tradeApplyDeletions").checked?"<div class='trade-compare-empty'>No missing trades.</div>":"");
+  };
+  $id("tradeApplyChanges").onclick=()=>{
+   const selected=[...content.querySelectorAll("[data-trade-change]:checked")].map(el=>pendingTradeChanges[Number(el.dataset.tradeChange)]);
+   const deletes=[...content.querySelectorAll("[data-trade-delete]:checked")].map(el=>el.dataset.tradeDelete);
+   const backup=JSON.stringify(state.tradePlans),backupCustomStocks=JSON.stringify(state.customStocks),stockLength=STOCKS.length;
+   try{
+    selected.forEach(x=>{const record={...x.record,symbol:String(x.record.symbol||"").trim().toUpperCase(),exchange:["NSE","BSE"].includes(x.record.exchange)?x.record.exchange:"NSE"};const i=state.tradePlans.findIndex(t=>String(t.id)===String(x.id));if(i<0)state.tradePlans.push(record);else state.tradePlans[i]=record;
+     if(/^[A-Z0-9.^_-]{1,24}$/.test(record.symbol)&&!STOCKS.some(s=>s.symbol===record.symbol)){STOCKS.push({symbol:record.symbol,name:record.symbol,price:0,change:0,high:null,low:null,prev:null,volume:"—",cap:"—",sector:"Other",exchange:record.exchange,custom:true})}
+    });
+    state.customStocks=STOCKS.filter(s=>s.custom).map(s=>({symbol:s.symbol,name:s.name,exchange:s.exchange}));
+    if(deletes.length)state.tradePlans=state.tradePlans.filter(t=>!deletes.includes(String(t.id)));
+    if(!save()){state.tradePlans=JSON.parse(backup);state.customStocks=JSON.parse(backupCustomStocks);STOCKS.splice(stockLength);return}
+    renderTrades();close("tradeCompareModal");toast("Trade changes saved · "+selected.length+" applied"+(deletes.length?" · "+deletes.length+" deleted":""));
+   }catch(err){state.tradePlans=JSON.parse(backup);state.customStocks=JSON.parse(backupCustomStocks);STOCKS.splice(stockLength);console.error(err);toast("Could not apply changes")}
+  };
+  $id("tradeCancelCompare").onclick=()=>close("tradeCompareModal");
+  open("tradeCompareModal");
+ }
+ $id("tradeExportOpen").onclick=()=>open("tradeExportModal");
+ $id("tradeExportClose").onclick=()=>close("tradeExportModal");
+ $id("tradeExportCsv").onclick=downloadTradeCsv;
+ $id("tradeExportPdf").onclick=downloadTradePdf;
+ $id("tradeImportOpen").onclick=()=>$id("tradeImportFile").click();
+ $id("tradeCompareClose").onclick=()=>close("tradeCompareModal");
+ ["tradeExportModal","tradeCompareModal"].forEach(id=>$id(id).addEventListener("click",e=>{if(e.target===$id(id))close(id)}));
+ $id("tradeImportFile").onchange=async e=>{
+  const file=e.target.files&&e.target.files[0];if(!file)return;
+  try{
+   if(file.size>5*1024*1024)throw Error("File is too large (5 MB maximum)");
+   if(!/\.csv$/i.test(file.name))throw Error("Please upload a Trade Planner CSV file. Excel can open and save this file as CSV.");
+   const imported=parseImportedRows(await file.text());renderComparison(imported,file.name);
+  }catch(err){console.error("Trade import failed",err);toast(err.message||"Could not read trade file")}
+  finally{e.target.value=""}
+ };
+})();
+
+</script>
+
+<style id="trade-planner-keyboard-strip-fix">
+/* Keep native input rendering; suppress only the search cancel decoration. */
+#tradeStockSearch::-webkit-search-cancel-button{
+  display:none!important;-webkit-appearance:none!important;appearance:none!important;
+}
+</style>
+<script id="targeted-keyboard-input-settings">
+(function(){
+  var searchIds=['stockSearch','tradeStockSearch'];
+  var decimalIds=['alertPrice','tradeEntry','tradeQty','tradeTarget1','tradeTarget2','tradeStop'];
+  var textIds=['tradeDuration'];
+  function configureKeyboardFields(){
+    searchIds.forEach(function(id){
+      var el=document.getElementById(id); if(!el)return;
+      if(el.type==='text'||!el.type)el.type='search';
+      el.setAttribute('inputmode','search');
+      el.setAttribute('enterkeyhint','search');
+      el.setAttribute('autocomplete','off');
+      el.setAttribute('autocorrect','off');
+      el.setAttribute('autocapitalize','off');
+      el.setAttribute('spellcheck','false');
+      el.setAttribute('data-form-type','other');
+      el.setAttribute('data-lpignore','true');
+      el.setAttribute('data-1p-ignore','true');
+      el.setAttribute('data-bwignore','true');
+    });
+    decimalIds.forEach(function(id){
+      var el=document.getElementById(id); if(!el)return;
+      el.setAttribute('inputmode','decimal');
+      el.setAttribute('enterkeyhint','done');
+      el.setAttribute('autocomplete','off');
+      el.setAttribute('autocorrect','off');
+      el.setAttribute('autocapitalize','off');
+      el.setAttribute('spellcheck','false');
+      el.setAttribute('data-form-type','other');
+      el.setAttribute('data-lpignore','true');
+      el.setAttribute('data-1p-ignore','true');
+      el.setAttribute('data-bwignore','true');
+    });
+    textIds.forEach(function(id){
+      var el=document.getElementById(id); if(!el)return;
+      el.setAttribute('inputmode','text');
+      el.setAttribute('enterkeyhint','done');
+      el.setAttribute('autocomplete','off');
+      el.setAttribute('autocorrect','off');
+      el.setAttribute('autocapitalize','off');
+      el.setAttribute('spellcheck','false');
+      el.setAttribute('data-form-type','other');
+      el.setAttribute('data-lpignore','true');
+      el.setAttribute('data-1p-ignore','true');
+      el.setAttribute('data-bwignore','true');
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',configureKeyboardFields);
+  else configureKeyboardFields();
+  document.addEventListener('focusin',function(e){
+    if(e.target&&['stockSearch','tradeStockSearch','tradeDuration','tradeEntry','tradeQty','tradeTarget1','tradeTarget2','tradeStop','alertPrice'].includes(e.target.id))configureKeyboardFields();
+  },true);
+})();
+</script>
+
+<style id="trade-data-tools-style">
+.trade-page-head{gap:14px;align-items:center}.trade-data-actions{display:flex;gap:8px;flex-shrink:0}.trade-data-modal{width:min(680px,100%)}.trade-export-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}.trade-export-option{display:flex;flex-direction:column;align-items:flex-start;gap:5px;text-align:left;padding:14px;min-height:86px}.trade-export-option span{font-size:11px;color:var(--muted);font-weight:400}.trade-compare-modal{width:min(850px,100%)}.trade-compare-list{display:grid;gap:8px;margin:12px 0}.trade-compare-item{border:1px solid var(--line);border-radius:12px;padding:10px;display:grid;grid-template-columns:auto 1fr;gap:9px;align-items:start}.trade-compare-item small{display:block;color:var(--muted);margin-top:3px;overflow-wrap:anywhere}.trade-compare-item input{margin-top:3px}.trade-compare-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.trade-compare-summary{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.trade-compare-summary span{background:var(--surface2);padding:6px 9px;border-radius:9px;font-size:12px}.trade-compare-empty{padding:16px;border:1px dashed var(--line);border-radius:12px;color:var(--muted);font-size:13px}@media(max-width:600px){.trade-page-head{align-items:stretch;flex-direction:column}.trade-data-actions{width:100%}.trade-data-actions .btn{flex:1;padding:10px 8px;font-size:12px}.trade-export-options{grid-template-columns:1fr}.trade-data-modal{width:100%;max-height:96vh;height:auto;border-radius:16px;padding:16px}.trade-compare-modal{max-height:96vh;overflow:auto}}
+</style>
+
+<style id="night-mode-readability-patch">
+/* Night-mode readability only. No trading logic, data, or Light Mode changes. */
+[data-theme="dark"]{--bg:#0d1511;--surface:#17231b;--surface2:#202f25;--text:#f4f8f5;--muted:#b4c2b8;--line:#34483a;--green:#55e18a;--green2:#1b3b29;--red:#ff8585;--red2:#42272a}
+[data-theme="dark"] .notice.warn{background:#392f1b;color:#ffe0a0;border:1px solid #66512a}
+[data-theme="dark"] .trade-chart-open:hover{background:var(--surface2)}
+[data-theme="dark"] .stock-symbol{color:var(--muted);font-size:12px}
+[data-theme="dark"] #page-trades .trade-plan-name{font-size:17px;color:var(--text)}
+[data-theme="dark"] #page-trades .trade-plan-meta{font-size:13px;color:var(--muted)}
+[data-theme="dark"] #page-trades .trade-plan-status{font-size:12px}
+[data-theme="dark"] #page-trades .trade-plan-price strong{font-size:26px;color:var(--text)}
+[data-theme="dark"] #page-trades .trade-plan-level{background:#202f25;border:1px solid #34483a;padding:10px}
+[data-theme="dark"] #page-trades .trade-plan-level small{font-size:12px;color:#c3d0c7}
+[data-theme="dark"] #page-trades .trade-plan-level strong{font-size:15px;color:#f4f8f5}
+[data-theme="dark"] #page-trades .trade-card-note{font-size:12px;color:var(--muted)}
+[data-theme="dark"] #page-trades .trade-card-actions .btn{font-size:12px;padding:9px 10px}
+[data-theme="dark"] .trade-level-chip{font-size:12px;color:#c3d0c7;background:#202f25;border-color:#34483a}
+[data-theme="dark"] .trade-level-chip strong{font-size:15px;color:var(--text)}
+[data-theme="dark"] .trade-summary-live{font-size:12px;color:var(--muted)}
+[data-theme="dark"] .stock-suggestion-meta{font-size:12px;color:var(--muted)}
+[data-theme="dark"] .stock-suggestion-name{font-size:13px;color:var(--text)}
+[data-theme="dark"] .stock-suggestion-message{font-size:12px;color:var(--muted)}
+[data-theme="dark"] th{font-size:12px;color:#c3d0c7}
+[data-theme="dark"] .notice{font-size:13px;color:var(--muted)}
+</style>
+<script>
+/* Bharat Stocks PWA: offline app-shell support only. */
+if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) {
+  window.addEventListener("load", function () {
+    navigator.serviceWorker.register("./service-worker.js", { scope: "./" })
+      .catch(function (error) { console.warn("Bharat Stocks offline support could not be enabled:", error); });
+  });
+}
+</script>
+</body>
+</html>
